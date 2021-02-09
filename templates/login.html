@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+	<head>
+		<meta charset="utf-8">
+		<title> 奥会数据感知采集与融合处理系统 </title>
+        
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
+        <link rel="shortcut icon" href="{% static 'img/eagle.ico' %}" type="image/x-icon">
+        <link rel="icon" href="{% static 'img/eagle.ico' %}" type="image/x-icon">
+		<!-- #CSS Links -->
+		<!-- Basic Styles -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/font-awesome.min.css' %}">
+
+		<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-production-plugins.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-production.min.css' %}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/smartadmin-skins.min.css' %}">
+
+
+	</head>
+	
+	<body class="animated fadeInDown">
+<!--
+		<header id="header">
+        
+
+			<div id="logo-group">
+				<span id="logo"> <img src="/static/img/logo.png" alt="SmartAdmin"> </span>
+			</div>
+
+			<span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">还没有账号?</span> <a href="/register" class="btn btn-danger">创建账号</a> </span>
+
+		</header>
+-->
+		<div id="main" role="main">
+
+			<!-- MAIN CONTENT -->
+			<div id="content" class="container">
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+						<h1 class="txt-color-red login-header-big">奥会数据感知采集与融合处理系统</h1>
+						<div class="hero">
+
+							<div class="pull-left login-desc-box-l">
+								<h4 class="paragraph-header">虚拟数据资源环境</h4>
+								<h4 class="paragraph-header">跨域协同计算引擎</h4>
+								<h4 class="paragraph-header">群智协同模型开发</h4>
+								<h4 class="paragraph-header">综合交通智能服务</h4>
+                                <!--
+								<div class="login-app-icons">
+									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Frontend Template</a>
+									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Find out more</a>
+								</div>
+                                -->
+							</div>
+							<img src="{% static 'img/iphoneview.png' %}" class="pull-right display-image" alt="" style="width:210px">
+						</div>
+
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+						<div class="well no-padding">
+							<form action="" method="post" id="login-form" class="smart-form client-form">
+                                {% csrf_token %}
+								<header> 登录 </header>
+
+								<fieldset>
+									
+									<section>
+										<label class="label">用户名</label>
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+                                            <!--<input id="username" name="username" type="text" required="required"/>-->
+											{{form.username}}
+											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>请输入您的用户名</b>
+											</label>
+									</section>
+
+									<section>
+										<label class="label">密码</label>
+										<label class="input"> <i class="icon-append fa fa-lock"></i>
+                                            <!--<input id="password" name="pwd" type="password" required="required"/>-->
+											{{form.password}}
+											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i>请输入您的密码</b> </label>
+                                            <!--
+										<div class="note">
+											<a href="forgotpassword.html">Forgot password?</a>
+										</div>
+                                        -->
+									</section>
+									<section>
+                                        <div class="col-lg-3">
+                                            <input type="hidden" id="url" name="url" value="">
+                                        </div>
+                                    </section>
+
+									<section>
+										<label class="checkbox">
+											<input type="checkbox" name="remember" checked="">
+											<i></i>保持登录状态</label>
+									</section>
+								</fieldset>
+								<footer>
+									<button type="submit" class="btn btn-primary" onclick="Redirect('next')">
+										登录
+									</button>
+									<span style="color: red">{{message}}</span>
+								</footer>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			function Redirect(name)
+			{
+
+				 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				 var r = window.location.search.substr(1).match(reg);
+				 if(r!=null){
+					url=unescape(r[2]);
+					document.getElementById('url').value = url;
+				 }
+				 else
+				 {
+					document.getElementById('url').value ="";
+				 }
+			}
+		</script>
+	</body>
+</html>

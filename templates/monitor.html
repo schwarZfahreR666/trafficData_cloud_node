@@ -1,0 +1,487 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奥会数据感知采集与融合处理系统</title>
+    <link rel="stylesheet" href="{% static 'css/monitor.css' %}">
+
+</head>
+<body>
+<!-- 最左侧的盒子 -->
+<div class="leftbox">
+{% include 'sidenav.html' %}
+
+    </div>
+    <div class="container">
+    <!-- 头部的盒子 -->
+    <header>
+        <h1>云-边协同数据采集及融合监控子系统</h1>
+        <div class="showTime"></div>
+    </header>
+
+    <!-- 页面主题部分 -->
+    <section class="mainbox">
+        <!-- 分三份column  -->
+
+        <div class="column">
+            <!-- 表外框 -->
+            <div class="queue">
+                <h2>子任务调度区</h2>
+                    <div class="inner" id="roll" onmouseover="BBScrollAmount=0" onmouseout="BBScrollAmount=1">
+                        <ul>
+                            <div class="taskcontainer">
+                                <li>数据采集子任务</li>
+                            </div>
+                            <div class="taskcontainer">
+                                <li>事件分析子任务</li>
+                            </div>
+                            <div class="taskcontainer">
+                                <li>路况预测子任务</li>
+                            </div>
+                            <div class="taskcontainer">
+                                <li>客流聚散模式子任务</li>
+                            </div>
+                        </ul>
+
+                    </div>
+                <div class="queue-footer"></div>
+            </div>
+            
+        </div>
+        <!-- 中间模块 -->
+        <div class="column">
+            <div class="no">
+
+                <!-- map模块 -->
+                <div class="map">
+                    <div class="map1"></div>
+                    <div class="map2"></div>
+                    <div class="map3"></div>
+                    <div class="chart">
+                        <iframe id="resource-topo" class="col-sm-10" src="/resource_topo/"
+                        style="height: 100%;width:100%; border: none"></iframe>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="column">
+            <!-- 表外框 -->
+            <div class="panel bar">
+                <h2>计算资源监控</h2>
+                    <div class="chart" id="bar2">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>网络资源监控/MBps</h2>
+                    <div class="chart" id="network">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel list" id="sevout">
+
+                <h2>计算服务</h2>
+                <div id="sev">
+                    <div class="col">
+                        <ul>
+                            <div class="taskcan"><li><a href="">采集任务1</a></li></div>
+                            <div class="taskcan"><li><a href="">采集任务2</a></li></div>
+                            <div class="taskcan"><li><a href="">采集任务3</a></li></div>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <div class="taskcan"><li><a href="">采集任务4</a></li></div>
+                            <div class="taskcan"><li><a href="">数据上传任务1</a></li></div>
+                            <div class="taskcan"><li><a href="">数据融合任务1</a></li></div>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </section>
+    </div>
+    <!-- script部分 -->
+    <script src="{% static 'js/flexible.js' %}"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+
+    <!-- 时间js -->
+    <script>
+        var t = null;
+        t = setTimeout(time, 1000);//開始运行
+        function time() {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours();//获取时
+            var m = dt.getMinutes();//获取分
+            var s = dt.getSeconds();//获取秒
+            document.querySelector(".showTime").innerHTML = '当前时间：' + y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分" + s + "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+</script>
+
+<script>
+
+
+(function () {
+    var mychart = echarts.init(document.querySelector("#bar2"));
+    var myColor = ["#8B78F6","#F8B448","#3B58F4"]
+    var option = {
+    grid: {
+        left: '22%',
+        bottom: '10%',
+        top: '10%',
+        // containLabel: true
+    },
+    xAxis: {
+        show: false,
+    },
+    yAxis: [
+        {
+        inverse: true,
+        axisLine: {
+            show: false,
+        },
+        axisTick: {
+            show: false,
+
+        },
+        axisLabel: {
+            color: "#000",
+        },
+        type: 'category',
+        data: ['主节点', '北航节点', '长峰节点']
+    },
+    {
+        inverse: true,
+        show: false,
+        type: 'category',
+        data: ['', '', '']
+    }
+        ],
+    series: [
+        {
+            name: '内',
+            type: 'bar',
+            data: [20,30,40],
+            yAxisIndex: 0,
+            itemStyle: {
+                normal: {
+                    barBorderRadius: 20,
+                    //颜色设置
+                    color: function(params) {
+                        var num = myColor.length;
+                        return myColor[params.dataIndex % num];
+                    }
+                }
+            },
+            barCategoryGap: 50,
+            barWidth: 23,
+            //显示柱子内的文字
+            label: {
+                show: true,
+                position: "inside",
+                formatter: "{c}%",
+
+            },
+        },
+        {
+            name: '外',
+            type: 'bar',
+            data: [100,100,100],
+            barCategoryGap: 50,
+            barWidth: 25,
+            yAxisIndex: 1,
+            itemStyle: {
+                color: "none",
+                borderColor: "#00c1de",
+                borderWidth: 3,
+                barBorderRadius: 15,
+            }
+
+        },
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        mychart.setOption(option);
+        window.addEventListener('resize',function(){
+            mychart.resize();
+        });
+    })();
+
+</script>
+
+<script>
+    // 折线图 优秀作品
+(function() {
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.querySelector("#network"));
+
+  option = {
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        lineStyle: {
+          color: "#dddc6b"
+        }
+      }
+    },
+    legend: {
+      top: "0%",
+      textStyle: {
+        color: "rgba(0,0,0,.5)",
+        fontSize: "12"
+      }
+    },
+    grid: {
+      left: "10",
+      top: "30",
+      right: "10",
+      bottom: "10",
+      containLabel: true
+    },
+
+    xAxis: [
+      {
+        type: "category",
+        boundaryGap: false,
+        axisLabel: {
+          textStyle: {
+            color: "rgba(0,0,0,.6)",
+            fontSize: 12
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: "rgba(0,0,0,.2)"
+          }
+        },
+
+        data: [
+            "00",
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+        ]
+      },
+      {
+        axisPointer: { show: false },
+        axisLine: { show: false },
+        position: "bottom",
+        offset: 20
+      }
+    ],
+
+    yAxis: [
+      {
+        type: "value",
+        axisTick: { show: false },
+        axisLine: {
+          lineStyle: {
+            color: "rgba(0,0,0,.1)"
+          }
+        },
+        axisLabel: {
+          textStyle: {
+            color: "rgba(0,0,0,.6)",
+            fontSize: 12
+          }
+        },
+
+        splitLine: {
+          lineStyle: {
+            color: "rgba(255,255,255,.1)"
+          }
+        }
+      }
+    ],
+    series: [
+      {
+        name: "北航节点",
+        type: "line",
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 5,
+        showSymbol: false,
+        lineStyle: {
+          normal: {
+            color: "#0184d5",
+            width: 2
+          }
+        },
+        areaStyle: {
+          normal: {
+            color: new echarts.graphic.LinearGradient(
+              0,
+              0,
+              0,
+              1,
+              [
+                {
+                  offset: 0,
+                  color: "rgba(1, 132, 213, 0.4)"
+                },
+                {
+                  offset: 0.8,
+                  color: "rgba(1, 132, 213, 0.1)"
+                }
+              ],
+              false
+            ),
+            shadowColor: "rgba(0, 0, 0, 0.1)"
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: "#0184d5",
+            borderColor: "rgba(221, 220, 107, .1)",
+            borderWidth: 12
+          }
+        },
+        data: [
+            10,
+          30,
+          40,
+          30,
+          40,
+          30,
+          40,
+          30,
+          60,
+          20,
+          40,
+          20,
+          40,
+          30,
+          40,
+          30,
+          40,
+          30,
+          40,
+          30,
+          60,
+          20,
+          40,
+          20,
+          40
+        ]
+      },
+      {
+        name: "长峰节点",
+        type: "line",
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 5,
+        showSymbol: false,
+        lineStyle: {
+          normal: {
+            color: "#00d887",
+            width: 2
+          }
+        },
+        areaStyle: {
+          normal: {
+            color: new echarts.graphic.LinearGradient(
+              0,
+              0,
+              0,
+              1,
+              [
+                {
+                  offset: 0,
+                  color: "rgba(0, 216, 135, 0.4)"
+                },
+                {
+                  offset: 0.8,
+                  color: "rgba(0, 216, 135, 0.1)"
+                }
+              ],
+              false
+            ),
+            shadowColor: "rgba(0, 0, 0, 0.1)"
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: "#00d887",
+            borderColor: "rgba(221, 220, 107, .1)",
+            borderWidth: 12
+          }
+        },
+        data: [
+          50,
+          30,
+          50,
+          60,
+          10,
+          50,
+          30,
+          50,
+          60,
+          40,
+          60,
+          40,
+          80,
+          30,
+          50,
+          60,
+          10,
+          50,
+          30,
+          70,
+          20,
+          50,
+          10,
+          40,
+          50
+
+        ]
+      }
+    ]
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+  window.addEventListener("resize", function() {
+    myChart.resize();
+  });
+})();
+
+</script>
+
+</body>
+</html>

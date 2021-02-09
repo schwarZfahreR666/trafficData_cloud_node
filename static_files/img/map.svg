@@ -1,0 +1,1848 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- 由 Microsoft Visio, SVG Export 生成 绘图4 - 副本2.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="11.1179in" height="9.4096in"
+		viewBox="0 0 1160.49 1037.49" xml:space="preserve" color-interpolation-filters="sRGB" class="st22">
+	<v:documentProperties v:langID="2052" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvSubprocessMaster" v:prompt="" v:val="VT4(Box)"/>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(0):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#000000;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {stroke:#00fefe;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st3 {fill:#ffffff;stroke:none;stroke-linecap:butt}
+		.st4 {fill:#000000;font-family:宋体;font-size:0.666664em;font-weight:bold}
+		.st5 {fill:#00b050;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#ffffff;font-family:宋体;font-size:1.16666em;font-weight:bold}
+		.st7 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st8 {fill:#00b050;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75;visibility:hidden}
+		.st9 {font-size:1em}
+		.st10 {fill:#00b0f0;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st11 {fill:#ffffff;font-family:宋体;font-size:0.499992em;font-weight:bold}
+		.st12 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st13 {fill:#000000;font-family:Calibri;font-size:0.666664em;font-weight:bold}
+		.st14 {font-family:宋体;font-size:1em}
+		.st15 {font-family:Calibri;font-size:1em}
+		.st16 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st17 {fill:#000000;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st18 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st19 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75;visibility:hidden}
+		.st20 {fill:#ffffff;font-family:宋体;font-size:0.833336em}
+		.st21 {fill:#ffffff;font-family:宋体;font-size:1.00001em}
+		.st22 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="5" v:index="1" v:groupContext="backgroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+			<v:ud v:nameU="msvVisioCreated" v:prompt="" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>背景-1</title>
+		<v:pageProperties width="16.1179" height="14.4096" v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24"
+				v:shadowOffsetX="8.50394" v:shadowOffsetY="-8.50394"/>
+		<g id="shape2-1" v:mID="2" v:groupContext="shape">
+			<title>实心</title>
+			<v:userDefs>
+				<v:ud v:nameU="Background" v:val="VT0(0):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(DoNotContain)"/>
+				<v:ud v:nameU="msvVisioCreated" v:prompt="" v:val="VT0(0):26"/>
+			</v:userDefs>
+			<rect x="0" y="0" width="1160.49" height="1037.49" class="st1"/>
+		</g>
+	</g>
+	<g v:mID="0" v:index="2" v:groupContext="foregroundPage">
+		<v:custProps>
+			<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			<v:cp v:nameU="RoadThickness" v:lbl="路宽" v:type="2" v:format="" v:langID="2052" v:val="VT0(0.0625):24"/>
+		</v:custProps>
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>页-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="地铁" v:index="0"/>
+		<v:layer v:name="道路" v:index="1"/>
+		<v:layer v:name="娱乐" v:index="2"/>
+		<v:layer v:name="连接线" v:index="3"/>
+		<v:layer v:name="数据图形" v:index="4"/>
+		<g id="shape271-3" v:mID="271" v:groupContext="shape" transform="translate(18.5545,379.073) rotate(-90)">
+			<title>折线标注.271</title>
+			<desc>延庆综合交通服务中心</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="992.138" width="90.71" height="18.6536" transform="rotate(90)"/>
+			<path d="M-50.2 742.69 L9.33 928.78 L9.33 946.78" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="950.784" y="-14.6516" width="80.3128" height="10.6501" transform="rotate(90)"
+					class="st3"/>
+			<text x="950.78" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>延庆综合交通服务中心</text>		</g>
+		<g id="shape270-8" v:mID="270" v:groupContext="shape" transform="translate(7.21596,325.215) rotate(-90)">
+			<title>折线标注</title>
+			<desc>八达岭站</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(90)"/>
+			<path d="M-132.41 683.16 L9.33 948.63 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.627" y="-14.6516" width="32.1251" height="10.6501" transform="rotate(90)"
+					class="st3"/>
+			<text x="970.63" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>八达岭站</text>		</g>
+		<g id="shape44-13" v:mID="44" v:groupContext="shape" v:layerMember="0"
+				transform="translate(283.066,-947.396) rotate(0.520184)">
+			<title>环线地铁</title>
+			<desc>京银路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="55.3228" cy="1033.24" width="110.65" height="8.50394"/>
+			<path d="M0 1037.49 L110.65 1037.49 A4.25197 4.25197 -180 1 0 110.65 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="京银路" />
+			<text x="34.24" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京银路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape45-16" v:mID="45" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1419.86,59.508) rotate(88.3059)">
+			<title>环线地铁.45</title>
+			<desc>康张路 康张路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="125.446" cy="1033.24" width="250.9" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L250.89 1037.49 A4.25197 4.25197 -180 1 0 250.89 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="康张路"/>
+			<text x="-243.73" y="-1011.78" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph/><v:tabList/><v:space/><v:newlineChar/><v:newlineChar/>康张路           </text>		</g>
+		<g id="shape46-19" v:mID="46" v:groupContext="shape" v:layerMember="0" transform="translate(394.488,-692.405)">
+			<title>环线地铁.46</title>
+			<desc>百康路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="79.564" cy="1033.24" width="159.13" height="8.50394"/>
+			<path d="M0 1037.49 L159.13 1037.49 A4.25197 4.25197 -180 0 0 159.13 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="百康路"/>
+			<text x="58.48" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>百康路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape47-22" v:mID="47" v:groupContext="shape" v:layerMember="0" transform="translate(553.616,-692.405)">
+			<title>环线地铁.47</title>
+			<desc>百泉街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="76.5196" cy="1033.24" width="153.04" height="8.50394"/>
+			<path d="M0 1037.49 L153.04 1037.49 A4.25197 4.25197 -180 0 0 153.04 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="百泉街"/>
+			<text x="55.44" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>百泉街<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape48-25" v:mID="48" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1345.71,-471.073) rotate(38.2063)">
+			<title>环线地铁.48</title>
+			<desc>妫水南街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="38.8743" cy="1033.24" width="77.75" height="8.50394"/>
+			<path d="M0 1037.49 L77.75 1037.49 A4.25197 4.25197 -180 1 0 77.75 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="妫水南街"/>
+			<text x="10.77" y="1054.7" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/><v:newlineChar/>妫水南街<v:newlineChar/></text>		</g>
+		<g id="shape53-28" v:mID="53" v:groupContext="shape" v:layerMember="0"
+				transform="translate(420.42,-757.294) rotate(1.30523)">
+			<title>环线地铁.53</title>
+			<desc>延下路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="112.961" cy="1033.24" width="225.93" height="8.50394"/>
+			<path d="M0 1037.49 L225.92 1037.49 A4.25197 4.25197 -180 1 0 225.92 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="91.88" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>延下路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape54-31" v:mID="54" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1740.46,266.023) rotate(90.4096)">
+			<title>环线地铁.54</title>
+			<desc>西顺城街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="41.1004" cy="1033.24" width="82.21" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L82.2 1037.49 A4.25197 4.25197 -180 0 0 82.2 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-69.21" y="-1011.78" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>西顺城街</text>		</g>
+		<g id="group59-34" transform="translate(406.282,1303.77) rotate(180)" v:mID="59" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>站</title>
+			<g id="shape60-35" v:mID="60" v:groupContext="shape" v:layerMember="0">
+				<title>工作表.60</title>
+				<path d="M0 1028.1 A9.39723 9.39723 0 0 1 18.79 1028.1 A9.39723 9.39723 0 1 1 0 1028.1 Z" class="st5"/>
+			</g>
+			<g id="shape61-37" v:mID="61" v:groupContext="shape" v:layerMember="0" transform="translate(2.81917,-2.81917)">
+				<title>工作表.61</title>
+				<path d="M0 1030.91 A6.57806 6.57806 0 1 1 13.16 1030.91 A6.57806 6.57806 0 0 1 0 1030.91 Z" class="st7"/>
+			</g>
+			<g id="shape62-39" v:mID="62" v:groupContext="shape" transform="translate(81.0157,2056.19) rotate(180)">
+				<title>工作表.62</title>
+				<desc>蔡家河桥</desc>
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="31.1106" cy="1028.1" width="62.23" height="18.7945"/>
+				<rect x="0" y="1018.7" width="62.2213" height="18.7945" class="st8"/>
+				<text x="3" y="1032.75" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>蔡家河桥</text>			</g>
+		</g>
+		<g id="shape66-42" v:mID="66" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1384.09,-263.928) rotate(54.299)">
+			<title>环线地铁.66</title>
+			<desc>京礼高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="55.5667" cy="1033.24" width="111.14" height="8.50394"/>
+			<path d="M0 1037.49 L111.13 1037.49 A4.25197 4.25197 -180 0 0 111.13 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="京礼高速"/>
+			<text x="27.46" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京礼高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape67-45" v:mID="67" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1253.32,-379.157) rotate(38.5171)">
+			<title>环线地铁.67</title>
+			<desc>京藏高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="68.2054" cy="1033.24" width="136.42" height="8.50394"/>
+			<path d="M0 1037.49 L136.41 1037.49 A4.25197 4.25197 -180 1 0 136.41 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="京藏高速"/>
+			<text x="40.1" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京藏高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="group68-48" transform="translate(602.504,-597.928)" v:mID="68" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>站.68</title>
+			<g id="shape69-49" v:mID="69" v:groupContext="shape" v:layerMember="0">
+				<title>工作表.69</title>
+				<path d="M0 1028.1 A9.39723 9.39723 0 0 1 18.79 1028.1 A9.39723 9.39723 0 1 1 0 1028.1 Z" class="st5"/>
+			</g>
+			<g id="shape70-51" v:mID="70" v:groupContext="shape" v:layerMember="0" transform="translate(2.81917,-2.81917)">
+				<title>工作表.70</title>
+				<path d="M0 1030.91 A6.57806 6.57806 0 0 1 13.16 1030.91 A6.57806 6.57806 0 1 1 0 1030.91 Z" class="st7"/>
+			</g>
+			<g id="shape71-53" v:mID="71" v:groupContext="shape" transform="translate(18.7945,0)">
+				<title>工作表.71</title>
+				<desc>营城子桥</desc>
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="31.1106" cy="1028.1" width="62.23" height="18.7945"/>
+				<rect x="0" y="1018.7" width="62.2213" height="18.7945" class="st8"/>
+				<text x="3" y="1032.75" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>营城子桥</text>			</g>
+		</g>
+		<g id="shape72-56" v:mID="72" v:groupContext="shape" v:layerMember="0"
+				transform="translate(645.072,-519.263) rotate(-0.25317)">
+			<title>环线地铁.72</title>
+			<desc>北六环路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="123.568" cy="1033.24" width="247.14" height="8.50394"/>
+			<path d="M0 1037.49 L247.14 1037.49 A4.25197 4.25197 -180 1 0 247.14 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="95.46" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北六环路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape77-59" v:mID="77" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1930.01,513.302) rotate(90.0236)">
+			<title>环线地铁.77</title>
+			<desc>京承高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="33.2584" cy="1033.24" width="66.52" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L66.52 1037.49 A4.25197 4.25197 -180 0 0 66.52 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="京承高速"/>
+			<text x="-61.37" y="-1011.78" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>京承高速</text>		</g>
+		<g id="shape78-62" v:mID="78" v:groupContext="shape" v:layerMember="0"
+				transform="translate(887.223,-453.804) rotate(-0.527925)">
+			<title>环线地铁.78</title>
+			<desc>黄康路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="64.513" cy="1033.24" width="129.03" height="8.50394"/>
+			<path d="M0 1037.49 L129.03 1037.49 A4.25197 4.25197 -180 1 0 129.03 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="43.43" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>黄康路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape79-65" v:mID="79" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1060.56,-454.636) rotate(1.95539)">
+			<title>环线地铁.79</title>
+			<desc>京平高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="33.0066" cy="1033.24" width="66.02" height="8.50394"/>
+			<path d="M0 1037.49 L66.01 1037.49 A4.25197 4.25197 -180 0 0 66.01 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="4.9" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京平高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape80-68" v:mID="80" v:groupContext="shape" v:layerMember="0"
+				transform="translate(58.1338,594.172) rotate(-90.7717)">
+			<title>环线地铁.80</title>
+			<desc>第二机场高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="29.0992" cy="1033.24" width="58.2" height="8.50394"/>
+			<path d="M0 1037.49 L58.2 1037.49 A4.25197 4.25197 -180 0 0 58.2 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="8.02" y="1061.72" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/><v:newlineChar/><v:newlineChar/>第二机<tspan
+						x="8.02" dy="1.298em" class="st9">场高速</tspan></text>		</g>
+		<g id="shape81-72" v:mID="81" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1320.18,-326.465) rotate(35.406)">
+			<title>环线地铁.81</title>
+			<desc>京藏高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="64.3834" cy="1033.24" width="128.77" height="8.50394"/>
+			<path d="M0 1037.49 L128.77 1037.49 A4.25197 4.25197 -180 1 0 128.77 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="32.48" y="1021.1" class="st6" v:langID="2052"><v:paragraph/><v:tabList/>京藏高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="group82-75" transform="translate(-17.0158,-205.883) rotate(-45)" v:mID="82" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>站.82</title>
+			<g id="shape83-76" v:mID="83" v:groupContext="shape" v:layerMember="0">
+				<title>工作表.83</title>
+				<path d="M0 1027.94 A9.55439 9.55439 0 0 1 19.11 1027.94 A9.55439 9.55439 0 1 1 0 1027.94 Z" class="st5"/>
+			</g>
+			<g id="shape84-78" v:mID="84" v:groupContext="shape" v:layerMember="0" transform="translate(2.86632,-2.86632)">
+				<title>工作表.84</title>
+				<path d="M0 1030.8 A6.68808 6.68808 0 0 1 13.38 1030.8 A6.68808 6.68808 0 1 1 0 1030.8 Z" class="st7"/>
+			</g>
+			<g id="shape85-80" v:mID="85" v:groupContext="shape" transform="translate(19.1088,0)">
+				<title>工作表.85</title>
+				<desc>百葛桥</desc>
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="24.0834" cy="1027.94" width="48.17" height="19.1088"/>
+				<rect x="0" y="1018.38" width="48.1667" height="19.1088" class="st8"/>
+				<text x="3" y="1032.6" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>百葛桥</text>			</g>
+		</g>
+		<g id="shape86-83" v:mID="86" v:groupContext="shape" v:layerMember="0"
+				transform="translate(848.24,-376.858) rotate(-1.6855)">
+			<title>环线地铁.86</title>
+			<desc>北二环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="44.8906" cy="1033.24" width="89.79" height="8.50394"/>
+			<path d="M0 1037.49 L89.78 1037.49 A4.25197 4.25197 -180 0 0 89.78 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="23.81" y="1029.5" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北二环<v:newlineChar/></text>		</g>
+		<g id="shape87-86" v:mID="87" v:groupContext="shape" v:layerMember="0" transform="translate(2001.61,653.294) rotate(90)">
+			<title>环线地铁.87</title>
+			<desc>东二环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="38.0767" cy="1033.24" width="76.16" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L76.15 1037.49 A4.25197 4.25197 -180 0 0 76.15 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-59.16" y="-1011.78" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>东二环</text>		</g>
+		<g id="shape88-89" v:mID="88" v:groupContext="shape" v:layerMember="0"
+				transform="translate(830.211,-300.196) rotate(-1.67433)">
+			<title>环线地铁.88</title>
+			<desc>崇文门东大街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="54.0093" cy="1033.24" width="108.02" height="8.50394"/>
+			<path d="M0 1037.49 L108.02 1037.49 A4.25197 4.25197 -180 0 0 108.02 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="崇文门东大街"/>
+			<text x="11.85" y="1054.7" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>崇文门东大街</text>		</g>
+		<g id="shape89-92" v:mID="89" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1888.47,622.994) rotate(85.9484)">
+			<title>环线地铁.89</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L36.7 1037.49 A4.25197 4.25197 -180 0 0 36.7 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape90-94" v:mID="90" v:groupContext="shape" v:layerMember="0"
+				transform="translate(879.736,-337.01) rotate(1.21607)">
+			<title>环线地铁.90</title>
+			<desc>东振江 胡同</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="25.742" cy="1033.24" width="51.49" height="8.50394"/>
+			<path d="M0 1037.49 L51.48 1037.49 A4.25197 4.25197 -180 0 0 51.48 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="4.66" y="1020.18" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>东振江<v:newlineChar/><v:newlineChar/><tspan
+						x="11.69" dy="2.531em" class="st9">胡同</tspan></text>		</g>
+		<g id="shape97-98" v:mID="97" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1635.66,-52.2468) rotate(51.5468)">
+			<title>环线地铁.97</title>
+			<desc>德胜门 外大街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="41.9068" cy="1033.24" width="83.82" height="8.50394"/>
+			<path d="M0 1037.49 L83.81 1037.49 A4.25197 4.25197 -180 0 0 83.81 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="20.83" y="1028.58" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>德胜门<v:newlineChar/><tspan
+						x="20.83" dy="1.331em" class="st9">外大街</tspan></text>		</g>
+		<g id="group98-102" transform="translate(960.052,-298.415)" v:mID="98" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>站.98</title>
+			<g id="shape99-103" v:mID="99" v:groupContext="shape" v:layerMember="0">
+				<title>工作表.99</title>
+				<path d="M0 1029.17 A8.32163 8.32163 0 0 1 16.64 1029.17 A8.32163 8.32163 0 1 1 0 1029.17 Z" class="st5"/>
+			</g>
+			<g id="shape100-105" v:mID="100" v:groupContext="shape" v:layerMember="0" transform="translate(2.49649,-2.49649)">
+				<title>工作表.100</title>
+				<path d="M0 1031.67 A5.82514 5.82514 0 1 1 11.65 1031.67 A5.82514 5.82514 0 0 1 0 1031.67 Z" class="st7"/>
+			</g>
+			<g id="shape101-107" v:mID="101" v:groupContext="shape" transform="translate(16.6433,0)">
+				<title>工作表.101</title>
+				<desc>东便门桥</desc>
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="31.1106" cy="1029.17" width="62.23" height="16.6433"/>
+				<rect x="0" y="1020.85" width="62.2213" height="16.6433" class="st8"/>
+				<text x="3" y="1033.83" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>东便门桥</text>			</g>
+		</g>
+		<g id="group102-110" transform="translate(202.295,-955.832)" v:mID="102" v:groupContext="group" v:layerMember="2">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>速降滑雪</title>
+			<desc>国家高山滑雪中心</desc>
+			<g id="shape103-111" v:mID="103" v:groupContext="shape" v:layerMember="2">
+				<title>工作表.103</title>
+				<path d="M40.73 1006.94 A10.1834 10.1834 -180 0 0 30.55 996.76 L10.18 996.76 A10.1834 10.1834 -180 0 0 0 1006.94
+							 L0 1027.31 A10.1834 10.1834 -180 0 0 10.18 1037.49 L30.55 1037.49 A10.1834 10.1834 -180 0 0 40.73 1027.31
+							 L40.73 1006.94 Z" class="st10"/>
+			</g>
+			<g id="shape104-113" v:mID="104" v:groupContext="shape" v:layerMember="2" transform="translate(4.58898,-7.63755)">
+				<title>工作表.104</title>
+				<path d="M10.03 1027.61 L13.51 1028.42 L13.2 1028.83 L7.32 1034.4 L0.21 1033.78 L0 1035.02 L26.61 1037.49 L27.02
+							 1037.49 L27.43 1037.39 L28.05 1037.39 L28.77 1037.18 L29.49 1036.87 L29.91 1036.67 L30.22 1036.46 L31.04
+							 1035.84 L30.94 1034.09 L30.63 1034.5 L30.22 1034.91 L29.7 1035.33 L28.98 1035.64 L28.36 1036.05 L27.95
+							 1036.15 L27.53 1036.15 L27.12 1036.26 L26.71 1036.15 L23.41 1035.84 L18.25 1035.43 L11.45 1034.81 L14.95
+							 1032.54 L14.95 1032.44 L15.16 1032.03 L22.58 1013.57 L23.41 1013.98 L16.4 1031.72 L19.18 1030.07 L19.49
+							 1029.96 L19.8 1029.96 L20.21 1029.96 L24.85 1031 L25.06 1031.1 L25.37 1031.41 L25.78 1031.92 L25.88
+							 1032.13 L25.99 1032.23 L26.19 1032.23 L26.4 1032.13 L26.4 1032.23 L26.71 1032.34 L27.22 1032.44 L27.43
+							 1032.44 L27.64 1032.44 L27.74 1032.34 L27.84 1032.23 L27.84 1032.13 L31.56 1019.65 L30.83 1018.21 L30.32
+							 1018.62 L29.7 1018.93 L28.98 1019.14 L28.26 1019.24 L27.53 1019.14 L27.12 1019.03 L26.81 1018.93 L26.4
+							 1018.72 L26.09 1018.62 L25.78 1018.31 L25.57 1018.1 L25.27 1017.8 L25.06 1017.59 L24.75 1016.87 L24.65
+							 1016.56 L24.54 1016.15 L24.44 1015.42 L24.44 1014.8 L24.54 1014.29 L24.75 1013.88 L25.06 1013.36 L24.75
+							 1012.95 L24.44 1012.43 L24.23 1012.12 L24.23 1011.71 L24.34 1011.61 L24.23 1011.4 L24.23 1011.3 L24.13
+							 1011.2 L23.92 1011.2 L23.72 1011.2 L16.81 1012.85 L16.6 1012.85 L16.29 1013.05 L16.09 1013.15 L15.98
+							 1013.36 L15.88 1013.57 L15.78 1013.77 L15.78 1013.98 L15.88 1014.19 L15.98 1014.39 L16.09 1014.6 L16.29
+							 1014.7 L16.5 1014.91 L19.08 1015.84 L19.49 1016.04 L19.59 1016.15 L19.59 1016.25 L19.59 1016.35 L19.39
+							 1016.45 L15.16 1019.65 L15.06 1019.75 L14.75 1020.06 L14.44 1020.58 L14.44 1020.89 L14.33 1021.3 L14.02
+							 1024.6 L13.72 1027.08 L13.67 1027.48 L10.2 1026.74 L10.31 1026.15 L10.42 1025.94 L10.31 1025.74 L10.21
+							 1025.63 L10 1025.53 L9.9 1025.53 L9.69 1025.63 L9.59 1025.74 L9.49 1025.94 L9.34 1026.55 L7.94 1026.25
+							 L7.42 1026.56 L7.73 1027.08 L9.14 1027.4 L8.97 1028.11 L8.97 1028.31 L9.07 1028.42 L9.18 1028.52 L9.28
+							 1028.62 L9.49 1028.62 L9.69 1028.62 L9.8 1028.42 L9.9 1028.31 L10.03 1027.61 ZM27.43 1022.13 L26.71
+							 1030.07 L26.61 1030.27 L26.5 1030.38 L26.4 1030.38 L20.52 1029.14 L20.32 1029.04 L20.21 1029.04 L20.11
+							 1028.83 L20.11 1028.73 L20.11 1028.62 L21.55 1023.36 L21.66 1023.16 L21.76 1023.06 L21.86 1022.95 L22.07
+							 1022.85 L22.27 1022.75 L22.38 1022.64 L26.81 1021.82 L27.12 1021.71 L27.22 1021.71 L27.43 1021.82 L27.43
+							 1021.92 L27.43 1022.13 ZM31.25 1015.37 A2.83589 2.83589 -180 1 0 25.57 1015.37 A2.83589 2.83589 -180
+							 1 0 31.25 1015.37 Z" class="st7"/>
+			</g>
+			<g id="shape102-115" v:mID="102" v:groupContext="groupContent" v:layerMember="2">
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+				<v:textRect cx="20.3668" cy="1051.49" width="81.47" height="18.6409"/>
+				<text x="-14.77" y="1054.77" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>国家高山滑<tspan
+							x="-0.72" dy="1.298em" class="st9">雪中心</tspan></text>			</g>
+		</g>
+		<g id="group106-118" transform="translate(52.5828,-939.873)" v:mID="106" v:groupContext="group" v:layerMember="2">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>机动雪橇</title>
+			<desc>国家雪车雪橇中心</desc>
+			<g id="shape107-119" v:mID="107" v:groupContext="shape" v:layerMember="2">
+				<title>工作表.107</title>
+				<path d="M40.73 1006.94 A10.1834 10.1834 -180 0 0 30.55 996.76 L10.18 996.76 A10.1834 10.1834 -180 0 0 -0 1006.94
+							 L0 1027.31 A10.1834 10.1834 -180 0 0 10.18 1037.49 L30.55 1037.49 A10.1834 10.1834 -180 0 0 40.73 1027.31
+							 L40.73 1006.94 Z" class="st10"/>
+			</g>
+			<g id="shape108-121" v:mID="108" v:groupContext="shape" v:layerMember="2" transform="translate(2.784,-7.48932)">
+				<title>工作表.108</title>
+				<path d="M17.53 1012.12 A2.73281 2.78438 -180 0 0 12.07 1012.12 A2.73281 2.78438 -180 0 0 17.53 1012.12 ZM1.03 1035.84
+							 L14.03 1035.84 L12.89 1037.49 L0 1037.49 L1.03 1035.84 ZM20.89 1020.14 L22.48 1022.95 L20.21 1026.56
+							 L15.78 1024.91 L15.78 1022.99 L18.2 1023.89 A1.2375 1.2375 -180 0 0 20.11 1022.85 A1.2375 1.2375 -180
+							 0 0 19.07 1021.63 L15.78 1020.27 L15.78 1018.52 L15.78 1018 L15.78 1017.49 L15.68 1017.18 L15.57 1016.97
+							 L15.37 1016.56 L15.06 1016.15 L14.64 1015.84 L14.44 1015.63 L14.23 1015.53 L14.03 1015.42 L13.72 1015.42
+							 L13.2 1015.32 L12.68 1015.42 L12.17 1015.53 L11.76 1015.84 L11.55 1015.94 L11.34 1016.15 L11.03 1016.56
+							 L10.83 1016.97 L10.73 1017.18 L10.62 1017.49 L10.62 1018 L10.62 1018.31 L10.62 1018.52 L10.62 1025.43
+							 L10.62 1025.63 L10.73 1025.94 L10.83 1026.15 L11.03 1026.36 L11.45 1026.66 L5.67 1026.66 L5.26 1024.09
+							 L3.51 1024.09 L3.09 1025.84 L2.27 1029.45 L2.17 1030.48 L2.06 1031.31 L1.96 1032.85 L1.97 1032.93 L1.96
+							 1033.16 L1.96 1033.26 L1.96 1033.57 L2.06 1033.68 L2.27 1033.88 L2.37 1033.88 L2.58 1033.99 L25.3 1033.99
+							 L25.83 1035.84 L17.63 1035.84 L16.6 1037.49 L31.35 1037.49 L31.45 1037.49 L31.43 1037.43 L35.17 1034.71
+							 L35.17 1032.54 L30.83 1035.84 L27.12 1035.84 L26.49 1033.64 L26.92 1033.47 L33.21 1028.73 L32.38 1027.39
+							 L31.76 1026.25 L31.25 1025.22 L31.04 1024.81 L30.73 1024.5 L30.53 1024.29 L30.22 1024.19 L29.8 1023.98
+							 L29.7 1023.98 L24.34 1022.85 L22.24 1019.26 a0.825 0.876563 -180 0 0 -1.61935 0.236688 a0.825 0.876563
+							 -180 0 0 0.261247 0.639965 Z" class="st7"/>
+			</g>
+			<g id="shape106-123" v:mID="106" v:groupContext="groupContent" v:layerMember="2">
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197" v:verticalAlign="0"/>
+				<v:textRect cx="20.3668" cy="1051.49" width="81.47" height="18.6409"/>
+				<text x="-14.77" y="1054.77" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>国家雪车雪<tspan
+							x="-0.72" dy="1.298em" class="st9">橇中心</tspan></text>			</g>
+		</g>
+		<g id="shape109-126" v:mID="109" v:groupContext="shape" v:layerMember="0"
+				transform="translate(-240.802,1035.45) rotate(-137.098)">
+			<title>环线地铁.109</title>
+			<desc>京礼高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="81.5974" cy="1033.24" width="163.2" height="8.50394" transform="rotate(180)"/>
+			<path d="M0 1037.49 L163.19 1037.49 A4.25197 4.25197 -180 1 0 163.19 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="-78.06" y="-1045.38" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京礼高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape110-129" v:mID="110" v:groupContext="shape" v:layerMember="0" transform="translate(343.036,-865.753)">
+			<title>环线地铁.110</title>
+			<desc>团结路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="88.6318" cy="1033.24" width="177.27" height="8.50394"/>
+			<path d="M0 1037.49 L177.26 1037.49 A4.25197 4.25197 -180 0 0 177.26 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="86.54" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>团结路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape111-132" v:mID="111" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1521.32,-88.5152) rotate(75.6546)">
+			<title>环线地铁.111</title>
+			<desc>西丁路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="34.8944" cy="1033.24" width="69.79" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L69.79 1037.49 A4.25197 4.25197 -180 0 0 69.79 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="西丁路"/>
+			<text x="-55.98" y="-1045.38" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>西丁路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape112-135" v:mID="112" v:groupContext="shape" v:layerMember="0"
+				transform="translate(679.577,-788.338) rotate(7.8985)">
+			<title>环线地铁.112</title>
+			<desc>高塔西街</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="85.6387" cy="1033.24" width="171.28" height="8.50394"/>
+			<path d="M0 1037.49 L171.28 1037.49 A4.25197 4.25197 -180 1 0 171.28 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="57.53" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>高塔西街<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape113-138" v:mID="113" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1223.82,-559.591) rotate(35.5726)">
+			<title>环线地铁.113</title>
+			<desc>湖南西路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.5792" cy="1033.24" width="103.16" height="8.50394"/>
+			<path d="M0 1037.49 L103.16 1037.49 A4.25197 4.25197 -180 1 0 103.16 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="湖南西路"/>
+			<text x="23.47" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>湖南西路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape114-141" v:mID="114" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1073.51,-554.696) rotate(36.2475)">
+			<title>环线地铁.114</title>
+			<desc>京礼道速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="51.112" cy="1033.24" width="102.23" height="8.50394"/>
+			<path d="M0 1037.49 L102.22 1037.49 A4.25197 4.25197 -180 1 0 102.22 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="37.25" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京礼道速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape122-144" v:mID="122" v:groupContext="shape" v:layerMember="0"
+				transform="translate(881.466,-520.251) rotate(-0.848747)">
+			<title>环线地铁.122</title>
+			<desc>北六环路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="65.4521" cy="1033.24" width="130.91" height="8.50394"/>
+			<path d="M0 1037.49 L130.9 1037.49 A4.25197 4.25197 -180 0 0 130.9 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="37.34" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北六环路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape123-147" v:mID="123" v:groupContext="shape" v:layerMember="0"
+				transform="translate(2060.49,540.058) rotate(91.6151)">
+			<title>环线地铁.123</title>
+			<desc>东六环路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="33.6469" cy="1033.24" width="67.3" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L67.29 1037.49 A4.25197 4.25197 -180 0 0 67.29 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-61.76" y="-1045.38" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>东六环路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="group124-150" transform="translate(2053.24,568.445) rotate(90)" v:mID="124" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>站.124</title>
+			<g id="shape125-151" v:mID="125" v:groupContext="shape" v:layerMember="0">
+				<title>工作表.125</title>
+				<path d="M0 1027.94 A9.55772 9.55772 0 0 1 19.12 1027.94 A9.55772 9.55772 0 1 1 0 1027.94 Z" class="st5"/>
+			</g>
+			<g id="shape126-153" v:mID="126" v:groupContext="shape" v:layerMember="0" transform="translate(2.86732,-2.86732)">
+				<title>工作表.126</title>
+				<path d="M0 1030.8 A6.6904 6.6904 0 1 1 13.38 1030.8 A6.6904 6.6904 0 1 1 -0 1030.8 Z" class="st7"/>
+			</g>
+			<g id="shape127-155" v:mID="127" v:groupContext="shape" transform="translate(-984.736,1052.02) rotate(-90)">
+				<title>工作表.127</title>
+				<desc>李天桥</desc>
+				<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
+				<v:textRect cx="24.0834" cy="1027.94" width="48.17" height="19.1154"/>
+				<rect x="0" y="1018.38" width="48.1667" height="19.1154" class="st8"/>
+				<text x="3" y="1032.59" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>李天桥</text>			</g>
+		</g>
+		<g id="shape128-158" v:mID="128" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1915.97,748.985) rotate(99.447)">
+			<title>环线地铁.128</title>
+			<desc>京承 高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="20.4243" cy="1033.24" width="40.85" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L40.85 1037.49 A4.25197 4.25197 -180 0 0 40.85 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-34.48" y="-1046.3" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京承<v:newlineChar/><v:newlineChar/><tspan
+						x="-34.48" dy="2.531em" class="st9">高速</tspan></text>		</g>
+		<g id="shape129-162" v:mID="129" v:groupContext="shape" v:layerMember="0" transform="translate(759.071,-414.783)">
+			<title>环线地铁.129</title>
+			<desc>北三环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="63.449" cy="1033.24" width="126.9" height="8.50394"/>
+			<path d="M0 1037.49 L126.9 1037.49 A4.25197 4.25197 -180 1 0 126.9 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="29.32" y="1021.1" class="st6" v:langID="2052"><v:paragraph/><v:tabList/>北三环 <v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape131-165" v:mID="131" v:groupContext="shape" v:layerMember="0"
+				transform="translate(2001.02,712.518) rotate(88.5172)">
+			<title>环线地铁.131</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L39.81 1037.49 A4.25197 4.25197 -180 1 0 39.81 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape132-167" v:mID="132" v:groupContext="shape" v:layerMember="0"
+				transform="translate(804.179,-250.26) rotate(-1.48641)">
+			<title>环线地铁.132</title>
+			<desc>南二环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="69.1112" cy="1033.24" width="138.23" height="8.50394"/>
+			<path d="M0 1037.49 L138.22 1037.49 A4.25197 4.25197 -180 0 0 138.22 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="48.03" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>南二环<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape133-170" v:mID="133" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1886.26,899.395) rotate(96.2885)">
+			<title>环线地铁.133</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L31.56 1037.49 A4.25197 4.25197 -180 0 0 31.56 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape134-172" v:mID="134" v:groupContext="shape" v:layerMember="0"
+				transform="translate(845.322,-215.604) rotate(-0.580136)">
+			<title>环线地铁.134</title>
+			<desc>幸福南站路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="26.9995" cy="1033.24" width="54" height="8.50394"/>
+			<path d="M0 1037.49 L54 1037.49 A4.25197 4.25197 -180 1 0 54 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49 Z"
+					class="st5"/>
+			<text x="11.94" y="1028.04" class="st11" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>幸福南站路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape137-175" v:mID="137" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1700.89,327.687) rotate(81.244)">
+			<title>环线地铁.137</title>
+			<desc>京新高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="35.3394" cy="1033.24" width="70.68" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L70.68 1037.49 A4.25197 4.25197 -180 1 0 70.68 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="京新高速"/>
+			<text x="-66.68" y="-1045.38" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph/><v:tabList/>京新高速                                          <v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape138-178" v:mID="138" v:groupContext="shape" v:layerMember="0"
+				transform="translate(709.627,-478.234) rotate(1.06362)">
+			<title>环线地铁.138</title>
+			<desc>北五环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="58.717" cy="1033.24" width="117.44" height="8.50394"/>
+			<path d="M0 1037.49 L117.43 1037.49 A4.25197 4.25197 -180 1 0 117.43 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="4" y="1054.7" class="st6" v:langID="2052"><v:paragraph/><v:tabList/><v:space/><v:space/><v:newlineChar/><v:newlineChar/>北五环</text>		</g>
+		<g id="shape139-181" v:mID="139" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1617.05,1199.51) rotate(128.45)">
+			<title>环线地铁.139</title>
+			<desc>万泉河路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="39.2317" cy="1033.24" width="78.47" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L78.46 1037.49 A4.25197 4.25197 -180 0 0 78.46 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="万泉河路"/>
+			<text x="-67.34" y="-1045.38" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>万泉河路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape140-184" v:mID="140" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1775.4,804.647) rotate(100.381)">
+			<title>环线地铁.140</title>
+			<desc>西三环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="38.5683" cy="1033.24" width="77.14" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L77.14 1037.49 A4.25197 4.25197 -180 0 0 77.14 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-46.99" y="-1011.78" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/><v:newlineChar/><v:newlineChar/>西三环<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape141-187" v:mID="141" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1672.88,657.36) rotate(97.9772)">
+			<title>环线地铁.141</title>
+			<desc>西六环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="91.3998" cy="1033.24" width="182.8" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L182.8 1037.49 A4.25197 4.25197 -180 0 0 182.8 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-112.48" y="-1045.38" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>西六环<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape142-190" v:mID="142" v:groupContext="shape" v:layerMember="0"
+				transform="translate(745.238,-339.266) rotate(1.50963)">
+			<title>环线地铁.142</title>
+			<desc>莲花池西路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="13.5815" cy="1033.24" width="27.17" height="8.50394"/>
+			<path d="M0 1037.49 L27.16 1037.49 A4.25197 4.25197 -180 0 0 27.16 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="莲花池西路"/>
+			<text x="6.55" y="1002.92" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>莲<tspan x="6.55"
+						dy="1.2em" class="st9">花</tspan><tspan x="6.55" dy="1.2em" class="st9">池</tspan><tspan x="6.55" dy="1.2em"
+						class="st9">西</tspan><tspan x="6.55" dy="1.298em" class="st9">路</tspan></text>		</g>
+		<g id="shape143-197" v:mID="143" v:groupContext="shape" v:layerMember="0"
+				transform="translate(647.62,-338.016) rotate(-1.6631)">
+			<title>环线地铁.143</title>
+			<desc>莲石 西路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="20.2135" cy="1033.24" width="40.43" height="8.50394"/>
+			<path d="M0 1037.49 L40.43 1037.49 A4.25197 4.25197 -180 0 0 40.43 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="6.16" y="1020.18" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>莲石<v:newlineChar/><v:newlineChar/><tspan
+						x="6.16" dy="2.531em" class="st9">西路</tspan></text>		</g>
+		<g id="shape144-201" v:mID="144" v:groupContext="shape" v:layerMember="0"
+				transform="translate(620.215,-338.234) rotate(-0.224787)">
+			<title>环线地铁.144</title>
+			<desc>京原路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="26.6692" cy="1033.24" width="53.34" height="8.50394"/>
+			<path d="M0 1037.49 L53.34 1037.49 A4.25197 4.25197 -180 0 0 53.34 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="5.59" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京原路<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape145-204" v:mID="145" v:groupContext="shape" v:layerMember="0"
+				transform="translate(-331.591,6.90999) rotate(-63.8863)">
+			<title>环线地铁.145</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L25.82 1037.49 A4.25197 4.25197 -180 0 0 25.82 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape146-206" v:mID="146" v:groupContext="shape" v:layerMember="0" transform="translate(1629.42,461.694) rotate(90)">
+			<title>环线地铁.146</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L28.67 1037.49 A4.25197 4.25197 -180 0 0 28.67 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape147-208" v:mID="147" v:groupContext="shape" v:layerMember="0" transform="translate(1629.42,490.369) rotate(90)">
+			<title>环线地铁.147</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L36.71 1037.49 A4.25197 4.25197 -180 0 0 36.71 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape148-210" v:mID="148" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1515.61,55.6628) rotate(62.8544)">
+			<title>环线地铁.148</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L32 1037.49 A4.25197 4.25197 -180 0 0 32 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49 Z"
+					class="st5"/>
+		</g>
+		<g id="shape149-212" v:mID="149" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1421.66,-84.798) rotate(51.7016)">
+			<title>环线地铁.149</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L43.82 1037.49 A4.25197 4.25197 -180 0 0 43.82 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape154-214" v:mID="154" v:groupContext="shape" v:layerMember="0"
+				transform="translate(759.046,-371.492) rotate(-3.96919)">
+			<title>环线地铁.154</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L48.18 1037.49 A4.25197 4.25197 -180 0 0 48.18 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape155-216" v:mID="155" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1863.8,655.8) rotate(89.8075)">
+			<title>环线地铁.155</title>
+			<desc>西二环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="61.6819" cy="1033.24" width="123.37" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L123.36 1037.49 A4.25197 4.25197 -180 1 0 123.36 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="-82.76" y="-1011.78" transform="rotate(-180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>西二环</text>		</g>
+		<g id="shape156-219" v:mID="156" v:groupContext="shape" v:layerMember="0" transform="translate(745.171,-338.909)">
+			<title>环线地铁.156</title>
+			<desc>莲花池东路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="20.6199" cy="1033.24" width="41.24" height="8.50394"/>
+			<path d="M0 1037.49 L41.24 1037.49 A4.25197 4.25197 -180 0 0 41.24 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="莲花池东路"/>
+			<text x="6.57" y="1019.72" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>莲花<tspan x="6.57"
+						dy="1.2em" class="st9">池东</tspan><tspan x="13.59" dy="1.298em" class="st9">路</tspan></text>		</g>
+		<g id="shape159-224" v:mID="159" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1863.44,822.92) rotate(92.2345)">
+			<title>环线地铁.159</title>
+			<desc>菜户营南路</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="25.5555" cy="1033.24" width="51.12" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L51.11 1037.49 A4.25197 4.25197 -180 0 0 51.11 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-46.64" y="-1063.56" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>菜户营<tspan
+						x="-39.61" dy="1.298em" class="st9">南路</tspan><v:newlineChar/><v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape160-228" v:mID="160" v:groupContext="shape" v:layerMember="0"
+				transform="translate(1852.42,975.719) rotate(97.9)">
+			<title>环线地铁.160</title>
+			<desc>京开 高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="18.5246" cy="1033.24" width="37.05" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L37.05 1037.49 A4.25197 4.25197 -180 0 0 37.05 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="-32.58" y="-1046.3" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京开<v:newlineChar/><v:newlineChar/><tspan
+						x="-32.58" dy="2.531em" class="st9">高速</tspan></text>		</g>
+		<g id="shape163-232" v:mID="163" v:groupContext="shape" v:layerMember="0"
+				transform="translate(769.705,-161.416) rotate(-3.00643)">
+			<title>环线地铁.163</title>
+			<desc>南五环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="70.8189" cy="1033.24" width="141.64" height="8.50394"/>
+			<path d="M0 1037.49 L141.64 1037.49 A4.25197 4.25197 -180 0 0 141.64 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="49.74" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>南五环<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape164-235" v:mID="164" v:groupContext="shape" v:layerMember="0"
+				transform="translate(2.4296,1250.9) rotate(-106.39)">
+			<title>环线地铁.164</title>
+			<desc>大兴机场高速</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="50.23" cy="1033.24" width="100.47" height="8.50394"/>
+			<path d="M0 1037.49 L100.46 1037.49 A4.25197 4.25197 -180 0 0 100.46 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5" id="大兴机场高速"/>
+			<text x="8.07" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>大兴机场高速<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape165-238" v:mID="165" v:groupContext="shape" v:layerMember="0" transform="translate(1755.74,693.211) rotate(90)">
+			<title>环线地铁.165</title>
+			<desc>西五环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="89.1812" cy="1033.24" width="178.37" height="8.50394" transform="rotate(-180)"/>
+			<path d="M0 1037.49 L178.36 1037.49 A4.25197 4.25197 -180 1 0 178.36 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="-110.26" y="-1011.78" transform="rotate(180)" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/><v:newlineChar/><v:newlineChar/>西五环</text>		</g>
+		<g id="shape166-241" v:mID="166" v:groupContext="shape" v:layerMember="0"
+				transform="translate(710.569,-161.598) rotate(-0.661439)">
+			<title>环线地铁.166</title>
+			<desc>南五环</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="50.7031" cy="1033.24" width="101.41" height="8.50394"/>
+			<path d="M0 1037.49 L101.41 1037.49 A4.25197 4.25197 -180 0 0 101.41 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0
+						 1037.49 Z" class="st5"/>
+			<text x="29.62" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>南五环<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape167-244" v:mID="167" v:groupContext="shape" v:layerMember="0"
+				transform="translate(259.889,-864.173) rotate(2.49455)">
+			<title>环线地铁.167</title>
+			<desc>松山隧道</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="20.8954" cy="1033.24" width="41.8" height="8.50394"/>
+			<path d="M0 1037.49 L41.79 1037.49 A4.25197 4.25197 -180 0 0 41.79 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+			<text x="6.84" y="1002.92" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>松山<tspan x="6.84"
+						dy="1.298em" class="st9">隧道</tspan><v:newlineChar/><v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape168-248" v:mID="168" v:groupContext="shape" v:layerMember="0"
+				transform="translate(530.05,-821.712) rotate(23.5671)">
+			<title>环线地铁.168</title>
+			<desc>松山大桥</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="53.449" cy="1033.24" width="106.9" height="8.50394"/>
+			<path d="M0 1037.49 L106.9 1037.49 A4.25197 4.25197 -180 1 0 106.9 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="松山大桥"/>
+			<text x="44.33" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>松山大桥<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape171-251" v:mID="171" v:groupContext="shape" v:layerMember="0"
+				transform="translate(227.727,-862.927) rotate(-1.60512)">
+			<title>环线地铁.171</title>
+			<desc>西羊坊隧道</desc>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="43.2002" cy="1033.24" width="86.41" height="8.50394"/>
+			<path d="M0 1037.49 L86.4 1037.49 A4.25197 4.25197 -180 1 0 86.4 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5" id="西羊坊隧道"/>
+			<text x="8.06" y="1021.1" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>西羊坊隧道<v:newlineChar/><v:newlineChar/></text>		</g>
+		<g id="shape172-254" v:mID="172" v:groupContext="shape" v:layerMember="0"
+				transform="translate(451.771,1104.81) rotate(164.57)">
+			<title>环线地铁.172</title>
+			<v:custProps>
+				<v:cp v:nameU="MetroThickness" v:lbl="地铁宽度" v:type="2" v:langID="2052" v:val="VT0(0.059055118110236):24"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="Thickness" v:val="VT0(1):26"/>
+				<v:ud v:nameU="ScaleFactor" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M0 1037.49 L62.17 1037.49 A4.25197 4.25197 -180 1 0 62.17 1028.99 L0 1028.99 A4.25197 4.25197 -180 1 0 -0 1037.49
+						 Z" class="st5"/>
+		</g>
+		<g id="shape272-256" v:mID="272" v:groupContext="shape" transform="translate(-120.343,240.175) rotate(-90)">
+			<title>侧边文本标注</title>
+			<desc>延庆区政府</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="994.973" width="85.04" height="18.6536" transform="rotate(90)"/>
+			<path d="M9.33 952.45 L-47.37 810.72" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="956.453" y="-14.6516" width="40.1564" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="956.45" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>延庆区政府</text>		</g>
+		<g id="shape302-261" v:mID="302" v:groupContext="shape" transform="translate(-77.8234,118.285) rotate(-90)">
+			<title>折线标注.302</title>
+			<desc>919路延庆东关站——至德胜门</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="977.965" width="119.06" height="18.6536" transform="rotate(90)"/>
+			<path d="M-169.26 761.11 L9.33 900.44 L9.33 918.44" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="922.438" y="-14.6516" width="108.54" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="922.44" y="-6.66" transform="rotate(90)" class="st13" v:langID="2052"><v:paragraph/><v:tabList/>919<tspan
+						class="st14">路延庆东关站</tspan><tspan class="st14">——</tspan><tspan class="st14">至德胜门</tspan></text>		</g>
+		<g id="shape303-269" v:mID="303" v:groupContext="shape" transform="translate(-49.4769,177.456) rotate(-90)">
+			<title>折线标注.303</title>
+			<desc>925路延庆东关站——至十三陵</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="959.54" width="155.91" height="18.6536" transform="rotate(90)"/>
+			<path d="M-109.13 733.06 L9.33 863.59 L9.33 881.59" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="885.587" y="-14.6516" width="108.54" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="885.59" y="-6.66" transform="rotate(90)" class="st13" v:langID="2052"><v:paragraph/><v:tabList/>925<tspan
+						class="st14">路延庆东关站</tspan><tspan class="st14">——</tspan><tspan class="st14">至十三陵</tspan></text>		</g>
+		<g id="shape277-277" v:mID="277" v:groupContext="shape" transform="translate(-213.886,55.9234) rotate(-90)">
+			<title>侧边文本标注.277</title>
+			<desc>北京中医院延庆医院</desc>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="994.973" width="85.04" height="18.6536" transform="rotate(90)"/>
+			<path d="M9.33 952.45 L-217.06 897.21" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="956.453" y="-14.6516" width="72.2815" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="956.45" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>北京中医院延庆医院</text>		</g>
+		<g id="shape301-282" v:mID="301" v:groupContext="shape" transform="translate(-106.17,70.0965) rotate(-90)">
+			<title>折线标注.301</title>
+			<desc>北医三院延庆医院</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="994.973" width="85.04" height="18.6536" transform="rotate(90)"/>
+			<path d="M-207.87 789.46 L9.33 934.45 L9.33 952.45" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="956.453" y="-14.6516" width="64.2502" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="956.45" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>北医三院延庆医院</text>		</g>
+		<g id="shape304-287" v:mID="304" v:groupContext="shape" transform="translate(1387.71,503.797) rotate(90) scale(-1,1)">
+			<title>折线标注.304</title>
+			<desc>康庄站</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(-90)"/>
+			<path d="M74.52 810.72 L9.33 948.63 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.626" y="-14.6516" width="24.0938" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="-994.72" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="2"/><v:tabList/>康庄站</text>		</g>
+		<g id="shape300-292" v:mID="300" v:groupContext="shape" transform="translate(-639.083,41.7502) rotate(-90)">
+			<title>折线标注.300</title>
+			<desc>玉渡山草坪停车场</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="996.39" width="82.21" height="18.6536" transform="rotate(90)"/>
+			<path d="M-4.85 912.2 L9.33 937.29 L9.33 955.29" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="959.288" y="-14.6516" width="64.2502" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="959.29" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>玉渡山草坪停车场</text>		</g>
+		<g id="shape290-297" v:mID="290" v:groupContext="shape" transform="translate(1056.06,197.656) rotate(90) scale(-1,1)">
+			<title>折线标注.290</title>
+			<desc>松山森林景区停车场</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="994.973" width="85.04" height="18.6536" transform="rotate(-90)"/>
+			<path d="M37.67 914.19 L9.33 934.45 L9.33 952.45" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="958.832" y="-14.6516" width="72.2815" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="-1031.11" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="1"/><v:tabList/>松山森林景区停车场</text>		</g>
+		<g id="shape291-302" v:mID="291" v:groupContext="shape" transform="translate(1061.73,268.522) rotate(90) scale(-1,1)">
+			<title>折线标注.291</title>
+			<desc>辉煌国际度假区</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(-90)"/>
+			<path d="M94.37 909.93 L9.33 948.63 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.626" y="-14.6516" width="56.219" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="-1026.85" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="2"/><v:tabList/>辉煌国际度假区</text>		</g>
+		<g id="shape292-307" v:mID="292" v:groupContext="shape" transform="translate(1055.49,333.719) rotate(90) scale(-1,1)">
+			<title>折线标注.292</title>
+			<desc>辉煌国际度假区停车场</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="984.768" width="105.45" height="18.6536" transform="rotate(-90)"/>
+			<path d="M145.39 895.21 L9.33 914.04 L9.33 932.04" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="944.612" y="-14.6516" width="80.3128" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="-1024.92" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="1"/><v:tabList/>辉煌国际度假区停车场</text>		</g>
+		<g id="shape299-312" v:mID="299" v:groupContext="shape" transform="translate(-474.674,78.6004) rotate(-90)">
+			<title>折线标注.299</title>
+			<desc>龙庆峡悠然快捷酒家</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="994.973" width="85.04" height="18.6536" transform="rotate(90)"/>
+			<path d="M60.35 938.28 L9.33 934.45 L9.33 952.45" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="956.453" y="-14.6516" width="72.2815" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="956.45" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>龙庆峡悠然快捷酒家</text>		</g>
+		<g id="shape296-317" v:mID="296" v:groupContext="shape" transform="translate(7.21604,261.435) rotate(-90)">
+			<title>折线标注.296</title>
+			<desc>博纳斯酒店</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(90)"/>
+			<path d="M-119.65 711.51 L9.33 948.63 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.627" y="-14.6516" width="40.1564" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="970.63" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>博纳斯酒店</text>		</g>
+		<g id="shape298-322" v:mID="298" v:groupContext="shape" transform="translate(-6.95719,296.868) rotate(-90)">
+			<title>折线标注.298</title>
+			<desc>都市118连锁酒店</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(90)"/>
+			<path d="M-47.37 824.89 L9.33 938.28 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.627" y="-14.6516" width="60.352" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="970.63" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>都市<tspan
+						class="st15">118</tspan>连锁酒店</text>		</g>
+		<g id="shape306-328" v:mID="306" v:groupContext="shape" transform="translate(1387.71,435.766) rotate(90) scale(-1,1)">
+			<title>折线标注.306</title>
+			<desc>北京世园公园</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(-90)"/>
+			<path d="M156.73 711.51 L9.33 948.63 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.626" y="-14.6516" width="48.1877" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="-1018.81" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="2"/><v:tabList/>北京世园公园</text>		</g>
+		<g id="shape308-333" v:mID="308" v:groupContext="shape" transform="translate(-341.445,140.963) rotate(-90)">
+			<title>折线标注.308</title>
+			<desc>北京快乐假日大酒店</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="970.879" width="133.23" height="18.6536" transform="rotate(90)"/>
+			<path d="M122.71 833.4 L9.33 886.26 L9.33 904.26" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="908.264" y="-14.6516" width="72.2815" height="10.6501" transform="rotate(90)"
+					class="st12"/>
+			<text x="908.26" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>北京快乐假日大酒店</text>		</g>
+		<g id="group309-338" transform="translate(775.417,-624.895)" v:mID="309" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>铁路运输</title>
+			<g id="shape310-339" v:mID="310" v:groupContext="shape">
+				<title>工作表.310</title>
+				<path d="M38.32 1037.49 A4.2573 4.2573 -180 0 0 42.57 1033.24 L42.57 999.18 A4.2573 4.2573 -180 0 0 38.32 994.92
+							 L4.26 994.92 A4.2573 4.2573 -180 0 0 -0 999.18 L0 1033.24 A4.2573 4.2573 -180 0 0 4.26 1037.49 L38.32
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="group311-341" transform="translate(10.279,-3.67458)" v:mID="311" v:groupContext="group">
+				<title>工作表.311</title>
+				<g id="shape312-342" v:mID="312" v:groupContext="shape" transform="translate(0,-8.80596)">
+					<title>工作表.312</title>
+					<path d="M4.4 1013.28 A4.40298 4.03606 -180 0 0 -0 1017.31 L0 1033.46 A4.40298 4.03606 -180 0 0 4.4 1037.49 L17.61
+								 1037.49 A4.40298 4.03606 -180 0 0 22.01 1033.46 L22.01 1017.31 A4.40298 4.03606 -180 0 0 17.61 1013.28
+								 L4.4 1013.28 Z" class="st17"/>
+				</g>
+				<g id="shape313-344" v:mID="313" v:groupContext="shape" transform="translate(2.20149,-11.0074)">
+					<title>工作表.313</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape314-346" v:mID="314" v:groupContext="shape" transform="translate(15.9608,-11.0074)">
+					<title>工作表.314</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape315-348" v:mID="315" v:groupContext="shape" transform="translate(8.25559,-29.7201)">
+					<title>工作表.315</title>
+					<path d="M0.55 1035.29 L4.95 1035.29 a0.550372 0.550372 0 0 1 0.550372 0.550372 L5.5 1036.94 a0.550372 0.550372
+								 0 0 1 -0.550372 0.550372 L0.55 1037.49 a0.550372 0.550372 0 0 1 -0.550372 -0.550372 L0 1035.84 a0.550372
+								 0.550372 0 0 1 0.550372 -0.550372 Z" class="st18"/>
+				</g>
+				<g id="shape316-350" v:mID="316" v:groupContext="shape" transform="translate(8.53077,-33.2975)">
+					<title>工作表.316</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape317-352" v:mID="317" v:groupContext="shape" transform="translate(11.5578,-33.2975)">
+					<title>工作表.317</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape318-354" v:mID="318" v:groupContext="shape" transform="translate(2.20149,-20.9142)">
+					<title>工作表.318</title>
+					<path d="M2.2 1029.79 A2.20149 2.20149 -180 0 0 -0 1031.99 L0 1035.29 A2.20149 2.20149 -180 0 0 2.2 1037.49 L15.41
+								 1037.49 A2.20149 2.20149 -180 0 0 17.61 1035.29 L17.61 1031.99 A2.20149 2.20149 -180 0 0 15.41 1029.79
+								 L2.2 1029.79 Z" class="st18"/>
+				</g>
+				<g id="shape319-356" v:mID="319" v:groupContext="shape">
+					<title>工作表.319</title>
+					<path d="M5.5 1028.69 L0 1037.49 L2.2 1037.49 L7.71 1028.69 L5.5 1028.69 ZM16.51 1028.69 L22.01 1037.49 L19.81
+								 1037.49 L14.31 1028.69 L16.51 1028.69 ZM6.33 1030.89 L15.69 1030.89 L14.31 1028.69 L7.71 1028.69
+								 L6.33 1030.89 Z" class="st17"/>
+				</g>
+				<g id="shape320-358" v:mID="320" v:groupContext="shape" transform="translate(2.20149,-1.10074)">
+					<title>工作表.320</title>
+					<path d="M1.1 1035.84 L0 1037.49 L17.61 1037.49 L16.51 1035.84 L1.1 1035.84 Z" class="st17"/>
+				</g>
+			</g>
+			<g id="shape321-360" v:mID="321" v:groupContext="shape" transform="translate(0,24.1507)">
+				<title>工作表.321</title>
+				<desc>延庆站</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.2865" cy="1025.42" width="42.58" height="24.1507"/>
+				<rect x="0" y="1013.34" width="42.573" height="24.1507" class="st19"/>
+				<text x="6.29" y="1028.75" class="st20" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>延庆站</text>			</g>
+		</g>
+		<g id="group322-363" transform="translate(783.134,-317.641)" v:mID="322" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>铁路运输.322</title>
+			<g id="shape323-364" v:mID="323" v:groupContext="shape">
+				<title>工作表.323</title>
+				<path d="M38.32 1037.49 A4.2573 4.2573 -180 0 0 42.57 1033.24 L42.57 999.18 A4.2573 4.2573 -180 0 0 38.32 994.92
+							 L4.26 994.92 A4.2573 4.2573 -180 0 0 -0 999.18 L0 1033.24 A4.2573 4.2573 -180 0 0 4.26 1037.49 L38.32
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="group324-366" transform="translate(10.279,-3.67458)" v:mID="324" v:groupContext="group">
+				<title>工作表.324</title>
+				<g id="shape325-367" v:mID="325" v:groupContext="shape" transform="translate(0,-8.80596)">
+					<title>工作表.325</title>
+					<path d="M4.4 1013.28 A4.40298 4.03606 -180 0 0 -0 1017.31 L0 1033.46 A4.40298 4.03606 -180 0 0 4.4 1037.49 L17.61
+								 1037.49 A4.40298 4.03606 -180 0 0 22.01 1033.46 L22.01 1017.31 A4.40298 4.03606 -180 0 0 17.61 1013.28
+								 L4.4 1013.28 Z" class="st17"/>
+				</g>
+				<g id="shape326-369" v:mID="326" v:groupContext="shape" transform="translate(2.20149,-11.0074)">
+					<title>工作表.326</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape327-371" v:mID="327" v:groupContext="shape" transform="translate(15.9608,-11.0074)">
+					<title>工作表.327</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape328-373" v:mID="328" v:groupContext="shape" transform="translate(8.25559,-29.7201)">
+					<title>工作表.328</title>
+					<path d="M0.55 1035.29 L4.95 1035.29 a0.550372 0.550372 0 0 1 0.550372 0.550372 L5.5 1036.94 a0.550372 0.550372
+								 0 0 1 -0.550372 0.550372 L0.55 1037.49 a0.550372 0.550372 0 0 1 -0.550372 -0.550372 L0 1035.84 a0.550372
+								 0.550372 0 0 1 0.550372 -0.550372 Z" class="st18"/>
+				</g>
+				<g id="shape329-375" v:mID="329" v:groupContext="shape" transform="translate(8.53077,-33.2975)">
+					<title>工作表.329</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape330-377" v:mID="330" v:groupContext="shape" transform="translate(11.5578,-33.2975)">
+					<title>工作表.330</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape331-379" v:mID="331" v:groupContext="shape" transform="translate(2.20149,-20.9142)">
+					<title>工作表.331</title>
+					<path d="M2.2 1029.79 A2.20149 2.20149 -180 0 0 -0 1031.99 L0 1035.29 A2.20149 2.20149 -180 0 0 2.2 1037.49 L15.41
+								 1037.49 A2.20149 2.20149 -180 0 0 17.61 1035.29 L17.61 1031.99 A2.20149 2.20149 -180 0 0 15.41 1029.79
+								 L2.2 1029.79 Z" class="st18"/>
+				</g>
+				<g id="shape332-381" v:mID="332" v:groupContext="shape">
+					<title>工作表.332</title>
+					<path d="M5.5 1028.69 L0 1037.49 L2.2 1037.49 L7.71 1028.69 L5.5 1028.69 ZM16.51 1028.69 L22.01 1037.49 L19.81
+								 1037.49 L14.31 1028.69 L16.51 1028.69 ZM6.33 1030.89 L15.69 1030.89 L14.31 1028.69 L7.71 1028.69
+								 L6.33 1030.89 Z" class="st17"/>
+				</g>
+				<g id="shape333-383" v:mID="333" v:groupContext="shape" transform="translate(2.20149,-1.10074)">
+					<title>工作表.333</title>
+					<path d="M1.1 1035.84 L0 1037.49 L17.61 1037.49 L16.51 1035.84 L1.1 1035.84 Z" class="st17"/>
+				</g>
+			</g>
+			<g id="shape334-385" v:mID="334" v:groupContext="shape" transform="translate(0,37.4632)">
+				<title>工作表.334</title>
+				<desc>北京 西站</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.2865" cy="1018.76" width="42.58" height="37.4632"/>
+				<rect x="0" y="1000.03" width="42.573" height="37.4632" class="st19"/>
+				<text x="11.29" y="1015.43" class="st20" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北京<v:newlineChar/><tspan
+							x="11.29" dy="1.331em" class="st9">西站</tspan></text>			</g>
+		</g>
+		<g id="group335-389" transform="translate(910.036,-331.814)" v:mID="335" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>铁路运输.335</title>
+			<g id="shape336-390" v:mID="336" v:groupContext="shape">
+				<title>工作表.336</title>
+				<path d="M38.32 1037.49 A4.2573 4.2573 -180 0 0 42.57 1033.24 L42.57 999.18 A4.2573 4.2573 -180 0 0 38.32 994.92
+							 L4.26 994.92 A4.2573 4.2573 -180 0 0 -0 999.18 L0 1033.24 A4.2573 4.2573 -180 0 0 4.26 1037.49 L38.32
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="group337-392" transform="translate(10.279,-3.67458)" v:mID="337" v:groupContext="group">
+				<title>工作表.337</title>
+				<g id="shape338-393" v:mID="338" v:groupContext="shape" transform="translate(0,-8.80596)">
+					<title>工作表.338</title>
+					<path d="M4.4 1013.28 A4.40298 4.03606 -180 0 0 -0 1017.31 L0 1033.46 A4.40298 4.03606 -180 0 0 4.4 1037.49 L17.61
+								 1037.49 A4.40298 4.03606 -180 0 0 22.01 1033.46 L22.01 1017.31 A4.40298 4.03606 -180 0 0 17.61 1013.28
+								 L4.4 1013.28 Z" class="st17"/>
+				</g>
+				<g id="shape339-395" v:mID="339" v:groupContext="shape" transform="translate(2.20149,-11.0074)">
+					<title>工作表.339</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape340-397" v:mID="340" v:groupContext="shape" transform="translate(15.9608,-11.0074)">
+					<title>工作表.340</title>
+					<path d="M0 1035.57 A1.9263 1.9263 0 0 1 3.85 1035.57 A1.9263 1.9263 0 1 1 0 1035.57 Z" class="st18"/>
+				</g>
+				<g id="shape341-399" v:mID="341" v:groupContext="shape" transform="translate(8.25559,-29.7201)">
+					<title>工作表.341</title>
+					<path d="M0.55 1035.29 L4.95 1035.29 a0.550372 0.550372 0 0 1 0.550372 0.550372 L5.5 1036.94 a0.550372 0.550372
+								 0 0 1 -0.550372 0.550372 L0.55 1037.49 a0.550372 0.550372 0 0 1 -0.550372 -0.550372 L0 1035.84 a0.550372
+								 0.550372 0 0 1 0.550372 -0.550372 Z" class="st18"/>
+				</g>
+				<g id="shape342-401" v:mID="342" v:groupContext="shape" transform="translate(8.53077,-33.2975)">
+					<title>工作表.342</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape343-403" v:mID="343" v:groupContext="shape" transform="translate(11.5578,-33.2975)">
+					<title>工作表.343</title>
+					<path d="M0 1036.53 a0.963152 0.963152 0 0 1 1.9263 0 a0.963152 0.963152 0 1 1 -1.9263 0 Z" class="st17"/>
+				</g>
+				<g id="shape344-405" v:mID="344" v:groupContext="shape" transform="translate(2.20149,-20.9142)">
+					<title>工作表.344</title>
+					<path d="M2.2 1029.79 A2.20149 2.20149 -180 0 0 -0 1031.99 L0 1035.29 A2.20149 2.20149 -180 0 0 2.2 1037.49 L15.41
+								 1037.49 A2.20149 2.20149 -180 0 0 17.61 1035.29 L17.61 1031.99 A2.20149 2.20149 -180 0 0 15.41 1029.79
+								 L2.2 1029.79 Z" class="st18"/>
+				</g>
+				<g id="shape345-407" v:mID="345" v:groupContext="shape">
+					<title>工作表.345</title>
+					<path d="M5.5 1028.69 L0 1037.49 L2.2 1037.49 L7.71 1028.69 L5.5 1028.69 ZM16.51 1028.69 L22.01 1037.49 L19.81
+								 1037.49 L14.31 1028.69 L16.51 1028.69 ZM6.33 1030.89 L15.69 1030.89 L14.31 1028.69 L7.71 1028.69
+								 L6.33 1030.89 Z" class="st17"/>
+				</g>
+				<g id="shape346-409" v:mID="346" v:groupContext="shape" transform="translate(2.20149,-1.10074)">
+					<title>工作表.346</title>
+					<path d="M1.1 1035.84 L0 1037.49 L17.61 1037.49 L16.51 1035.84 L1.1 1035.84 Z" class="st17"/>
+				</g>
+			</g>
+			<g id="shape347-411" v:mID="347" v:groupContext="shape" transform="translate(0,24.1507)">
+				<title>工作表.347</title>
+				<desc>北京站</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="21.2865" cy="1025.42" width="42.58" height="24.1507"/>
+				<rect x="0" y="1013.34" width="42.573" height="24.1507" class="st19"/>
+				<text x="6.29" y="1028.75" class="st20" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北京站</text>			</g>
+		</g>
+		<g id="group348-414" transform="translate(917.15,-208.316)" v:mID="348" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>铁路运输.348</title>
+			<g id="shape349-415" v:mID="349" v:groupContext="shape">
+				<title>工作表.349</title>
+				<path d="M41.01 1037.49 A4.5572 4.5572 -180 0 0 45.57 1032.94 L45.57 996.48 A4.5572 4.5572 -180 0 0 41.01 991.92
+							 L4.56 991.92 A4.5572 4.5572 -180 0 0 0 996.48 L0 1032.94 A4.5572 4.5572 -180 0 0 4.56 1037.49 L41.01
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="group350-417" transform="translate(11.0031,-3.93343)" v:mID="350" v:groupContext="group">
+				<title>工作表.350</title>
+				<g id="shape351-418" v:mID="351" v:groupContext="shape" transform="translate(0,-9.42629)">
+					<title>工作表.351</title>
+					<path d="M4.71 1011.57 A4.71314 4.32038 -180 0 0 -0 1015.89 L0 1033.17 A4.71314 4.32038 -180 0 0 4.71 1037.49
+								 L18.85 1037.49 A4.71314 4.32038 -180 0 0 23.57 1033.17 L23.57 1015.89 A4.71314 4.32038 -180 0 0
+								 18.85 1011.57 L4.71 1011.57 Z" class="st17"/>
+				</g>
+				<g id="shape352-420" v:mID="352" v:groupContext="shape" transform="translate(2.35657,-11.7829)">
+					<title>工作表.352</title>
+					<path d="M0 1035.43 A2.062 2.062 0 0 1 4.12 1035.43 A2.062 2.062 0 0 1 0 1035.43 Z" class="st18"/>
+				</g>
+				<g id="shape353-422" v:mID="353" v:groupContext="shape" transform="translate(17.0851,-11.7829)">
+					<title>工作表.353</title>
+					<path d="M0 1035.43 A2.062 2.062 0 0 1 4.12 1035.43 A2.062 2.062 0 0 1 0 1035.43 Z" class="st18"/>
+				</g>
+				<g id="shape354-424" v:mID="354" v:groupContext="shape" transform="translate(8.83714,-31.8137)">
+					<title>工作表.354</title>
+					<path d="M0.59 1035.14 L5.3 1035.14 a0.589143 0.589143 0 0 1 0.589143 0.589143 L5.89 1036.9 a0.589143 0.589143
+								 0 0 1 -0.589143 0.589143 L0.59 1037.49 a0.589143 0.589143 0 0 1 -0.589143 -0.589143 L0 1035.73 a0.589143
+								 0.589143 0 0 1 0.589143 -0.589143 Z" class="st18"/>
+				</g>
+				<g id="shape355-426" v:mID="355" v:groupContext="shape" transform="translate(9.13171,-35.6431)">
+					<title>工作表.355</title>
+					<path d="M0 1036.46 A1.031 1.031 0 0 1 2.06 1036.46 A1.031 1.031 0 1 1 0 1036.46 Z" class="st17"/>
+				</g>
+				<g id="shape356-428" v:mID="356" v:groupContext="shape" transform="translate(12.372,-35.6431)">
+					<title>工作表.356</title>
+					<path d="M0 1036.46 A1.031 1.031 0 0 1 2.06 1036.46 A1.031 1.031 0 1 1 0 1036.46 Z" class="st17"/>
+				</g>
+				<g id="shape357-430" v:mID="357" v:groupContext="shape" transform="translate(2.35657,-22.3874)">
+					<title>工作表.357</title>
+					<path d="M2.36 1029.24 A2.35657 2.35657 -180 0 0 -0 1031.6 L0 1035.14 A2.35657 2.35657 -180 0 0 2.36 1037.49
+								 L16.5 1037.49 A2.35657 2.35657 -180 0 0 18.85 1035.14 L18.85 1031.6 A2.35657 2.35657 -180 0 0 16.5
+								 1029.24 L2.36 1029.24 Z" class="st18"/>
+				</g>
+				<g id="shape358-432" v:mID="358" v:groupContext="shape">
+					<title>工作表.358</title>
+					<path d="M5.89 1028.07 L0 1037.49 L2.36 1037.49 L8.25 1028.07 L5.89 1028.07 ZM17.67 1028.07 L23.57 1037.49 L21.21
+								 1037.49 L15.32 1028.07 L17.67 1028.07 ZM6.78 1030.42 L16.79 1030.42 L15.32 1028.07 L8.25 1028.07
+								 L6.78 1030.42 Z" class="st17"/>
+				</g>
+				<g id="shape359-434" v:mID="359" v:groupContext="shape" transform="translate(2.35657,-1.17829)">
+					<title>工作表.359</title>
+					<path d="M1.18 1035.73 L0 1037.49 L18.85 1037.49 L17.67 1035.73 L1.18 1035.73 Z" class="st17"/>
+				</g>
+			</g>
+			<g id="shape360-436" v:mID="360" v:groupContext="shape" transform="translate(0,37.4632)">
+				<title>工作表.360</title>
+				<desc>北京 南站</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="22.786" cy="1018.76" width="45.58" height="37.4632"/>
+				<rect x="0" y="1000.03" width="45.572" height="37.4632" class="st19"/>
+				<text x="12.79" y="1015.43" class="st20" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>北京<v:newlineChar/><tspan
+							x="12.79" dy="1.331em" class="st9">南站</tspan></text>			</g>
+		</g>
+		<g id="group361-440" transform="translate(1002.19,-55.4632)" v:mID="361" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>机场.42</title>
+			<g id="shape362-441" v:mID="362" v:groupContext="shape">
+				<title>工作表.362</title>
+				<path d="M41.01 1037.49 A4.5572 4.5572 -180 0 0 45.57 1032.94 L45.57 996.48 A4.5572 4.5572 -180 0 0 41.01 991.92
+							 L4.56 991.92 A4.5572 4.5572 -180 0 0 0 996.48 L0 1032.94 A4.5572 4.5572 -180 0 0 4.56 1037.49 L41.01
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="shape363-443" v:mID="363" v:groupContext="shape" transform="translate(3.08281,-3.64576)">
+				<title>工作表.363</title>
+				<path d="M21.39 1022.84 L39.41 1029.05 L39.41 1024.34 L21.39 1015.26 L21.39 1000.9 A1.6889 1.6889 -180 0 0 18.01
+							 1000.9 L18.01 1015.26 L0 1024.34 L0 1029.05 L18.01 1022.84 L18.01 1031.24 L13.51 1034.08 L13.51 1037.49
+							 L19.7 1036.03 L25.9 1037.49 L25.9 1034.08 L21.39 1031.24 L21.39 1022.84 Z" class="st17"/>
+			</g>
+			<g id="shape364-445" v:mID="364" v:groupContext="shape" transform="translate(0,37.4632)">
+				<title>工作表.364</title>
+				<desc>大兴 机场</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="22.786" cy="1018.76" width="45.58" height="37.4632"/>
+				<rect x="0" y="1000.03" width="45.572" height="37.4632" class="st19"/>
+				<text x="12.79" y="1015.43" class="st20" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>大兴<v:newlineChar/><tspan
+							x="12.79" dy="1.331em" class="st9">机场</tspan></text>			</g>
+		</g>
+		<g id="group365-449" transform="translate(1070,-557.087)" v:mID="365" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>机场.42.365</title>
+			<g id="shape366-450" v:mID="366" v:groupContext="shape">
+				<title>工作表.366</title>
+				<path d="M41.01 1037.49 A4.5572 4.5572 -180 0 0 45.57 1032.94 L45.57 996.48 A4.5572 4.5572 -180 0 0 41.01 991.92
+							 L4.56 991.92 A4.5572 4.5572 -180 0 0 0 996.48 L0 1032.94 A4.5572 4.5572 -180 0 0 4.56 1037.49 L41.01
+							 1037.49 Z" class="st16"/>
+			</g>
+			<g id="shape367-452" v:mID="367" v:groupContext="shape" transform="translate(3.08281,-3.64576)">
+				<title>工作表.367</title>
+				<path d="M21.39 1022.84 L39.41 1029.05 L39.41 1024.34 L21.39 1015.26 L21.39 1000.9 A1.6889 1.6889 -180 0 0 18.01
+							 1000.9 L18.01 1015.26 L0 1024.34 L0 1029.05 L18.01 1022.84 L18.01 1031.24 L13.51 1034.08 L13.51 1037.49
+							 L19.7 1036.03 L25.9 1037.49 L25.9 1034.08 L21.39 1031.24 L21.39 1022.84 Z" class="st17"/>
+			</g>
+			<g id="shape368-454" v:mID="368" v:groupContext="shape" transform="translate(0,42.7887)">
+				<title>工作表.368</title>
+				<desc>首都 机场</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="22.786" cy="1016.1" width="45.58" height="42.7887"/>
+				<rect x="0" y="994.704" width="45.572" height="42.7887" class="st19"/>
+				<text x="10.79" y="1012.1" class="st21" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>首都<v:newlineChar/><tspan
+							x="10.79" dy="1.331em" class="st9">机场</tspan></text>			</g>
+		</g>
+		<g id="shape370-458" v:mID="370" v:groupContext="shape" transform="translate(1098.58,381.908) rotate(90) scale(-1,1)">
+			<title>折线标注.370</title>
+			<desc>玉皇庙村停车场</desc>
+			<v:userDefs>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="9.32682" cy="1002.06" width="70.87" height="18.6536" transform="rotate(-90)"/>
+			<path d="M179.41 796.55 L9.33 921.27 L9.33 966.63" class="st2"/>
+			<rect v:rectContext="textBkgnd" x="970.626" y="-14.6516" width="56.219" height="10.6501" transform="rotate(90)"
+					class="st3"/>
+			<text x="-1026.85" y="-6.66" transform="rotate(90) scale(-1,1)" class="st4" v:langID="2052"><v:paragraph
+						v:horizAlign="2"/><v:tabList/>玉皇庙村停车场</text>		</g>
+	</g>
+</svg>

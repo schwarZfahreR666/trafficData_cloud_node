@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奥会数据感知采集与融合处理系统</title>
+    <link rel="stylesheet" href="{% static 'css/home_trafficflow.css' %}">
+</head>
+<body>
+    <!-- 左边栏 -->
+    <div class="leftbox">
+        {% include 'sidenav.html' %}
+    </div>
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 上面头部 -->
+
+        <!-- 下面主体 -->
+        <section class="mainbox">
+            <!-- 分两列 -->
+                <!-- 主体图 -->
+                <div class="map">
+                    <div class="map1" id="map1">
+                    {% include 'trafficFlow.html' %}
+                    </div>
+                </div>
+
+        </section>
+    </div>
+
+
+
+    <!-- script部分 -->
+</body>
+</html>

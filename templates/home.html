@@ -1,0 +1,558 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奥会数据感知采集与融合处理系统</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+<!-- 最左侧的盒子 -->
+<div class="leftbox">
+{% include 'sidenav.html' %}
+
+    </div>
+    <div class="container">
+    <!-- 头部的盒子 -->
+    <header>
+        <h1>数据可视化平台</h1>
+        <div class="showTime"></div>
+    </header>
+
+    <!-- 页面主题部分 -->
+    <section class="mainbox">
+        <!-- 分四份column  -->
+
+        <div class="column">
+            <!-- 表外框 -->
+            <div class="panel bar">
+                <h2>柱形图</h2>
+                    <div class="chart"  id="bar1">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>折线图</h2>
+                    <div class="chart" id="line1">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie">
+                <h2>饼形图</h2>
+                    <div class="chart">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <!-- 中间模块 -->
+        <div class="column">
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li class="li1">123456</li>
+                        <li>123456</li>
+                    </ul>
+                </div>
+                
+                <div class="no-bd">
+                    <ul>
+                        <li>111111</li>
+                        <li>111111</li>
+                    </ul>
+                </div>
+                <!-- map模块 -->
+                <div class="map">
+                    <div class="map1"></div>
+                    <div class="map2"></div>
+                    <div class="map3"></div>
+                    <div class="chart"></div>
+                </div>
+            </div>
+            
+
+        </div>
+        <div class="column">
+            <!-- 表外框 -->
+            <div class="panel bar">
+                <h2>柱形图</h2>
+                    <div class="chart" id="bar2">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>折线图</h2>
+                    <div class="chart">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie">
+                <h2>饼形图</h2>
+                    <div class="chart">
+
+                    </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </section>
+    </div>
+    <!-- script部分 -->
+    <script src="{% static 'js/flexible.js' %}"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+
+    <!-- 时间js -->
+    <script>
+        var t = null;
+        t = setTimeout(time, 1000);//開始运行
+        function time() {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours();//获取时
+            var m = dt.getMinutes();//获取分
+            var s = dt.getSeconds();//获取秒
+            document.querySelector(".showTime").innerHTML = '当前时间：' + y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分" + s + "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
+</script>
+<script>
+    (function() { //立即执行函数
+        // echarts.init(dom容器); //初始化echart
+    var mychart = echarts.init(document.querySelector("#bar1"));
+    var option = {
+    color: ['skyblue'],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'line'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '0%',
+        top: '10px',
+        right: '0%',
+        bottom: '4%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+                alignWithLabel: true
+            },
+            // 修改刻度标签
+            axisLabel: {
+                color: "rgba(255,255,255,0.6)",
+                fontSize: '12'
+            },
+            axisLine: {
+                show: false,
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            axisLabel: {
+                color: "rgba(255,255,255,0.6)",
+                fontSize: '12'
+            },
+            axisLine: {
+                lineStyle: {
+                    color: "rgba(255,255,255,0.1)",
+
+                },
+                
+            },
+            //y轴分割线颜色
+            splitLine: {
+                lineStyle: {
+                    color: "rgba(255,255,255,0.1)",
+                }
+            }
+        }
+    ],
+    series: [
+        {
+            name: '交通流量',
+            type: 'bar',
+            barWidth: '60%',
+            data: [10, 52, 200, 334, 390, 330, 220],
+            itemStyle: {
+                barBorderRadius: 5 //设置圆角矩形
+            }
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        mychart.setOption(option);
+        // 让图表跟随屏幕自适应
+        window.addEventListener('resize',function(){
+            mychart.resize();
+
+        });
+    })();
+</script>
+<script>
+    (function() {
+        // echarts.init(dom容器); //初始化echart
+    var mychart = echarts.init(document.querySelector("#line1"));
+    var option = {
+    color: ['pink','red','green','skyblue','orange'],
+    tooltip: {//鼠标放上提示框
+        trigger: 'axis'//坐标轴触发，柱状图可以是item
+    },
+    legend: {//图例组件
+        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'],
+        textStyle: {
+          color: 'rgba(255,255,255,0.6)',
+        },
+    },
+    //网格设置
+    grid: {
+        left: '0%',
+        right: '0%',
+        bottom: '0%',
+        containLabel: true
+    },
+    toolbox: {//工具箱组件
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    //坐标轴设置
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisLabel: {
+                color: "rgba(255,255,255,0.6)",
+            },
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+                color: "rgba(255,255,255,0.6)",
+            },
+    },
+    //图表样式、数据
+    series: [
+        {
+            name: '邮件营销',
+            type: 'line',
+            stack: '总量',//数据堆叠
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: '联盟广告',
+            type: 'line',
+            stack: '总量',
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: '视频广告',
+            type: 'line',
+            stack: '总量',
+            data: [150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name: '直接访问',
+            type: 'line',
+            stack: '总量',
+            data: [320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name: '搜索引擎',
+            type: 'line',
+            stack: '总量',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        mychart.setOption(option);
+        window.addEventListener('resize',function(){
+            mychart.resize();
+
+        });
+    })()
+</script>
+<script>
+
+
+    function loadXMLDoc()
+    {
+    var xmlhttp;
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        var mychart = echarts.init(document.querySelector("#bar2"));
+    var myColor = ["#8B78F6","#F8B448"]
+    var option = {
+    grid: {
+        left: '22%',
+        bottom: '10%',
+        top: '10%',
+        // containLabel: true
+    },
+    xAxis: {
+        show: false,
+    },
+    yAxis: [
+        {
+        inverse: true,
+        axisLine: {
+            show: false,
+        },
+        axisTick: {
+            show: false,
+
+        },
+        axisLabel: {
+            color: "#fff",
+        },
+        type: 'category',
+        data: ['内存使用率', 'CPU使用率']
+    },
+    {
+        inverse: true,
+        show: false,
+        type: 'category',
+        data: ['', '']
+    }
+        ],
+    series: [
+        {
+            name: '内',
+            type: 'bar',
+            data: JSON.parse(xmlhttp.responseText),
+            yAxisIndex: 0,
+            itemStyle: {
+                normal: {
+                    barBorderRadius: 20,
+                    //颜色设置
+                    color: function(params) {
+                        var num = myColor.length;
+                        return myColor[params.dataIndex % num];
+                    }
+                }
+            },
+            barCategoryGap: 50,
+            barWidth: 20,
+            //显示柱子内的文字
+            label: {
+                show: true,
+                position: "inside",
+                formatter: "{c}%",
+
+            },
+        },
+        {
+            name: '外',
+            type: 'bar',
+            data: [100,100],
+            barCategoryGap: 50,
+            barWidth: 25,
+            yAxisIndex: 1,
+            itemStyle: {
+                color: "none",
+                borderColor: "#00c1de",
+                borderWidth: 3,
+                barBorderRadius: 15,
+            }
+
+        },
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        mychart.setOption(option);
+        window.addEventListener('resize',function(){
+            mychart.resize();
+
+        });
+        }
+    };
+xmlhttp.open("GET",'/Cpu_State/',true);
+xmlhttp.send();
+}
+setInterval(loadXMLDoc, 500);
+
+</script>
+
+<script>
+    (function(){
+        var myChart = echarts.init(document.querySelector(".map .chart"));
+        var uploadedDataURL = "{% static 'data/beijing.json' %}";
+        var points = [{
+    name: '场馆A',
+    value: [115.974519, 40.457009]
+}, {
+    name: '场馆B',
+    value: [116.390431,40.000063]
+}, {
+    name: '首都机场',
+    value: [116.606316,40.044924]
+}]
+let colors = ['#ff5221', '#eaa01c', '#a2e936'];
+$.getJSON(uploadedDataURL, function(geoJson) {
+    echarts.registerMap('beijing', geoJson);
+    option = {
+        // backgroundColor: '#1b1b1b',
+        color: ['#ff5221', '#eaa01c', '#a2e936'],
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}'
+        },
+        geo: {
+            map: 'beijing',
+            show: false
+        },
+        series: [{
+            type: 'map',
+            map: 'beijing',
+            aspectScale: 0.75,
+            itemStyle: {
+                borderColor: 'rgba(100,149,237,1)',
+                borderWidth: 2,
+                areaColor: 'rgba(0,0,0,0.3)',
+            },
+            label: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                },
+                emphasis: {
+                    textStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            emphasis: {
+                label: {
+                    show: false
+                },
+                itemStyle: {
+                    areaColor: 'rgba(0,0,0,0)',
+                }
+            }
+
+        }, {
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            showEffectOn: 'render',
+            rippleEffect: {
+                period: 5,
+                scale: 5,
+                brushType: 'fill'
+            },
+            hoverAnimation: true,
+            label: {
+                formatter: '{b}',
+                position: 'right',
+                offset: [15, 0],
+                color: param => colors[param.dataIndex % colors.length],
+                show: true
+            },
+            itemStyle: {
+                color: (param) => {
+                    return colors[param.dataIndex % colors.length];
+                },
+                shadowBlur: 10,
+                shadowColor: '#333',
+                opacity: 0.75
+            },
+            emphasis: {
+                itemStyle: {
+                    opacity: 5, //线条宽度
+                }
+            },
+            data: points
+        }, {
+            name: '场馆A',
+            type: 'lines',
+            zlevel: 2,
+            symbol: ['none', 'arrow'],
+            symbolSize: 7,
+            effect: {
+                show: true,
+                period: 4,
+                trailLength: 0.02,
+                symbol: 'circle',
+                symbolSize: 4,
+                color: '#fff'
+            },
+            lineStyle: {
+                width: 1, //线条宽度
+                opacity: 0.5, //尾迹线条透明度
+                curveness: .3, //尾迹线条曲直度
+                shadowBlur: 10,
+            },
+            emphasis: {
+                lineStyle: {
+                    width: 4, //线条宽度
+                }
+            },
+            data: [{
+                name: '场馆A->首都机场',
+                value: 40,
+                coords: [
+                    [115.974519, 40.457009],
+                    [116.606316,40.044924]
+                ],
+            }]
+        }, {
+            name: '场馆B',
+            type: 'lines',
+            zlevel: 2,
+            symbol: ['none', 'arrow'],
+            symbolSize: 7,
+            effect: {
+                show: true,
+                period: 4,
+                trailLength: 0.02,
+                symbol: 'circle',
+                symbolSize: 4,
+                color: '#fff'
+            },
+            lineStyle: {
+                width: 1, //线条宽度
+                opacity: 0.5, //尾迹线条透明度
+                curveness: 0.3, //尾迹线条曲直度
+                shadowBlur: 10,
+            },
+            emphasis: {
+                lineStyle: {
+                    width: 4, //线条宽度
+                }
+            },
+            data: [{
+                name: '场馆B->首都机场',
+                value: 80,
+                coords: [
+                    [116.390431,40.000063],
+                    [116.606316,40.044924]
+                ]
+            }]
+        }]
+    };
+    myChart.setOption(option);
+});
+      })();
+</script>
+</body>
+</html>

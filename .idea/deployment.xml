@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="devops@39.99.192.63:22 (1)">
+    <serverData>
+      <paths name="devops@39.99.192.63:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/u01/traffic_buaa" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="devops@39.99.192.63:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/u01/traffic_buaa" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

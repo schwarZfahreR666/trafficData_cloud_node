@@ -1,0 +1,412 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+	<title></title>
+	
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/icon.css">
+    
+    <script type="text/javascript" src="{% static 'js/trafficFlow/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/trafficFlow/echarts.js' %}"></script>
+	<script type="text/javascript" src="http://www.jeasyui.net/Public/js/easyui/jquery.easyui.min.js"></script> 
+</head>
+<body>
+    <div id="main"  style="width: 100%; height: 800px;"></div>
+</body>
+<script type="text/javascript">
+     // 基于准备好的dom，初始化echarts实例
+    console.log("加载中---------------");
+    var myChart;
+    $.ajaxSettings.async = false;//设置为同步加载，防止因为注入china的json太久后面的代码先执行导致bug
+    $.get('{% static 'js/trafficFlow/beijing.json' %}', function (chinaJson) {//注入china地图，注入的原因有两点：1.引入经纬度 2.用于geo图层的显示，因为geo图层可以让端点产生动态波浪的动画效果
+    echarts.registerMap('china', chinaJson);
+    myChart = echarts.init($('#main')[0]);
+    });
+    var color = ['#a6c84c', '#ffa022', '#46bee9', '#FFB6C1', '#FFF0F5',
+                 '#DA70D6', '#4B0082', '#0000FF', '#F8F8FF', '#4169E1',
+                 '#F0FFFF', '#E1FFFF', '#00FFFF', '#008B8B', '#40E0D0',
+                 '#FFFFE0', '#FFFF00', '#FFA500', '#CD5C5C', '#FF0000'];//随便找了几种颜色，用于产生随机颜色
+    //类似于Demo里面的飞机图形，这里用的箭头图形，这里表示图形的矢量坐标，好处是无论地图放大缩小，都不会失真
+    var planePath = 'path://M80.3,780.9l418.3-421.8l421.7,418.2L990,707L497.9,219.1L10,711.2L80.3,780.9z';//矢量网址：http://www.sfont.cn/
+    var series = [];//echarts固有属性
+    var dataConvergence = [
+         [14000,10000,11000,12000,9000,8000],
+    ];
+
+    var dataDissipation = [
+        [8000,6000,5000,7000,9000,8000],  
+    ];
+    var lineStyle = {
+        normal: {
+            width: 1,
+            opacity: 0.5
+
+        }
+    };
+    function randomData() {
+        now = new Date(+now + oneDay);
+        value = value + Math.random() * 21 - 10;
+        return {
+            name: now.toString(),
+            value: [
+                [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                Math.round(value)
+            ]
+        };
+    };
+    var dataAll = [];
+    var now = +new Date(2020, 1, 1);
+    var oneDay = 24 * 3600 * 1000;
+    var value = Math.random() * 10000;
+    for (var i = 0; i < 1000; i++) {
+        dataAll.push(randomData());
+    };
+    series.push({//这里目前使用了三个type，2个level，所以这里数组push一下
+    	//之前这个type去掉依旧不影响展示效果，但是这个图层可以作为你不想使用level2的lines的动态效果
+    	//举个例子，我这个需求不连通的服务器不需要箭头在线上动态走过去，就可以把这些需求的点加在这个图层里
+    	type: 'lines',
+    	zlevel: 1,//用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。
+    	//zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。类似于z-index吧
+    	effect: {//线特效的配置
+    		show: true,//是否显示特效。
+            period: 6,//特效动画的时间，单位为 s。
+            trailLength: 0.7,//特效尾迹的长度。取从 0 到 1 的值，数值越大尾迹越长。
+            color: '#fff',//特效标记的颜色，默认取 lineStyle.color。
+            symbolSize: 3//特效标记的大小，可以设置成诸如 10 这样单一的数字，也可以用数组分开表示高和宽，例如 [20, 10] 表示标记宽为20，高为10。
+    	},
+    	lineStyle: {
+                normal: {
+                    color: 'yellow',//线的颜色
+                    type: 'dashed',//线的类型。'solid'，'dashed'，'dotted'
+                    //opacity: 0.6, // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+                    curveness: 0.2//边的曲度，支持从 0 到 1 的值，值越大曲度越大。
+                }
+        },
+        // data:[{coords:[[116.0046,28.6633],[120.37,22.64]]}] //线数据集。【【起点】，【终点】】
+    },
+    {
+        type: 'lines',
+        zlevel: 2,//第二图层，位于第一层之上
+        symbol: ['none', 'arrow'],//线两端的标记类型，我这里用的箭头
+        symbolSize: 10,
+        label: {//标签相关配置
+        	normal: {
+        		show: true,
+        		position: 'middle',//标签位置，'start' 线的起始点，'middle' 线的中点。'end' 线的结束点。
+        		color: 'yellow',
+        		formatter: function (params, ticket, callback) {//标签内容格式器，支持字符串模板和回调函数两种形式 回调函数格式：(params: Object|Array) => string
+		        var showHtm="客流转移....";
+		        return showHtm;
+             }
+        	}
+        },
+        effect: {
+            show: true,
+            period: 6,
+            trailLength: 0,
+            symbol: planePath,//特效图形的标记。1.ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+            //2.可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。URL 为图片链接例如：'image://http://xxx.xxx.xxx/a/b.png'
+            //3.可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。
+            symbolSize: 15
+        },
+        lineStyle: {
+            normal: {
+                color: color[1],
+                width: 2,
+                opacity: 0.6,
+                curveness: 0.2
+            }
+        },
+         data:[
+             {coords:[[115.827231,40.469408],[115.990133,40.442226]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.827231,40.469408],[116.609564,40.083812]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.827231,40.469408],[116.433547,39.909462]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.827231,40.469408],[116.328103,39.900835]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.827231,40.469408],[116.385488,39.87128]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.827231,40.469408],[116.42396,39.511576]],lineStyle:{type: 'dashed'}},
+
+             {coords:[[115.793853,40.524099],[115.990133,40.442226]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.793853,40.524099],[116.609564,40.083812]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.793853,40.524099],[116.433547,39.909462]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.793853,40.524099],[116.328103,39.900835]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.793853,40.524099],[116.385488,39.87128]],lineStyle:{type: 'dashed'}},
+             {coords:[[115.793853,40.524099],[116.42396,39.511576]],lineStyle:{type: 'dashed'}},
+         ]
+    },
+    {
+        type: 'effectScatter',//带有涟漪特效动画的散点（气泡）图。利用动画特效可以将某些想要突出的数据进行视觉突出。
+        coordinateSystem: 'geo',//该系列使用的坐标系 可选：1.'cartesian2d'使用二维的直角坐标系（也称笛卡尔坐标系），通过 xAxisIndex, yAxisIndex指定相应的坐标轴组件。
+        //2.'polar'，使用极坐标系，通过 polarIndex 指定相应的极坐标组件
+        //3.'geo'，使用地理坐标系，通过 geoIndex 指定相应的地理坐标系组件。
+        zlevel: 2,//图层level2
+        rippleEffect: {//涟漪特效相关配置
+            brushType: 'stroke'//波纹的绘制方式，可选 'stroke' 和 'fill'。
+        },
+        label: {
+            normal: {
+                show: true,
+                position: 'right',
+                formatter: '{b}'
+            }
+        },
+        //showEffectOn: 'emphasis',
+        symbolSize: 20,
+        //data通过value中的经纬度坐标显示点的位置
+        data: [{name:'首都机场',value:[116.609564,40.083812],itemStyle: {
+            normal: {
+                color: color[(function(){//返回一个color随机数
+                    return Math.round(Math.random()*19);
+                })()],
+                opacity: 0.7
+            }
+        },symbol: 'diamond'},
+        {name:'北京站',value:[116.433547,39.909462],itemStyle: {
+            normal: {
+                color: color[(function(){//返回一个color随机数
+                	return Math.round(Math.random()*19);
+                })()],
+                opacity: 0.7
+            }
+        },symbol: 'diamond'},
+        {name:'北京西站',value:[116.328103,39.900835],itemStyle: {
+            normal: {
+                color: color[(function(){//返回一个color随机数
+                    return Math.round(Math.random()*19);
+                })()],
+                opacity: 0.7
+            }
+        },symbol: 'diamond'},
+        {name:'北京南站',value:[116.385488,39.87128],itemStyle: {
+            normal: {
+                color: color[(function(){//返回一个color随机数
+                    return Math.round(Math.random()*19);
+                })()],
+                opacity: 0.7
+            }
+        },symbol: 'diamond'},
+         {name:'大兴机场',value:[116.42396,39.511576],itemStyle: {
+            normal: {
+                color: color[(function(){//返回一个color随机数
+                    return Math.round(Math.random()*19);
+                })()],
+                opacity: 0.7
+            }
+        },symbol: 'diamond'},
+        {name:'延庆站',value:[115.990133,40.442226],itemStyle: {
+            normal: {
+                color: 'rgb(128, 128, 128)'
+            },
+        },symbol: 'diamond'},
+        
+        {name:'辉煌国际中交隧道局高山滑雪中心',value:[115.827231,40.469408],itemStyle: {
+            normal: {
+                color: color[(function(){
+                	return Math.round(Math.random()*19);
+                })()]
+            },
+        },symbol: 'roundRect'},
+        {name:'上海宝冶国家雪车雪橇中心',value:[115.793853,40.524099],itemStyle: {
+            normal: {
+                color: color[(function(){
+                    return Math.round(Math.random()*19);
+                })()]
+            },
+        },symbol: 'roundRect'}
+        ] //isConnected: false,ip: '192.168.2.2',serverLocation:'Fly'
+    },
+    {
+            name: '客流汇聚',
+            type: 'radar',
+            lineStyle: lineStyle,
+            data: dataConvergence,
+            symbol: 'none',
+            itemStyle: {
+                color: '#F9713C'
+            },
+            areaStyle: {
+                opacity: 0.5
+            }
+    },
+    {
+            name: '客流消散',
+            type: 'radar',
+            lineStyle: lineStyle,
+            data: dataDissipation,
+            symbol: 'none',
+            itemStyle: {
+                color: '#B3E4A1'
+            },
+            areaStyle: {
+                opacity: 0.5
+            }
+    },
+    {
+            name: '客流总数',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: dataAll
+    }
+    );
+    
+    option = {
+    	 tooltip :{
+    	 	show: true,
+    	 	confine:false,//是否将 tooltip 框限制在图表的区域内。
+    	 	showContent:true, //是否显示提示框浮层
+            trigger:'item',//触发类型，默认数据项触发
+            formatter: function (params, ticket, callback) {//悬浮提示，可以拿到data中的属性然后进行显示
+		        console.log('-------');
+		        console.log(params);
+		        var showHtm="";
+		        if(params.data){
+		        	var obj = params.data;
+		        	for(key in obj){
+                        switch(key){
+                        	// case 'isConnected': showHtm += '是否联通='+obj[key]+'<br>'; break;
+                        	// case 'ip': showHtm += 'ip='+obj[key]+'<br>'; break;
+                        	// case 'serverLocation': showHtm += '服务器所在地='+obj[key]+'<br>'; break;
+                        	default:
+                        }
+		        	}
+		        }
+		        return showHtm;
+             }
+    	 },
+        //  tooltip: {
+        //     trigger: 'axis',
+        //     formatter: function (params) {
+        //         params = params[0];
+        //         var date = new Date(params.name);
+        //         return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+        //     },
+        //     axisPointer: {
+        //         animation: false
+        //     }
+        // },
+    	 backgroundColor: '#404a59',//背景色，默认无背景。
+    	 title : {
+           	 text: '延庆客流转移示意图',
+           	 left: 'center',//grid 组件离容器左侧的距离，left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'。
+           	 textStyle : {
+                color: '#fff'
+               }
+         },
+	    geo: {//地理坐标系组件。
+
+	        map: 'china',//地图类型 ECharts 中提供了两种格式的地图数据，一种是可以直接 script 标签引入的 js 文件，引入后会自动注册地图名字和数据。还有一种是 JSON 文件，需要通过 AJAX 异步加载后手动注册。
+            zoom: 20,//当前视角的缩放比例。
+            //center:[],//当前视角的中心点，用经纬度表示
+	        label: {
+	            emphasis: {
+	                show: false
+	            }
+	        },
+	        roam: true,//是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            center: [116.227102,39.856093], //somewhere
+	        itemStyle: {
+	            normal: {
+	                areaColor: '#323c48',
+	                borderColor: '#404a59'
+	            },
+	            emphasis: {
+	                areaColor: '#2a333d'
+	            }
+	        }
+	    },
+        legend: {
+            x: '3%',
+            y: '40%',
+            data: ['客流汇聚', '客流消散'],
+            itemGap: 20,
+            textStyle: {
+                color: '#fff',
+                fontSize: 14
+            },
+            selectedMode: 'multiple'
+        },
+        radar: {
+            center: ['10%', '20%'],
+            radius: 100,
+            indicator: [
+                {name: '延庆站', axisLabel: {show: true, textStyle: {fontSize: 18, color: '#333'}}, max: 15000},
+                {name: '首都机场', max: 15000},
+                {name: '北京站', max: 15000},
+                {name: '北京西站', max: 15000},
+                {name: '北京南站', max: 15000},
+                {name: '大兴机场', max: 15000}
+            ],
+            shape: 'circle',
+            splitNumber: 5,
+            name: {
+                textStyle: {
+                    color: 'rgb(238, 197, 102)'
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: [
+                        'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
+                        'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
+                        'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
+                    ].reverse()
+                }
+            },
+            splitArea: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(238, 197, 102, 0.5)'
+                }
+            }
+        },
+        
+        grid: {
+            left: "3%",
+            right: "70%",
+            top: "50%",
+           
+        },
+        xAxis: {
+            type: 'time',
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+            type: 'value',
+            // show: true,
+            boundaryGap: [0, '100%'],
+            splitLine: {
+                show: false
+            }
+        },
+	    series: series
+    };
+
+    
+    setInterval(function () {
+        for (var i = 0; i < 5; i++) {
+            dataAll.shift();
+            dataAll.push(randomData());
+        }
+        series.pop();
+        series.push( {
+            name: '客流总数',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: dataAll
+        });
+        myChart.setOption(option);
+    }, 1000);  //1 days -update interval
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+</script>
+</html>
