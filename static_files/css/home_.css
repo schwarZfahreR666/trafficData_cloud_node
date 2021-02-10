@@ -99,7 +99,7 @@ header h1 {
 }
 .slideTxtBox .hd ul li{ 
     float:left; 
-    padding:0 8px;
+    padding:0 25px;
     cursor:pointer;  
 }
 .slideTxtBox .hd ul li.on{ 
@@ -138,10 +138,6 @@ header h1 {
 .txtMarquee-top .infoList3 li{ 
     height:24px; 
     line-height:24px;   
-}
-.txtMarquee-top .infoList4 li{
-    height:24px;
-    line-height:24px;
 }
 .txtMarquee-top li span{ 
     font-size:10px;

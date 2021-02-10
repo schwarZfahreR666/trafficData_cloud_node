@@ -38,7 +38,7 @@
                 <div class="slider">
                 <div class="slideTxtBox">
                     <div class="hd">
-                        <ul><li>路况信息</li><li>事件信息</li><li>赛事信息</li><li>公交信息</li></ul>
+                        <ul><li>路况事件</li><li>公交信息</li><li>赛事信息</li></ul>
                     </div>
                     
                     <div class="bd">
@@ -49,23 +49,6 @@
                     </div>
                     <div class="txtMarquee-top2">
                         <ul class="infoList2" id="p2">
-
-                        </ul>
-                    </div>
-                    <div class="txtMarquee-top3">
-                        <ul class="infoList3">
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                        </ul>
-                    </div>
-                        <div class="txtMarquee-top4">
-                        <ul class="infoList4">
                             <li><span>919路公交车，</span></li>
                             <li><span>德胜门-</span></li>
                             <li><span>延庆体育场小区，</span></li>
@@ -94,6 +77,15 @@
                             <li><span>*****************</span></li>
                         </ul>
                     </div>
+                    <div class="txtMarquee-top3">
+                        <ul class="infoList3">
+                            <li><span>赛事信息</span></li>
+                            <li><span>赛事信息</span></li>
+                            <li><span>赛事信息</span></li>
+
+                        </ul>
+                    </div>
+
                 </div>
                 </div>
 
@@ -115,7 +107,7 @@
         jQuery(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
         jQuery(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
         jQuery(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-        jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+        {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
         jQuery(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
     </script>
 
@@ -237,21 +229,21 @@
                         pre = str.substr(0,8);
                         str = str.substring(8);
                         let text = '<li><span style="white-space:normal;">' + pre + '</li></span>';
-                        attr2 += text;
+                        attr1 += text;
                         if(str.length<=8){
-                           attr2 +=  '<li><span style="white-space:normal;">' + str + '</li></span>';
+                           attr1 +=  '<li><span style="white-space:normal;">' + str + '</li></span>';
                         }
 
                     }
-                    attr2 += '<li><span>*****************</li></span>';
+                    attr1 += '<li><span>*****************</li></span>';
                 }
 
                 list1.innerHTML = attr1;
-                list2.innerHTML = attr2;
-                jQuery(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:100});
+                {#list2.innerHTML = attr2;#}
+                jQuery(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
                 jQuery(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
                 jQuery(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-                jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+                {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
                 jQuery(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
                 }})
     }
