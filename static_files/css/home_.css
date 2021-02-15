@@ -5,7 +5,7 @@
     list-style:none;
 }
 body {
-    line-height: 1.15;
+    /*line-height: 1.15;*/
     /* overflow: hidden; */
     position: relative;
     font:normal 12px/22px 宋体;
@@ -132,17 +132,18 @@ header h1 {
     border:1px solid #ccc;   
 }
 .txtMarquee-top .infoList1 li{ 
-    height:24px; 
-    line-height:24px;
+    height:12px;
+    line-height:12px;
+    font-size:18px;
 }
 .txtMarquee-top .infoList2 li{ 
-    height:24px; 
-    line-height:24px;   
+    height:12px;
+    line-height:12px;
 }
 .txtMarquee-top .infoList3 li{ 
-    height:24px; 
-    line-height:24px;   
+    height:12px;
+    line-height:12px;
 }
 .txtMarquee-top li span{ 
-    font-size:10px;
+    font-size:18px;
 }
