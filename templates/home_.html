@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>奥会数据感知采集与融合处理系统</title>
     <link rel="stylesheet" href="{% static 'css/home_.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
 </head>
 <body>
     <!-- 左边栏 -->
@@ -28,6 +29,9 @@
                     <div class="map1" id="map1">
 
                     </div>
+                    <div class="anchor">
+
+                    </div>
                 </div>
             </div>
             <div class="column2">
@@ -38,7 +42,7 @@
                 <div class="slider">
                 <div class="slideTxtBox">
                     <div class="hd">
-                        <ul><li>路况事件</li><li>公交信息</li><li>赛事信息</li></ul>
+                        <ul><li>路况事件</li><li>赛事信息</li></ul>
                     </div>
                     
                     <div class="bd">
@@ -47,41 +51,9 @@
 
                         </ul>
                     </div>
+
                     <div class="txtMarquee-top2">
-                        <ul class="infoList2" id="p2">
-                            <li><span>919路公交车，</span></li>
-                            <li><span>德胜门-</span></li>
-                            <li><span>延庆体育场小区，</span></li>
-                            <li><span>首末班时间</span></li>
-                            <li><span>05:45-19:00，</span></li>
-                            <li><span>15分钟一班.</span></li>
-                            <li><span>*****************</span></li>
-                            <li><span>专线车，</span></li>
-                            <li><span>延庆高铁站-</span></li>
-                            <li><span>国家高山滑雪中心，</span></li>
-                            <li><span>首末班时间7:30-17:00，</span></li>
-                            <li><span>半小时一班。</span></li>
-                            <li><span>*****************</span></li>
-                            <li><span>市郊铁路S2线，</span></li>
-                            <li><span>黄土店-延庆，</span></li>
-                            <li><span>发车时间08:40、</span></li>
-                            <li><span>13:08、18:10。</span></li>
-                            <li><span>*****************</span></li>
-                            <li><span>G8883，</span></li>
-                            <li><span>北京北站-延庆站，</span></li>
-                            <li><span>08:51-09:37。</span></li>
-                            <li><span>*****************</span></li>
-                            <li><span>G8889，</span></li>
-                            <li><span>北京北站-延庆站，</span></li>
-                            <li><span>18:25-19:05。</span></li>
-                            <li><span>*****************</span></li>
-                        </ul>
-                    </div>
-                    <div class="txtMarquee-top3">
-                        <ul class="infoList3">
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
-                            <li><span>赛事信息</span></li>
+                        <ul class="infoList3" id="p2">
 
                         </ul>
                     </div>
@@ -98,17 +70,23 @@
 
     <!-- script部分 -->
     <script src="{% static 'js/flexible.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery1.42.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.SuperSlide.2.1.1.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/draw.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.drag.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dialog.js' %}"></script>
+
+
+
 
 
     <script type="text/javascript">
-        jQuery(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-        jQuery(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-        jQuery(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+        $(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+        $(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+        {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
         {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
-        jQuery(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
+        $(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
     </script>
 
 <script>
@@ -135,10 +113,11 @@
         loadSVGInline();
         getApi();
 
-    }
+
+    };
     function loadSVGInline()
 {
-    var SVGFile="{% static 'img/map.svg' %}";
+    var SVGFile="{% static 'img/bdmap.svg' %}";
     var loadXML = new XMLHttpRequest;
     function handler(){
 
@@ -146,6 +125,8 @@
         if(loadXML.readyState == 4 && loadXML.status == 200)
         {
             svgDiv.innerHTML=loadXML.responseText;
+
+
         }
     }
     if (loadXML != null){
@@ -166,29 +147,51 @@
             dataType: 'json',
             success: function (data) {
                 //方法中传入的参数data为后台获取的数据
-                var road_list = ['松山大桥',
-        '西羊坊隧道',
-        '京银路',
-        '康张路',
-        '京礼高速',
-        '百康路',
-        '西丁路',
-        '百泉街',
-        '湖南西路',
-        '妫水南街',
-        '京藏高速',
-        '京新高速',
-        '京承高速',
-        '万泉河路',
-        '莲花池西路',
-        '莲花池东路',
-        '大兴机场高速',
-        '崇文门东大街',];
+    {#            var road_list = ['松山大桥',#}
+    {#    '西羊坊隧道',#}
+    {#    '京银路',#}
+    {#    '康张路',#}
+    {#    '京礼高速',#}
+    {#    '百康路',#}
+    {#    '西丁路',#}
+    {#    '百泉街',#}
+    {#    '湖南西路',#}
+    {#    '妫水南街',#}
+    {#    '京藏高速',#}
+    {#    '京新高速',#}
+    {#    '京承高速',#}
+    {#    '万泉河路',#}
+    {#    '莲花池西路',#}
+    {#    '莲花池东路',#}
+    {#    '大兴机场高速',#}
+    {#    '崇文门东大街',#}
+    {##}
+    {#];#}
+                var road_list = [
+                    '团结路',
+                    '京银路',
+                    '康张路',
+                    '西顺城街',
+                    '京原路',
+                    '京平高速',
+                    '京藏高速',
+                    '京新高速',
+                    '京承高速',
+                    '京礼高速',
+                ];
                 road_info = data['road'];
                 events = data['event'];
+                games = data['game'];
                 for(var i=0;i<road_list.length;i++){
                     document.getElementById(road_list[i]).style="fill:#00b050;";
                 }
+
+                var dialogs = document.getElementsByClassName("j-dialog");
+                for(var i=0;i<dialogs.length;i++){
+                    console.log(dialogs);
+                    dialogs[i--].remove();
+                }
+
                 var list1 = document.getElementById("p1");
                 var list2 = document.getElementById("p2");
                 var attr1 = '';
@@ -199,15 +202,37 @@
                     if (speed>=30){
 
                         document.getElementById(road_name).style="fill:#ffff00;";
-                        console.log(road_name);
+
                     }
                     else {
                         document.getElementById(road_name).style="fill:#ff0000;";
-                        console.log(road_name);
+
                     }
 
                     var str = road_info[i]['text'];
                     var pre = '';
+
+                    var target = $('#' + road_name);
+
+                    console.log(target.offset());
+                    html = "<div>" + str + "</div>";
+                    offset = {
+                        top: -target.offset().top+100,
+                        left: target.offset().left-500,
+                        right: 0,
+                        bottom: 0
+                    };
+
+                    dialog = jDialog.tip(html, {
+                        target: $('.anchor'),
+                        position: 'top',
+                        trianglePosFromStart: 100,
+                        padding: '10px 5px',
+                        autoClose: 1,
+                        offset: offset
+                    });
+
+
                     while(str.length>8){
                         pre = str.substr(0,8);
                         str = str.substring(8);
@@ -225,6 +250,8 @@
 
                     var str = events[i]['content'];
                     var pre = '';
+
+
                     while(str.length>8){
                         pre = str.substr(0,8);
                         str = str.substring(8);
@@ -234,20 +261,47 @@
                            attr1 +=  '<li><span style="white-space:normal;">' + str + '</li></span>';
                         }
 
+
+
                     }
                     attr1 += '<li><span>*****************</li></span>';
                 }
 
+                for(var i = 0;i<games.length;i++){
+
+                    var str = games[i]['content'];
+                    var pre = '';
+                    while(str.length>8){
+                        pre = str.substr(0,8);
+                        str = str.substring(8);
+                        let text = '<li><span style="white-space:normal;">' + pre + '</li></span>';
+                        attr2 += text;
+                        if(str.length<=8){
+                           attr2 +=  '<li><span style="white-space:normal;">' + str + '</li></span>';
+                        }
+
+
+
+                    }
+                    attr2 += '<li><span>*****************</li></span>';
+                }
+
+
+
+
                 list1.innerHTML = attr1;
-                {#list2.innerHTML = attr2;#}
-                jQuery(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-                jQuery(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-                jQuery(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+                list2.innerHTML = attr2;
+                $(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+                $(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+                {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
                 {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
-                jQuery(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
+                $(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
                 }})
     }
 
+
+
     </script>
+
 </body>
 </html>

@@ -19,6 +19,8 @@
     <orderEntry type="library" name="echarts" level="application" />
     <orderEntry type="library" name="json3" level="application" />
     <orderEntry type="library" name="jquery.easyui" level="application" />
+    <orderEntry type="library" name="jquery-1.10.2" level="application" />
+    <orderEntry type="library" name="jquery-ui" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

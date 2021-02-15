@@ -109,10 +109,23 @@ def get_road_info(request):
     except:
         print("Error: unable to fetch data")
 
+    game_sql = " SELECT * FROM GAME;"
+    games = []
+    try:
+        # 执行SQL语句
+        cursor.execute(game_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'content': data[2]}
+            games.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
 
     # 关闭数据库连接
     db.close()
-    re = {'road': res, 'event': events}
+    re = {'road': res, 'event': events, 'game': games}
     js = json.dumps(re)
 
     return HttpResponse(js)

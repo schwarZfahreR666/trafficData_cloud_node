@@ -102,7 +102,7 @@
 					class="st3"/>
 			<text x="970.63" y="-6.66" transform="rotate(90)" class="st4" v:langID="2052"><v:paragraph/><v:tabList/>八达岭站</text>		</g>
 		<g id="shape44-13" v:mID="44" v:groupContext="shape" v:layerMember="0"
-				transform="translate(283.066,-947.396) rotate(0.520184)">
+				transform="translate(283.066,-947.396) rotate(0.520184)" item="jingyinlu">
 			<title>环线地铁</title>
 			<desc>京银路</desc>
 			<v:custProps>
