@@ -26,5 +26,6 @@ urlpatterns = [
     path('resource_topo/', views.get_resource_topo),
     path('road_info/', views.get_road_info),
     path('trafficflow/', views.trafficflow),
+    path('home_zjk/', views.home_zjk),
 
 ]

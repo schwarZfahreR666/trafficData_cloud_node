@@ -48,9 +48,8 @@
                     <div class="hd">
                         <ul><li>事件信息</li><li>赛事信息</li></ul>
                     </div>
-
-
-                    <div class="bd" id="bd_slide">
+                    
+                    <div class="bd">
                     <div class="txtMarquee-top1">
                         <ul class="infoList1" id="p1" >
 
@@ -58,7 +57,7 @@
                     </div>
 
                     <div class="txtMarquee-top2">
-                        <ul class="infoList2" id="p2">
+                        <ul class="infoList3" id="p2">
 
                         </ul>
                     </div>
@@ -103,7 +102,7 @@
         "background": 1,
         "dataColor": "FFFFFF",
         "borderRadius": 5,
-        "city": "CN101010800",
+        "city": "CN101090314",
         "key": "H1kQFiLkmC"
       }
     }
@@ -116,19 +115,13 @@
     window.onload = function () {
 
         loadSVGInline();
-        getApi();
+        //getApi();
 
 
     };
-    function myrefresh()
-    {
-        window.location.reload();
-        console.log(1111);
-    }
-    setTimeout('myrefresh()',700*1000);
     function loadSVGInline()
 {
-    var SVGFile="{% static 'img/bdmap.svg' %}";
+    var SVGFile="{% static 'img/bdmap_zjk.svg' %}";
     var loadXML = new XMLHttpRequest;
     function handler(){
 
@@ -147,7 +140,6 @@
 
     }
 }
-
     function getApi() {
         //设置时间 300-秒  1000-毫秒  这里设置你自己想要的时间
         setTimeout(getApi,300*1000);
@@ -179,11 +171,6 @@
     {#    '崇文门东大街',#}
     {##}
     {#];#}
-
-                var line_len = 15;
-                {#var bd = '<div class="txtMarquee-top1"><ul class="infoList1" id="p1" ></ul></div><div class="txtMarquee-top2"><ul class="infoList3" id="p2"></ul></div>';#}
-                {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
-                {#$('.slider').html(slide_box);#}
                 var road_list = [
                     '团结路',
                     '京银路',
@@ -250,12 +237,12 @@
                     });
 
 
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
-                        str = str.substring(line_len);
+                    while(str.length>8){
+                        pre = str.substr(0,8);
+                        str = str.substring(8);
                         let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
                         attr1 += text;
-                        if(str.length<=line_len){
+                        if(str.length<=8){
                            attr1 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
                         }
 
@@ -269,12 +256,12 @@
                     var pre = '';
 
 
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
-                        str = str.substring(line_len);
+                    while(str.length>8){
+                        pre = str.substr(0,8);
+                        str = str.substring(8);
                         let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
                         attr1 += text;
-                        if(str.length<=line_len){
+                        if(str.length<=8){
                            attr1 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
                         }
 
@@ -288,12 +275,12 @@
 
                     var str = games[i]['content'];
                     var pre = '';
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
-                        str = str.substring(line_len);
+                    while(str.length>8){
+                        pre = str.substr(0,8);
+                        str = str.substring(8);
                         let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
                         attr2 += text;
-                        if(str.length<=line_len){
+                        if(str.length<=8){
                            attr2 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
                         }
 

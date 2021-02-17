@@ -42,6 +42,9 @@ def home(request):
 
     return render(request, 'home_.html')
 
+def home_zjk(request):
+
+    return render(request, 'home_zjk.html')
 
 def get_cpu_state(request):
 
@@ -133,5 +136,6 @@ def get_road_info(request):
 def trafficflow(request):
 
     return render(request, 'home_trafficflow.html')
+
 
 
