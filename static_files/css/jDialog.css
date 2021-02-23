@@ -4,11 +4,11 @@
 .j-dialog {
     background-color: white;
     border: 1px solid #ccc;
-    font-size: 14px ;
+    font-size: 10px ;
     font-family: tahoma, helvetica, "microsoft yahei", "宋体",arial;
     position: absolute;
     clear: left;
-    width:400px;
+    width:200px;
     overflow: hidden;
     opacity: 0.65;
 }

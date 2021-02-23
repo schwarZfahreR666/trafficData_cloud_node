@@ -94,7 +94,7 @@ def get_road_info(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'road_name': data[1], 'text': data[2], 'speed': data[3]}
+            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
             res.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -107,7 +107,7 @@ def get_road_info(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'content': data[2]}
+            dic = {'date': str(data[0]), 'content': data[2]}
             events.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -120,7 +120,7 @@ def get_road_info(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'content': data[2]}
+            dic = {'date': str(data[0]), 'content': data[2]}
             games.append(dic)
     except:
         print("Error: unable to fetch data")

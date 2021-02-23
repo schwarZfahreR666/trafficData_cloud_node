@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>奥会数据感知采集与融合处理系统</title>
+    <title>冬奥会数据感知采集与融合处理系统</title>
     <link rel="stylesheet" href="{% static 'css/home_.css' %}">
     <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
 </head>
@@ -17,7 +17,7 @@
     <div class="container">
         <!-- 上面头部 -->
         <header>
-            <h1>北京冬奥会态势感知数据采集及融合平台-延庆赛区</h1>
+            <h1>北京冬奥会态势感知数据采集及融合系统-延庆赛区</h1>
 
         </header>
         <!-- 下面主体 -->
@@ -98,7 +98,7 @@
     WIDGET = {
       CONFIG: {
         "layout": 2,
-        "width": "300",
+        "width": "270",
         "height": "270",
         "background": 1,
         "dataColor": "FFFFFF",
@@ -117,6 +117,7 @@
 
         loadSVGInline();
         getApi();
+        setTimeout('myrefresh()',700*1000);
 
 
     };
@@ -125,7 +126,7 @@
         window.location.reload();
         console.log(1111);
     }
-    setTimeout('myrefresh()',700*1000);
+
     function loadSVGInline()
 {
     var SVGFile="{% static 'img/bdmap.svg' %}";
@@ -151,6 +152,8 @@
     function getApi() {
         //设置时间 300-秒  1000-毫秒  这里设置你自己想要的时间
         setTimeout(getApi,300*1000);
+
+
 
 
         $.ajax({
@@ -180,7 +183,7 @@
     {##}
     {#];#}
 
-                var line_len = 15;
+                var line_len = 16;
                 {#var bd = '<div class="txtMarquee-top1"><ul class="infoList1" id="p1" ></ul></div><div class="txtMarquee-top2"><ul class="infoList3" id="p2"></ul></div>';#}
                 {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
                 {#$('.slider').html(slide_box);#}
@@ -191,8 +194,33 @@
                     '西顺城街',
                     '京原路',
                     '京平高速',
-                    '京藏高速',
-                    '京新高速',
+                    '京藏高速0',
+                    '京藏高速1',
+                    '京藏高速2',
+                    '京藏高速3',
+                    '京藏高速4',
+                    '京藏高速5',
+                    '京藏高速6',
+                    '京藏高速7',
+                    '京藏高速8',
+                    '京藏高速9',
+                    '京藏高速10',
+                    '京藏高速11',
+                    '京藏高速12',
+                    '京藏高速13',
+                    '京新高速1',
+                    '京新高速2',
+                    '京新高速3',
+                    '京新高速4',
+                    '京新高速5',
+                    '京新高速7',
+                    '京新高速8',
+                    '京新高速9',
+                    '京新高速10',
+                    '京新高速11',
+                    '京新高速12',
+                    '京新高速13',
+                    '京新高速14',
                     '京承高速',
                     '京礼高速',
                 ];
@@ -201,7 +229,12 @@
                 games = data['game'];
                 for(var i=0;i<road_list.length;i++){
                     document.getElementById(road_list[i]).style="fill:#00b050;";
+
                 }
+                {#var animates = document.getElementsByName("animate");#}
+                {#for(var i=0;i<animates.length;i++){#}
+                {#    animates[i--].remove();#}
+                {#}#}
 
                 var dialogs = document.getElementsByClassName("j-dialog");
                 for(var i=0;i<dialogs.length;i++){
@@ -209,33 +242,35 @@
                     dialogs[i--].remove();
                 }
 
+
+                var dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();//获取时
+                var m = dt.getMinutes();//获取分
+                var s = dt.getSeconds();//获取秒
+                var minutes = (dt.getMinutes()<10?'0':'') + dt.getMinutes();
+                var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                var hms = h + ":" + minutes ;
+
                 var list1 = document.getElementById("p1");
                 var list2 = document.getElementById("p2");
                 var attr1 = '';
                 var attr2 = '';
-                for(var i = 0;i<road_info.length;i++){
-                    var road_name = road_info[i]['road_name'];
-                    var speed = parseFloat(road_info[i]['speed']);
-                    if (speed>=30){
-
-                        document.getElementById(road_name).style="fill:#ffff00;";
-
-                    }
-                    else {
-                        document.getElementById(road_name).style="fill:#ff0000;";
-
-                    }
-
-                    var str = road_info[i]['text'];
-                    var pre = '';
-
-                    var target = $('#' + road_name);
-
-                    console.log(target.offset());
-                    html = "<div>" + str + "</div>";
+                if(road_info.length===0){
+                    var dt = new Date();
+                    var y = dt.getFullYear();
+                    var mt = dt.getMonth() + 1;
+                    var day = dt.getDate();
+                    var h = dt.getHours();//获取时
+                    var m = dt.getMinutes();//获取分
+                    var s = dt.getSeconds();//获取秒
+                    var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                    html = "<div>" + time + ":" + "延庆场馆周边道路全线畅通。</div>";
                     offset = {
-                        top: -target.offset().top+100,
-                        left: target.offset().left-500,
+                        top: -400,
+                        left: -400,
                         right: 0,
                         bottom: 0
                     };
@@ -249,14 +284,113 @@
                         offset: offset
                     });
 
+                }
+                for(var i = 0;i<road_info.length;i++){
+                    var road_name = road_info[i]['road_name'];
+                    if(road_name==="京藏高速" || road_name==="京新高速"){
+                        if(road_info[i]['section_id']===null){
+                            road_info[i]['section_id']='5';
+                        }
+                        road_name = road_name + road_info[i]['section_id'];
+                        console.log(road_name);
+                        console.log(road_info[i]['text']);
+                    }
+                    var speed = parseFloat(road_info[i]['speed']);
+                    var direction = parseInt(road_info[i]['direction']);
+                    if (speed>=30){
+
+                        var color = 'y'+direction;
+                        document.getElementById(road_name).style="fill:url(#"+color+");";
+                        {#var svgNS = "http://www.w3.org/2000/svg";#}
+                        {#var carton1 = document.createElementNS(svgNS,'animate');#}
+                        {#carton1.setAttribute('id',road_name + 'Ani1');#}
+                        {#carton1.setAttribute('attributeType','CSS');#}
+                        {#carton1.setAttribute('attributeName','fill');#}
+                        {#carton1.setAttribute('from','#00b050');#}
+                        {#carton1.setAttribute('to','#ffff00');#}
+                        {#carton1.setAttribute('begin','0s;' + road_name + 'Ani1.end');#}
+                        {#carton1.setAttribute('dur','1s');#}
+                        {#carton1.setAttribute('trepeatCount','indefinite');#}
+                        {##}
+                        {##}
+                        {#var carton2 = document.createElementNS(svgNS,'animate');#}
+                        {#carton2.setAttribute('id',road_name + 'Ani2');#}
+                        {#carton2.setAttribute('attributeType','CSS');#}
+                        {#carton2.setAttribute('attributeName','fill');#}
+                        {#carton2.setAttribute('from','#00b050');#}
+                        {#carton2.setAttribute('to','#ffff00');#}
+                        {#carton2.setAttribute('begin',road_name + 'Ani2.end');#}
+                        {#carton2.setAttribute('dur','1s');#}
+                        {#carton2.setAttribute('trepeatCount','indefinite');#}
+                        {##}
+                        {#document.getElementById(road_name).appendChild(carton1);#}
+                        {#document.getElementById(road_name).appendChild(carton2);#}
+
+                    }
+                    else {
+                        var color = 'r'+direction;
+                        console.log(color);
+                        document.getElementById(road_name).style="fill:url(#"+color+");";
+                        {#var svgNS = "http://www.w3.org/2000/svg";#}
+                        {#var carton1 = document.createElementNS(svgNS,'animate');#}
+                        {#carton1.setAttribute('id',road_name + 'Ani1');#}
+                        {#carton1.setAttribute('attributeType','CSS');#}
+                        {#carton1.setAttribute('attributeName','fill');#}
+                        {#carton1.setAttribute('from','#00b050');#}
+                        {#carton1.setAttribute('to','url(#grad1)');#}
+                        {#carton1.setAttribute('begin','0s;' + road_name + 'Ani1.end');#}
+                        {#carton1.setAttribute('dur','1s');#}
+                        {#carton1.setAttribute('trepeatCount','indefinite');#}
+                        {##}
+                        {##}
+                        {#var carton2 = document.createElementNS(svgNS,'animate');#}
+                        {#carton2.setAttribute('id',road_name + 'Ani2');#}
+                        {#carton2.setAttribute('attributeType','CSS');#}
+                        {#carton2.setAttribute('attributeName','fill');#}
+                        {#carton2.setAttribute('from','url(#grad1)');#}
+                        {#carton2.setAttribute('to','#00b050');#}
+                        {#carton2.setAttribute('begin',road_name + 'Ani2.end');#}
+                        {#carton2.setAttribute('dur','1s');#}
+                        {#carton2.setAttribute('trepeatCount','indefinite');#}
+                        {##}
+                        {#document.getElementById(road_name).appendChild(carton1);#}
+                        {#document.getElementById(road_name).appendChild(carton2);#}
+
+                    }
+
+                    var str = road_info[i]['text'];
+                    var pre = '';
+
+                    var target = $('#' + road_name);
+
+                    console.log(target.offset());
+                    html = "<div>" + str + "</div>";
+                    offset = {
+                        top: -target.offset().top-100+Math.max(50,Math.round(Math.random()*200)),//-target.offset().top-50,
+                        left: target.offset().left-550,
+                        right: 0,
+                        bottom: 0
+                    };
+
+                    dialog = jDialog.tip(html, {
+                        target: $('.anchor'),
+                        position: 'top',
+                        trianglePosFromStart: 100,
+                        padding: '10px 5px',
+                        width: '200px',
+                        minWidth: '100px',
+                        autoClose: 1,
+                        offset: offset
+                    });
+
 
                     while(str.length>line_len){
                         pre = str.substr(0,line_len);
                         str = str.substring(line_len);
-                        let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
                         if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
+                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
                     }
@@ -265,17 +399,17 @@
 
                 for(var i = 0;i<events.length;i++){
 
-                    var str = events[i]['content'];
+                    var str = events[i]['date'] + ' ' + hms + ' ' + events[i]['content'];
                     var pre = '';
 
 
                     while(str.length>line_len){
                         pre = str.substr(0,line_len);
                         str = str.substring(line_len);
-                        let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
                         if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
+                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
 
@@ -286,15 +420,15 @@
 
                 for(var i = 0;i<games.length;i++){
 
-                    var str = games[i]['content'];
+                    var str = games[i]['date'] + ' ' + hms + ' ' + games[i]['content'];
                     var pre = '';
                     while(str.length>line_len){
                         pre = str.substr(0,line_len);
                         str = str.substring(line_len);
-                        let text = '<li><span style="white-space:normal;font-size:18px;">' + pre + '</li></span>';
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr2 += text;
                         if(str.length<=line_len){
-                           attr2 +=  '<li><span style="white-space:normal;font-size:18px;">' + str + '</li></span>';
+                           attr2 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
 
