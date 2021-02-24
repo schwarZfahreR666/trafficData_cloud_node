@@ -6775,7 +6775,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="96.5253" cy="637.319" width="193.06" height="4.25197"/>
 			<path d="M0 639.44 L193.05 639.44 A2.12598 2.12598 -180 1 0 193.05 635.19 L0 635.19 A2.12598 2.12598 -180 1 0 -0 639.44
-						 Z" class="st10"/>
+						 Z" class="st10" id="京新高速0"/>
 			<text x="80.46" y="630.12" class="st8" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>京新高速<v:newlineChar/><v:newlineChar/></text>		</g>
 		<g id="shape442-136" v:mID="442" v:groupContext="shape" v:layerMember="0"
 				transform="translate(-395.394,354.517) rotate(-101.063)">

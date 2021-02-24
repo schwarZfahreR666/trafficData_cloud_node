@@ -31,7 +31,7 @@
 	list-style: none;
 	width: 70px;
 	/* 高度占浏览器可视区域的高度 */
-	height: 120vh;
+	height: 100vh;
 	background-color: rgba(37, 50, 84, 0.5);
 	transition: all 0.5s;
 	margin: 0;
@@ -43,7 +43,7 @@
 
 #resource_button{
 	position: absolute;
-	bottom: 120px;
+	bottom: -10px;
 }
 
 /* :first-child选择器 选择到ul下面的第一个元素 */
