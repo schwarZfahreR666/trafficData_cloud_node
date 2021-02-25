@@ -8,9 +8,10 @@
     font-family: tahoma, helvetica, "microsoft yahei", "宋体",arial;
     position: absolute;
     clear: left;
-    width:200px;
+    width:100px;
     overflow: hidden;
     opacity: 0.65;
+    padding: 1px 1px;
 }
 /* 阴影 */
 .j-dialog-shadow {

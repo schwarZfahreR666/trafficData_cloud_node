@@ -57,7 +57,7 @@ var jDialog = (function($, undefined){
         fixed           : true ,    //是否使用fix属性定位窗口
         left            : null,     //初始显示位置
         top             : null,     //初始显示位置
-        closeable       : true,     //是否可关闭
+        closeable       : false,     //是否可关闭
         hideOnClose     : false,    //关闭时是否只隐藏窗口，而不是删除，可通过show方法再次显示
         draggable       : true,     //是否可拖拽
         contentType     : null,     //如果是iframe,请指定url
@@ -437,7 +437,7 @@ var jDialog = (function($, undefined){
             this.height(this.cfg.height);
 
             // 设置padding
-            $('#j-dialog-body',this.dom.element).css('padding',this.cfg.padding);
+            $('#j-dialog-body',this.dom.element).css('padding','1px 1px');
 
             //事件绑定
             $.each(eventName, function(i, evt){
