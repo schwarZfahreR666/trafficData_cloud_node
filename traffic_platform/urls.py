@@ -24,8 +24,15 @@ urlpatterns = [
     path('Cpu_State/', views.get_cpu_state),
     path('resource_monitor/', views.get_resource_monitor),
     path('resource_topo/', views.get_resource_topo),
-    path('road_info/', views.get_road_info),
+    path('road_info_yq/', views.get_road_info_yq),
+    path('road_info_st/', views.get_road_info_st),
+    path('road_info_wks/', views.get_road_info_wks),
     path('trafficflow/', views.trafficflow),
     path('home_zjk/', views.home_zjk),
+    path('home_st/', views.home_st),
+    path('home_wks/', views.home_wks),
+    path('passenger_flow/', views.passenger_flow),
+    path('query_resource/', views.query_resource),
+    path('resource_topo/data_flow/', views.data_flow),
 
 ]

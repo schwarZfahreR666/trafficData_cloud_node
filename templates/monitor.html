@@ -30,20 +30,6 @@
             <div class="queue">
                 <h2>任务调度区</h2>
                     <div class="inner" id="roll" onmouseover="BBScrollAmount=0" onmouseout="BBScrollAmount=1">
-                        <ul>
-                            <div class="taskcontainer">
-                                <li>数据采集任务</li>
-                            </div>
-                            <div class="taskcontainer">
-                                <li>事件分析任务</li>
-                            </div>
-                            <div class="taskcontainer">
-                                <li>路况预测任务</li>
-                            </div>
-                            <div class="taskcontainer">
-                                <li>客流聚散模式任务</li>
-                            </div>
-                        </ul>
 
                     </div>
                 <div class="queue-footer"></div>
@@ -97,7 +83,7 @@
                     </div>
                     <div class="col">
                         <ul>
-                            <div class="taskcan"><li><a href="">客流数据采集</a></li></div>
+                            <div class="taskcan"><li><a href="javascript:passenger_flow();">客流数据采集</a></li></div>
                             <div class="taskcan"><li><a href="">数据上传</a></li></div>
                             <div class="taskcan"><li><a href="">数据融合</a></li></div>
                         </ul>
@@ -132,12 +118,203 @@
             t = setTimeout(time, 1000); //设定定时器，循环运行
         }
 </script>
-
 <script>
 
 
+  function creatTag(tag,objAttr){
+        var ns = "http://www.w3.org/2000/svg";
+        var oTag = document.createElementNS(ns,tag);
+        for(var attr in objAttr){
+            oTag.setAttribute(attr,objAttr[attr]);
+        }
+        return oTag;
+    }
+    function svgInit(){
+        var parent = document.getElementById('roll');
+        var ns = "http://www.w3.org/2000/svg";
+
+
+        //创建svg标签
+        var oSvg = creatTag('svg',{'xmlns':ns,'width':'100%','height':'100%'});
+        //创建箭头
+        var defs = creatTag('defs',{});
+        var marker = creatTag('marker',{'id':'arrow','markerUnits':'strokeWidth','markerWidth':'12','markerHeight':'12','viewBox':'0 0 12 12','refX':'6','refY':'6','orient':'auto'});
+        var arrow = creatTag('path',{'d':'M4,4 L9,6 L4,8 L6,6 L2,2','style':'fill: #000000;'});
+
+        var gradient = creatTag('linearGradient',{'id':'skyGradient','x1':'100%','y1':'100%'});
+        var stop1 = creatTag('stop',{'offset':'0%','stop-color':'lightblue','stop-opacity':'0.5'});
+        var animate1 = creatTag('animate',{'attributeName':'stop-color','values':'lightblue;blue;red;red;black;red;red;purple;lightblue','dur':'12s','repeatCount':'indefinite'});
+        var stop2 = creatTag('stop',{'offset':'100%','stop-color':'lightblue','stop-opacity':'0.5'});
+        var animate2 = creatTag('animate',{'attributeName':'stop-color','values':'lightblue;orange;purple;purple;black;purple;purple;blue;lightblue','dur':'12s','repeatCount':'indefinite'});
+        var animate3 = creatTag('animate',{'attributeName':'offset','values':'.95;.80;.60;.40;.20;0;.20;.40;.60;.80;.95','dur':'12s','repeatCount':'indefinite'});
+
+
+        parent.appendChild(oSvg);
+        oSvg.appendChild(defs);
+        defs.appendChild(marker);
+        marker.appendChild(arrow);
+
+        defs.appendChild(gradient);
+        gradient.appendChild(stop1);
+        stop1.appendChild(animate1);
+        gradient.appendChild(stop2);
+        stop2.appendChild(animate2);
+        stop2.appendChild(animate3);
+
+        return oSvg;
+
+    }
+    function creatRect(loc_num,type,text,now){
+        var ns = "http://www.w3.org/2000/svg";
+        var oTag = document.createElementNS(ns,'rect');
+        var rect_size = {
+            'start':{
+                'rx':'25',
+                'ry':'25',
+                'width':'140',
+                'height':'50',
+                'fill':'#ccc',
+                'opacity':'0.9',
+                'stroke':'#303030',
+                'stroke-width':'2px'
+
+            },
+            'mid':{
+                'rx':'10',
+                'ry':'10',
+                'width':'140',
+                'height':'50',
+                'fill':now===1?'url(#skyGradient)': '#ccc',
+                'opacity':'0.9',
+                'stroke':'#303030',
+                'stroke-width':'2px'
+            }
+        };
+        var rect_loc = {
+            1:{'x':'10','y':'20'},
+            2:{'x':'10','y':'130'},
+            3:{'x':'10','y':'240'},
+            4:{'x':'10','y':'350'},
+            5:{'x':'10','y':'460'}
+        };
+        var style = rect_size[type];
+        var loc = rect_loc[loc_num];
+        for(var attr in loc){
+            oTag.setAttribute(attr,loc[attr]);
+        }
+        for(var attr in style){
+            oTag.setAttribute(attr,style[attr]);
+        }
+        let g = creatTag('g',{});
+        let text_tag = creatTag('text',{'x':parseInt(loc.x)+70,'y':parseInt(loc.y)+28,'style':'dominant-baseline:middle;text-anchor:middle;','font-size':'18'});
+        text_tag.innerHTML = text;
+        g.appendChild(oTag);
+        g.appendChild(text_tag);
+        return g;
+    }
+    function creatLine(loc_num){
+        var ns = "http://www.w3.org/2000/svg";
+        var oTag = document.createElementNS(ns,'line');
+        var line_style = {
+            'stroke':'#000',
+            'stroke-width':'3px',
+            'marker-end':'url(#arrow)'
+        };
+        var line_loc = {
+            1:{'x1':'80','y1':'70','x2':'80','y2':'122'},
+            2:{'x1':'80','y1':'180','x2':'80','y2':'232'},
+            3:{'x1':'80','y1':'290','x2':'80','y2':'342'},
+            4:{'x1':'80','y1':'400','x2':'80','y2':'452'}
+        };
+        var style = line_style;
+        var loc = line_loc[loc_num];
+        for(var attr in loc){
+            oTag.setAttribute(attr,loc[attr]);
+        }
+        for(var attr in style){
+            oTag.setAttribute(attr,style[attr]);
+        }
+        let g = creatTag('g',{});
+        g.appendChild(oTag);
+        return g;
+    }
+</script>
+<script>
+    var resource_data = [25,35,45];
+    var resource_chart = echarts.init(document.querySelector("#bar2"));
+var passId;
+function passenger_flow(){
+    $.ajax({
+            url: '/passenger_flow/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById('roll').innerHTML='';
+                var oSvg = svgInit();
+                var rect1 = creatRect(1 ,'start','客流数据采集',parseInt(data['task'][0]));
+                var rect2 = creatRect(2 ,'mid','数据采集',parseInt(data['task'][1]));
+                var rect3 = creatRect(3 ,'mid','数据解析',parseInt(data['task'][2]));
+                var rect4 = creatRect(4 ,'mid','数据格式化',parseInt(data['task'][3]));
+                var rect5 = creatRect(5 ,'mid','数据融合',parseInt(data['task'][4]));
+
+                var line1 = creatLine(1);
+                var line2 = creatLine(2);
+                var line3 = creatLine(3);
+                var line4 = creatLine(4);
+
+                oSvg.appendChild(rect1);
+                oSvg.appendChild(line1);
+                oSvg.appendChild(line2);
+                oSvg.appendChild(line3);
+                oSvg.appendChild(line4);
+                oSvg.appendChild(rect2);
+                oSvg.appendChild(rect3);
+                oSvg.appendChild(rect4);
+                oSvg.appendChild(rect5);
+
+                resource_data = data['resource'];
+                resource_chart.setOption({
+                    series:[{
+                        data: resource_data
+                    }]
+                });
+
+                if(data['label']===0){
+
+                    document.getElementById('roll').innerHTML='';
+                    clearInterval(passId);
+                }else if(data['label']===1){
+                    passId = setInterval(passenger_flow,10000);
+                }
+
+            }
+})
+}
+
+function resource_monitor(){
+    $.ajax({
+            url: '/query_resource/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+
+                resource_data = data['resource'];
+                resource_chart.setOption({
+                    series:[{
+                        data: resource_data
+                    }]
+                });
+
+            }
+})
+}
+setInterval(resource_monitor,10000);
+
 (function () {
-    var mychart = echarts.init(document.querySelector("#bar2"));
+    set_resource_bar(resource_data);
+    })();
+function set_resource_bar(data){
+
     var myColor = ["#8B78F6","#F8B448","#3B58F4"]
     var option = {
     grid: {
@@ -176,7 +353,7 @@
         {
             name: '内',
             type: 'bar',
-            data: [20,30,40],
+            data: data,
             yAxisIndex: 0,
             itemStyle: {
                 normal: {
@@ -217,12 +394,11 @@
 };
 
         // 使用刚指定的配置项和数据显示图表。
-        mychart.setOption(option);
+        resource_chart.setOption(option);
         window.addEventListener('resize',function(){
-            mychart.resize();
+            resource_chart.resize();
         });
-    })();
-
+}
 </script>
 
 <script>

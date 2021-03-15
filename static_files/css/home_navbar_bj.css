@@ -36,7 +36,7 @@
 	list-style: none;
 	width: 25%;
 	height: 80%;
-	flex-basis: 80px;
+	flex-basis: 70px;
     cursor:pointer;
 	text-align: center;
 	flex-shrink:0;
@@ -48,7 +48,7 @@
 	/*position: absolute;*/
 	/*top: 2px;*/
 	/*left: 80px;*/
-	flex-basis: 70px;
+	flex-basis: 60px;
 	line-height: 24px;
 	font-size: 14px;
 	/* 取消文字下划线 */

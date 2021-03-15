@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冬奥会数据感知采集与融合处理系统</title>
-    <link rel="stylesheet" href="{% static 'css/home_.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_st.css' %}">
     <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
 </head>
 <body style="font-size: 16px;">
@@ -17,7 +17,7 @@
     <div class="container">
         <!-- 上面头部 -->
         <header>
-            <h1>北京冬奥会态势感知数据采集及融合系统-延庆赛区</h1>
+            <h1>北京冬奥会态势感知数据采集及融合系统-首都体育馆</h1>
 
         </header>
         <!-- 下面主体 -->
@@ -40,7 +40,7 @@
                     <div id="weather-v2-plugin-standard"></div>
                 </div>
                 <div class="navbar">
-                    {% include 'home_navbar.html' %}
+                    {% include 'home_navbar_bj.html' %}
 
                 </div>
                 <div class="slider">
@@ -103,7 +103,7 @@
         "background": 1,
         "dataColor": "FFFFFF",
         "borderRadius": 5,
-        "city": "CN101010800",
+        "city": "CN101010200",
         "key": "H1kQFiLkmC"
       }
     }
@@ -129,7 +129,7 @@
 
     function loadSVGInline()
 {
-    var SVGFile="{% static 'img/bdmap.svg' %}";
+    var SVGFile="{% static 'img/bdmap_st.svg' %}";
     var loadXML = new XMLHttpRequest;
     function handler(){
 
@@ -157,57 +157,96 @@
 
 
         $.ajax({
-            url: 'road_info_yq/',
+            url: '/road_info_st/',
             type: 'get',
             dataType: 'json',
             success: function (data) {
                 //方法中传入的参数data为后台获取的数据
+
+
                 var line_len = 16;
                 {#var bd = '<div class="txtMarquee-top1"><ul class="infoList1" id="p1" ></ul></div><div class="txtMarquee-top2"><ul class="infoList3" id="p2"></ul></div>';#}
                 {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
                 {#$('.slider').html(slide_box);#}
                 var road_list = [
-                    '团结路',
-                    '京银路',
-                    '康张路',
-                    '西顺城街',
-                    '京原路',
-                    '京平高速',
-                    '京藏高速0',
-                    '京藏高速1',
-                    '京藏高速2',
-                    '京藏高速3',
-                    '京藏高速4',
-                    '京藏高速5',
-                    '京藏高速6',
-                    '京藏高速7',
-                    '京藏高速8',
-                    '京藏高速9',
-                    '京藏高速10',
-                    '京藏高速11',
-                    '京藏高速12',
-                    '京藏高速13',
-                    '京新高速1',
-                    '京新高速2',
-                    '京新高速3',
-                    '京新高速4',
-                    '京新高速5',
-                    '京新高速7',
-                    '京新高速8',
-                    '京新高速9',
-                    '京新高速10',
-                    '京新高速11',
-                    '京新高速12',
-                    '京新高速13',
-                    '京新高速14',
-                    '京承高速',
-                    '京礼高速',
+                    '北三环n1',
+                    '北三环n2',
+                    '北三环n3',
+                    '北三环n4',
+                    '北三环n5',
+                    '学院南路n1',
+                    '学院南路n2',
+                    '学院南路n3',
+                    '紫竹院路n1',
+                    '紫竹院路n2',
+                    '西直门外大街n1',
+                    '西直门外大街n2',
+                    '北二环n1',
+                    '北二环n2',
+                    '车公庄西路n1',
+                    '车公庄西路n2',
+                    '车公庄大街n1',
+                    '车公庄大街n2',
+                    '阜成路n1',
+                    '阜成路n2',
+                    '阜成路n3',
+                    '阜成门外大街n1',
+                    '阜成门外大街n2',
+                    '蓝靛厂南路n1',
+                    '蓝靛厂南路n2',
+                    '蓝靛厂南路n3',
+                    '西三环n1',
+                    '西三环n2',
+                    '西三环n3',
+                    '西三环n4',
+                    '首体南路n1',
+                    '首体南路n2',
+                    '三里河路n1',
+                    '三里河路n2',
+                    '展览馆路n1',
+                    '展览馆路n2',
+                    '西二环n1',
+                    '西二环n2',
+                    '新街口外大街n1',
+                    '新街口外大街n2',
+                    '长春桥路',
+                    '魏公村路',
+                    '新康路',
+                    '万寿寺路',
+                    '玲珑路',
+                    '中关村南大街',
+                    '灶君庙街',
+                    '大柳树路',
+                    '隔音屏隧道',
+                    '西土城路',
+                    '西直门外大街',
+                    '德胜门外大街',
+
+                ];
+                var roads_st_section = [
+                    '北三环',
+                    '学院南路',
+                    '紫竹院路',
+                    '西直门外大街',
+                    '北二环',
+                    '车公庄西路',
+                    '车公庄大街',
+                    '阜成路',
+                    '阜成门外大街',
+                    '蓝靛厂南路',
+                    '西三环',
+                    '首体南路',
+                    '三里河路',
+                    '展览馆路',
+                    '西二环',
+                    '新街口外大街',
                 ];
                 road_info = data['road'];
                 events = data['event'];
                 games = data['game'];
                 for(var i=0;i<road_list.length;i++){
-                    document.getElementById(road_list[i]).style="fill:#00b050;";
+                    document.getElementById(road_list[i]+'d0').style="fill:#00b050;";
+                    document.getElementById(road_list[i]+'d1').style="fill:#00b050;";
 
                 }
 
@@ -243,7 +282,7 @@
                     var m = dt.getMinutes();//获取分
                     var s = dt.getSeconds();//获取秒
                     var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
-                    html = "<div>" + time + ":" + "延庆场馆周边道路全线畅通。</div>";
+                    html = "<div>" + time + ":" + "首体场馆周边道路全线畅通。</div>";
                     offset = {
                         top: -400,
                         left: -400,
@@ -263,27 +302,32 @@
                 }
                 for(var i = 0;i<road_info.length;i++){
                     var road_name = road_info[i]['road_name'];
-                    if(road_name==="京藏高速" || road_name==="京新高速"){
+
+                    if(roads_st_section.includes(road_name)){
                         if(road_info[i]['section_id']===null){
-                            road_info[i]['section_id']='5';
+                            road_info[i]['section_id']='1';
                         }
-                        road_name = road_name + road_info[i]['section_id'];
-                        console.log(road_name);
-                        console.log(road_info[i]['text']);
+                        road_name = road_name + 'n' +road_info[i]['section_id'];
+
+
                     }
                     var speed = parseFloat(road_info[i]['speed']);
                     var direction = parseInt(road_info[i]['direction']);
+                    road_name = road_name + 'd' + direction;
+
                     if (speed>=30){
 
+                        console.log(road_name);
                         var color = 'y'+direction;
                         document.getElementById(road_name).style="fill:url(#"+color+");";
+
 
                     }
                     else {
                         var color = 'r'+direction;
+                        console.log(road_name);
                         console.log(color);
                         document.getElementById(road_name).style="fill:url(#"+color+");";
-
 
                     }
 

@@ -3,12 +3,14 @@
   "name": "阿里云节点",
   "type": "server",
   "img": "aliyun.png",
+  "info": "机构介绍",
   "children": [
     {
       "id": 13,
       "name": "冬奥组委边缘节点",
       "type": "node",
       "img": "MVC.png",
+      "info": "机构介绍",
       "children": [
         {
           "id": 17,
@@ -68,8 +70,9 @@
       "id": 12,
       "name": "BUAA 北京航空航天大学",
       "type": "node",
-      "url": "",
+      "url": "www.buaa.edu.cn",
       "img": "beihang.jpg",
+      "info": "机构介绍",
       "children": [
         {
           "id": 25,
@@ -101,6 +104,7 @@
       "name": "航天长峰公司",
       "type": "node",
       "img": "cf.png",
+      "info": "机构介绍",
       "children": [
         {
           "id": 14,
@@ -136,6 +140,7 @@
       "type": "node",
       "img": "node.png",
       "url": null,
+      "info": "机构介绍",
       "children": [
         {
           "id": 29,
