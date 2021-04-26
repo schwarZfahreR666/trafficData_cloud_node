@@ -9,9 +9,10 @@ import json
 import pymysql
 import random
 import numpy as np
+import requests
 
 # Create your views here.
-
+bh_node_url = 'http://127.0.0.1:9999/'
 
 def login(request):
     message = ""
@@ -309,8 +310,13 @@ def query_resource(request):
     memory = (int(round(data.percent)))
     cpu = psutil.cpu_percent(interval=1)
 
+    bh_data = requests.get(bh_node_url+"getCpuState")
+    bh_data = json.loads(bh_data.content)
+    bh_cpu = bh_data['cpu']
+    bh_mem = bh_data['memory']
+
     data = {}
-    data['resource'] = [cpu+10, random.randint(10, 60), random.randint(10, 60)]
+    data['resource'] = [cpu+10, float(bh_cpu)+10, random.randint(10, 60)]
     js = json.dumps(data)
 
     return HttpResponse(js)
@@ -320,3 +326,21 @@ def data_flow(request):
     data = np.random.randint(200, 800, 26)
     js = json.dumps(data.tolist())
     return HttpResponse(js)
+
+
+def getRoadInfo(request):
+    res = requests.get(bh_node_url+"getRoadInfo").content
+
+    return HttpResponse(res)
+
+
+def switchRoadInfo(request):
+    res = requests.get(bh_node_url+"switchRoadInfo").content
+
+    return HttpResponse(res)
+
+
+def RoadInfoState(request):
+    res = requests.get(bh_node_url+"roadinfoState").content
+
+    return HttpResponse(res)

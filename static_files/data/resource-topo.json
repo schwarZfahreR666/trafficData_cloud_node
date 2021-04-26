@@ -6,78 +6,24 @@
   "info": "机构介绍",
   "children": [
     {
-      "id": 13,
-      "name": "冬奥组委边缘节点",
-      "type": "node",
-      "img": "MVC.png",
-      "info": "机构介绍",
-      "children": [
-        {
-          "id": 17,
-          "name": "13应用17",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市路况信息统计",
-              "url": "http://192.168.23.77:9009",
-              "id": 14
-            }
-          ]
-        },
-        {
-          "id": 16,
-          "name": "13应用16",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市交通事件数据统计",
-              "url": "http://192.168.23.77:9008",
-              "id": 13
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "name": "13应用5",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市天气数据统计",
-              "url": "http://192.168.23.77:9004",
-              "id": 13
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "name": "13应用4",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "冬奥会比赛信息统计",
-              "url": "http://192.168.23.77:9003",
-              "id": 14
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": 12,
       "name": "BUAA 北京航空航天大学",
       "type": "node",
       "url": "www.buaa.edu.cn",
-      "img": "beihang.jpg",
+      "img": "beihang-png.png",
       "info": "机构介绍",
       "children": [
         {
           "id": 25,
           "name": "路况预测",
-          "type": "app"
+          "type": "app",
+          "children": [
+            {
+              "type": "data",
+              "name": "北京市路况数据",
+              "url": "http://192.168.23.76:9012",
+              "id": 15
+            }]
         },
         {
           "id": 23,
@@ -86,12 +32,12 @@
         },
         {
           "id": 17,
-          "name": "12应用17",
+          "name": "事件采集",
           "type": "app",
           "children": [
             {
               "type": "data",
-              "name": "北京市路况数据统计",
+              "name": "北京市交通事件",
               "url": "http://192.168.23.76:9012",
               "id": 11
             }
@@ -103,7 +49,7 @@
       "id": 11,
       "name": "航天长峰公司",
       "type": "node",
-      "img": "cf.png",
+      "img": "cf-png.png",
       "info": "机构介绍",
       "children": [
         {
@@ -129,55 +75,6 @@
               "name": "出租车网格计算应用",
               "url": "http://114.67.37.247:9006",
               "id": 16
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "name": "边缘节点：10",
-      "type": "node",
-      "img": "node.png",
-      "url": null,
-      "info": "机构介绍",
-      "children": [
-        {
-          "id": 29,
-          "name": "10应用29",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "64x64Bicycle",
-              "url": "http://172.17.19.2:9020",
-              "id": 28
-            }
-          ]
-        },
-        {
-          "id": 26,
-          "name": "10应用26",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "Storm-LngLat",
-              "url": "http://172.17.19.2:9014",
-              "id": 25
-            }
-          ]
-        },
-        {
-          "id": 14,
-          "name": "10应用14",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市地铁出行链统计",
-              "url": "http://172.17.19.2:9011",
-              "id": 18
             }
           ]
         }

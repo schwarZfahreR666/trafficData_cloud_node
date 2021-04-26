@@ -37,7 +37,8 @@
             <div class="column2">
                 <div class="weather">
                     <!-- 天气图表 -->
-                    <div id="weather-v2-plugin-standard"></div>
+{#                    <div id="weather-v2-plugin-standard"></div>#}
+                    <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=71144&w=270&h=270&align=center"></iframe>
                 </div>
                 <div class="navbar">
                     {% include 'home_navbar_bj.html' %}
@@ -235,6 +236,36 @@
                     dialogs[i--].remove();
                 }
 
+                {#html = "<div style='color:#ff0000'>" + "复兴路（西翠路至五棵松桥）禁止由东向西行驶</div>";#}
+                {#offset = {#}
+                {#    top: -420,#}
+                {#    left: -280,#}
+                {#    right: 0,#}
+                {#    bottom: 0};#}
+                {##}
+                {#dialog = jDialog.tip(html, {#}
+                {#    target: $('.anchor'),#}
+                {#    position: 'top',#}
+                {#    trianglePosFromStart: 100,#}
+                {#    padding: '10px 5px',#}
+                {#    autoClose: 1,#}
+                {#    offset: offset});#}
+                {##}
+                {#html = "<div style='color:#ff0000'>" + "西翠路（阜成路至复兴路）采取禁止由北向南方向行驶交通管理措施</div>";#}
+                {#offset = {#}
+                {#    top: -400,#}
+                {#    left: 20,#}
+                {#    right: 0,#}
+                {#    bottom: 0};#}
+                {##}
+                {#dialog = jDialog.tip(html, {#}
+                {#    target: $('.anchor'),#}
+                {#    position: 'top',#}
+                {#    trianglePosFromStart: 100,#}
+                {#    padding: '10px 5px',#}
+                {#    autoClose: 1,#}
+                {#    offset: offset});#}
+
 
                 var dt = new Date();
                 var y = dt.getFullYear();
@@ -260,7 +291,7 @@
                     var m = dt.getMinutes();//获取分
                     var s = dt.getSeconds();//获取秒
                     var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
-                    html = "<div>" + time + ":" + "首体场馆周边道路全线畅通。</div>";
+                    html = "<div>" + time + ":" + "五棵松场馆周边道路全线畅通。</div>";
                     offset = {
                         top: -400,
                         left: -400,

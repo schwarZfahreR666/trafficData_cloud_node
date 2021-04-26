@@ -34,5 +34,8 @@ urlpatterns = [
     path('passenger_flow/', views.passenger_flow),
     path('query_resource/', views.query_resource),
     path('resource_topo/data_flow/', views.data_flow),
+    path('getRoadInfo/', views.getRoadInfo),
+    path('switchRoadInfo/', views.switchRoadInfo),
+    path('RoadInfoState/', views.RoadInfoState),
 
 ]

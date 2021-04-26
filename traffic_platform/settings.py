@@ -150,3 +150,5 @@ STATICFILES_DIRS = [  # 将这些目录映射到别名
 EXCLUDE_URL = ['/login/']
 
 X_FRAME_OPTIONS = 'ALLOWALL'
+
+

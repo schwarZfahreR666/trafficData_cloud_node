@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冬奥会数据感知采集与融合处理系统</title>
     <link rel="stylesheet" href="{% static 'css/monitor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}">
 
 </head>
 <body>
@@ -77,14 +78,14 @@
                     <div class="col">
                         <ul>
                             <div class="taskcan"><li><a href="">启动事件驱动</a></li></div>
-                            <div class="taskcan"><li><a href="">路况数据采集</a></li></div>
+                            <div class="taskcan"><li><a href="javascript:get_roadinfo()">路况数据采集</a></li></div>
                             <div class="taskcan"><li><a href="">事件采集</a></li></div>
                         </ul>
                     </div>
                     <div class="col">
                         <ul>
                             <div class="taskcan"><li><a href="javascript:passenger_flow();">客流数据采集</a></li></div>
-                            <div class="taskcan"><li><a href="">数据上传</a></li></div>
+                            <div class="taskcan" id="switchRoad"><li><a href="javascript:switch_roadinfo()">路况定时采集</a></li></div>
                             <div class="taskcan"><li><a href="">数据融合</a></li></div>
                         </ul>
 
@@ -95,6 +96,9 @@
         </div>
     </section>
     </div>
+<div class="loading hide">
+    <div class="gif"></div>
+</div>
     <!-- script部分 -->
     <script src="{% static 'js/flexible.js' %}"></script>
     <script src="{% static 'js/echarts.min.js' %}"></script>
@@ -119,7 +123,15 @@
         }
 </script>
 <script>
-
+    $.ajax({
+        url: '/RoadInfoState/',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            switch_color(data['road_info_state'])
+        }
+    })
+    $('div.loading').hide();
 
   function creatTag(tag,objAttr){
         var ns = "http://www.w3.org/2000/svg";
@@ -244,6 +256,7 @@
     var resource_chart = echarts.init(document.querySelector("#bar2"));
 var passId;
 function passenger_flow(){
+    $('div.loading').show();
     $.ajax({
             url: '/passenger_flow/',
             type: 'get',
@@ -283,6 +296,7 @@ function passenger_flow(){
 
                     document.getElementById('roll').innerHTML='';
                     clearInterval(passId);
+                    $('div.loading').hide();
                 }else if(data['label']===1){
                     passId = setInterval(passenger_flow,10000);
                 }
@@ -290,6 +304,92 @@ function passenger_flow(){
             }
 })
 }
+    // 创建一个div
+    var layer=document.createElement("div");
+    // 设置div的id值
+    layer.id="layer";
+    // 上面按钮点击事件
+    function tip(date){
+        /* 创建div的样式，宽200px,高80px，下面的是css样式居中，
+         * css样式居中具体了解链接：https://blog.csdn.net/A_Bear/article/details/80546181
+         */
+        var style={
+            background:"white",
+            border: "1px solid #ccc",
+            'font-size': "20px" ,
+            position:"absolute",
+            clear: "left",
+            zIndex:10,
+            width:"200px",
+            height:"80px",
+            left:"50%",
+            top:"50%",
+            marginLeft:"-100px",
+            marginTop:"-40px",
+            opacity: 0.65,
+            'font-family': 'tahoma, helvetica, "microsoft yahei", "宋体",arial',
+        }
+        for(var i in style)
+            layer.style[i]=style[i];
+
+        // 当找不到id为layer的控件时
+        if(document.getElementById("layer")==null){
+            // 在body中添加layer控件（layer在上面创建的）
+            document.body.appendChild(layer);
+            // 设置显示类容
+            layer.innerHTML=date;
+            // 将div中文本居中
+            layer.style.textAlign="center";
+            layer.style.lineHeight="80px"; // 作用是调节字体行高与div同高，使其保持水平居中
+            // 设置3s后去掉弹出窗
+            setTimeout("document.body.removeChild(layer)",3000)
+        }
+    }
+
+    function switch_color(state){
+        if(state===0){
+            document.getElementById("switchRoad").style.backgroundColor = "rgba(190, 175, 170,0.5)";
+        }else if(state===1){
+            document.getElementById("switchRoad").style.backgroundColor = "rgba(50,62,50,0.5)";
+        }
+
+    }
+
+
+    function get_roadinfo(){
+        $('div.loading').show();
+        $.ajax({
+            url: '/getRoadInfo/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                tip(data['text'])
+                $('div.loading').hide();
+
+            },
+            error: function () {
+                $('div.loading').hide();
+            }
+        })
+    }
+
+    function switch_roadinfo(){
+        $('div.loading').show();
+        $.ajax({
+            url: '/switchRoadInfo/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                tip(data['text'])
+                switch_color(data['state']);
+                $('div.loading').hide();
+
+            },
+            error: function () {
+                $('div.loading').hide();
+            }
+        })
+    }
 
 function resource_monitor(){
     $.ajax({

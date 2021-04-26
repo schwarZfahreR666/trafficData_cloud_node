@@ -112,7 +112,7 @@
                     .style("text-anchor", "middle")
                     .attr("startOffset", "50%")
                     .attr("style", "font-size:15px")
-                    .text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? 0 + "千条/秒" : undefined)
+                    .text((d) => (d.target.data.type === "node") ? 0 + "条/分" : undefined)
                     .attr("id", (d) => "link_" + d.target.id)
                     .attr("xlink:href", (d) => "#link_" + d.target.id);
 
@@ -150,7 +150,7 @@
                     .attr("y", 3)
                     .attr("stroke-width", .2)
                     .attr("text-anchor", "start")
-                    .text((d) => d.data.name);
+                    .text((d) => ((d.data.type==="server" || d.data.type==="node") ? '' :d.data.name ));
 
                 nodeEnter.append("text")
                     .style('opacity', d => !d.ignored ? 1 : .1)
@@ -159,7 +159,7 @@
                     .attr("stroke-width", .2)
                     .attr("text-anchor", "start")
                     .attr("style", "font-size:15px")
-                    .text((d) => d.data.name);
+                    .text((d) => ((d.data.type==="server" || d.data.type==="node") ? '' :d.data.name ));
 
                 node = nodeEnter.merge(node);
 
@@ -421,7 +421,7 @@
             }
 });
 
-                link_label.text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? parseInt(update_data[d.index]) + "条/分" : undefined)
+                link_label.text((d) => (d.target.data.type === "node") ? parseInt(update_data[d.index]) + "条/分" : undefined)
                 && $(".random-int1").html(newdata)
                 && $(".random-int2").html(base_day)
                 && $(".random-int3").html(base_his)
