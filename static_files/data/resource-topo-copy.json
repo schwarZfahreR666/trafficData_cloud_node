@@ -7,7 +7,7 @@
   "children": [
     {
       "id": 13,
-      "name": "冬奥组委边缘节点",
+      "name": "奥组委边缘节点",
       "type": "node",
       "img": "MVC.png",
       "info": "机构介绍",
@@ -58,7 +58,7 @@
           "children": [
             {
               "type": "data",
-              "name": "冬奥会比赛信息统计",
+              "name": "比赛信息统计",
               "url": "http://192.168.23.77:9003",
               "id": 14
             }
