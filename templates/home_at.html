@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数据感知采集与融合处理系统</title>
-    <link rel="stylesheet" href="{% static 'css/home_wks.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_.css' %}">
     <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
 </head>
 <body style="font-size: 16px;">
@@ -17,7 +17,7 @@
     <div class="container">
         <!-- 上面头部 -->
         <header>
-            <h1>态势感知数据采集及融合系统-五棵松体育馆</h1>
+            <h1>态势感知数据采集及融合系统-奥体中心</h1>
 
         </header>
         <!-- 下面主体 -->
@@ -38,7 +38,8 @@
                 <div class="weather">
                     <!-- 天气图表 -->
 {#                    <div id="weather-v2-plugin-standard"></div>#}
-                    <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=71144&w=270&h=270&align=center"></iframe>
+                    <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=71141&w=270&h=270&align=right"></iframe>
+
                 </div>
                 <div class="navbar">
                     {% include 'home_navbar_bj.html' %}
@@ -104,7 +105,7 @@
         "background": 1,
         "dataColor": "FFFFFF",
         "borderRadius": 5,
-        "city": "CN101010200",
+        "city": "CN101010800",
         "key": "H1kQFiLkmC"
       }
     }
@@ -117,6 +118,7 @@
     window.onload = function () {
 
         loadSVGInline();
+
         getApi();
         setTimeout('myrefresh()',700*1000);
 
@@ -130,7 +132,7 @@
 
     function loadSVGInline()
 {
-    var SVGFile="{% static 'img/bdmap_wks.svg' %}";
+    var SVGFile="{% static 'img/bdmap_at.svg' %}";
     var loadXML = new XMLHttpRequest;
     function handler(){
 
@@ -139,17 +141,16 @@
         {
             svgDiv.innerHTML=loadXML.responseText;
 
-            svg = document.getElementsByClassName("st11")[0];
+            svg = document.getElementsByClassName("st10")[0];
             {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
 
             map1 = document.getElementById("map1");
-            svg.setAttribute("viewBox","0 0 875 600");
+            svg.setAttribute("viewBox","0 0 841 595");
             mapw =  map1.clientWidth || map1.offsetWidth;
             maph =  map1.clientHeight || map1.offsetHeight;
             console.log(mapw);
-            svg.setAttribute("width",mapw*1.08);
-            svg.setAttribute("height",maph*1.05);
-
+            svg.setAttribute("width",mapw*1.03);
+            svg.setAttribute("height",maph*1.03);
 
         }
     }
@@ -169,68 +170,59 @@
 
 
         $.ajax({
-            url: '/road_info_wks/',
+            url: '/road_info_at/',
             type: 'get',
             dataType: 'json',
             success: function (data) {
                 //方法中传入的参数data为后台获取的数据
-
-
                 var line_len = 16;
                 {#var bd = '<div class="txtMarquee-top1"><ul class="infoList1" id="p1" ></ul></div><div class="txtMarquee-top2"><ul class="infoList3" id="p2"></ul></div>';#}
                 {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
                 {#$('.slider').html(slide_box);#}
                 var road_list = [
-                    '紫竹院路n1',
-                    '紫竹院路n2',
-                    '阜成路n1',
-                    '阜成路n2',
-                    '阜成路n3',
-                    '玉渊潭南路n1',
-                    '玉渊潭南路n2',
-                    '复兴路n1',
-                    '复兴路n2',
-                    '复兴路n3',
-                    '复兴路n4',
-                    '莲石东路n1',
-                    '莲石东路n2',
-                    '莲花池西路n1',
-                    '莲花池西路n2',
-                    '西五环n1',
-                    '西五环n2',
-                    '西五环n3',
-                    '西四环n1',
-                    '西四环n2',
-                    '西四环n3',
-                    '西四环n4',
-                    '西翠路n1',
-                    '西翠路n2',
-                    '西翠路n3',
-                    '西三环n1',
-                    '西三环n2',
-                    '西三环n3',
-                    '西二环n1',
-                    '西二环n2',
-                    '杏石口路',
-                    '西直门外大街',
-                    '阜石路',
-                    '阜成门外大街',
-                    '石景山路',
-                    '复兴门外大街',
+                    '科学院南里西街',
+                    '科学院南里东街',
+                    '国家体育馆北路',
+                    '安翔北路',
+                    '慧忠路隧道',
+                    '林萃路',
+                    '奥林西路',
+                    '天辰西路',
+                    '天辰东路',
+                    '北辰西路',
+                    '北辰东路',
+                    '科芸路n1',
+                    '科芸路n2',
+                    '科芸南路n1',
+                    '科芸南路n2',
+                    '科芸南路n3',
+                    '科芸南路n4',
+                    '科芸南路n5',
+                    '大屯路n1',
+                    '大屯路n2',
+                    '大屯路n3',
+                    '北土城西路n1',
+                    '北土城西路n2',
+                    '京藏高速n1',
+                    '京藏高速n2',
+                    '京藏高速n3',
+                    '京藏高速n4',
+                    '京藏高速n5',
+                    '北辰路n1',
+                    '安立路n1',
+                    '安立路n2',
+
 
                 ];
-                var roads_wks_section = [
-                    '紫竹院路',
-                    '阜成路',
-                    '玉渊潭南路',
-                    '复兴路',
-                    '莲石东路',
-                    '莲花池西路',
-                    '西五环',
-                    '西四环',
-                    '西翠路',
-                    '西三环',
-                    '西二环',
+
+                var roads_at_section = [
+                    '科芸路',
+                    '科芸南路',
+                    '大屯路',
+                    '北土城西路',
+                    '京藏高速',
+                    '北辰路',
+                    '安立路',
                 ];
                 road_info = data['road'];
                 events = data['event'];
@@ -241,41 +233,12 @@
 
                 }
 
+
                 var dialogs = document.getElementsByClassName("j-dialog");
                 for(var i=0;i<dialogs.length;i++){
                     console.log(dialogs);
                     dialogs[i--].remove();
                 }
-
-                {#html = "<div style='color:#ff0000'>" + "复兴路（西翠路至五棵松桥）禁止由东向西行驶</div>";#}
-                {#offset = {#}
-                {#    top: -420,#}
-                {#    left: -280,#}
-                {#    right: 0,#}
-                {#    bottom: 0};#}
-                {##}
-                {#dialog = jDialog.tip(html, {#}
-                {#    target: $('.anchor'),#}
-                {#    position: 'top',#}
-                {#    trianglePosFromStart: 100,#}
-                {#    padding: '10px 5px',#}
-                {#    autoClose: 1,#}
-                {#    offset: offset});#}
-                {##}
-                {#html = "<div style='color:#ff0000'>" + "西翠路（阜成路至复兴路）采取禁止由北向南方向行驶交通管理措施</div>";#}
-                {#offset = {#}
-                {#    top: -400,#}
-                {#    left: 20,#}
-                {#    right: 0,#}
-                {#    bottom: 0};#}
-                {##}
-                {#dialog = jDialog.tip(html, {#}
-                {#    target: $('.anchor'),#}
-                {#    position: 'top',#}
-                {#    trianglePosFromStart: 100,#}
-                {#    padding: '10px 5px',#}
-                {#    autoClose: 1,#}
-                {#    offset: offset});#}
 
 
                 var dt = new Date();
@@ -302,7 +265,7 @@
                     var m = dt.getMinutes();//获取分
                     var s = dt.getSeconds();//获取秒
                     var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
-                    html = "<div>" + time + ":" + "五棵松场馆周边道路全线畅通。</div>";
+                    html = "<div>" + time + ":" + "奥体场馆周边道路全线畅通。</div>";
                     offset = {
                         top: -400,
                         left: -400,
@@ -323,7 +286,7 @@
                 for(var i = 0;i<road_info.length;i++){
                     var road_name = road_info[i]['road_name'];
 
-                    if(roads_wks_section.includes(road_name)){
+                    if(roads_at_section.includes(road_name)){
                         if(road_info[i]['section_id']===null){
                             road_info[i]['section_id']='1';
                         }
@@ -383,7 +346,7 @@
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
                         if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                            attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
                     }
@@ -402,7 +365,7 @@
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
                         if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                            attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
 
@@ -421,7 +384,7 @@
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr2 += text;
                         if(str.length<=line_len){
-                           attr2 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                            attr2 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
 
@@ -440,7 +403,7 @@
                 {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
                 {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
                 $(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
-                }})
+            }})
     }
 
 

@@ -60,6 +60,11 @@ def home_wks(request):
 
     return render(request, 'home_wks.html')
 
+
+def home_at(request):
+
+    return render(request, 'home_at.html')
+
 def get_cpu_state(request):
 
     data = psutil.virtual_memory()
@@ -210,6 +215,68 @@ def get_road_info_st(request):
     return HttpResponse(js)
 
 
+def get_road_info_at(request):
+    # 打开数据库连接
+    db = pymysql.connect(host='39.99.192.63',
+                         database='DEMODB',
+                         port=3306,
+                         user='devops',
+                         password='devops',
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT * FROM bd_road_at;"
+    res = []
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
+            res.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    event_sql = " SELECT * FROM EVENT_at;"
+    events = []
+    try:
+        # 执行SQL语句
+        cursor.execute(event_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            events.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    game_sql = " SELECT * FROM GAME_at;"
+    games = []
+    try:
+        # 执行SQL语句
+        cursor.execute(game_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            games.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+
+    # 关闭数据库连接
+    db.close()
+    re = {'road': res, 'event': events, 'game': games}
+    js = json.dumps(re)
+
+    return HttpResponse(js)
+
+
 def get_road_info_wks(request):
     # 打开数据库连接
     db = pymysql.connect(host='39.99.192.63',
@@ -317,6 +384,10 @@ def query_resource(request):
 
     data = {}
     data['resource'] = [cpu+10, float(bh_cpu)+10, random.randint(10, 60)]
+
+    data['line'] = []
+    data['line'].append(np.random.randint(2, 15, 24).tolist())
+    data['line'].append(np.random.randint(1, 20, 24).tolist())
     js = json.dumps(data)
 
     return HttpResponse(js)

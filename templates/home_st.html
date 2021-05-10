@@ -139,6 +139,16 @@
         {
             svgDiv.innerHTML=loadXML.responseText;
 
+            svg = document.getElementsByClassName("st12")[0];
+            {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
+
+            map1 = document.getElementById("map1");
+            svg.setAttribute("viewBox","0 0 875 600");
+            mapw =  map1.clientWidth || map1.offsetWidth;
+            maph =  map1.clientHeight || map1.offsetHeight;
+            console.log(mapw);
+            svg.setAttribute("width",mapw*1.08);
+            svg.setAttribute("height",maph*1.05);
 
         }
     }

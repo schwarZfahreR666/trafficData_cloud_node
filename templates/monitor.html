@@ -254,6 +254,7 @@
 <script>
     var resource_data = [25,35,45];
     var resource_chart = echarts.init(document.querySelector("#bar2"));
+    var resource_line = echarts.init(document.querySelector("#network"));
 var passId;
 function passenger_flow(){
     $('div.loading').show();
@@ -403,6 +404,16 @@ function resource_monitor(){
                     series:[{
                         data: resource_data
                     }]
+                });
+
+                resource_line.setOption({
+                    series: [
+                        {data: data['line'][0]
+                        },
+                        {
+                            data: data['line'][1]
+                        }
+                    ]
                 });
 
             }
