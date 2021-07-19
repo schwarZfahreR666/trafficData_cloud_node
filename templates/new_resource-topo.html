@@ -1,0 +1,502 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resource Topological Graph</title>
+    <link rel="stylesheet" href="{% static 'css/easyui/icon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/easyui/easyui.css' %}">
+    <style type="text/css">
+        html, body, svg {
+            width: 880px;
+            height: 700px;
+            background-color: rgba(255,255,255,1);
+            overflow: hidden;
+        }
+
+        .node {
+            pointer-events: all;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        text, textPath {
+            font: 15px "Microsoft JhengHei";
+        }
+
+        @keyframes dash {
+            from {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .live {
+            stroke-dasharray: 8px;
+            stroke-dashoffset: 200;
+            animation-delay: 5s;
+            animation: dash 8s linear infinite;
+        }
+
+        .dead {
+        }
+    </style>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="{% static 'js/d3.v5.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        const width = Math.max($("body").width(), 0),
+            height = Math.max($("body").height(), 0);
+
+        d3.json("{% static 'data/resource-topo.json' %}").then(function (data) {
+            console.log(data);
+
+            const pack = data => d3.pack()
+                .size([width, height])
+                .padding(3)
+                (d3.hierarchy(data)
+                    .sort((a, b) => b.id - a.id));
+
+            const root = pack(data);
+            let node, link, link_label;
+
+            //设置允许的最小最大缩放比例
+            const zoom = d3.zoom().scaleExtent([.5, 8]).on('zoom', zoomed);
+
+            const svg = d3.select('body')
+                .append('svg')
+                .attr("width", width)
+                .attr("height", height)
+                .call(zoom);
+            const view = svg.append('g');
+
+            const simulation = d3.forceSimulation() //创建一个simulation
+                .force('link', d3.forceLink().id((d) => d.id)) //
+                .force('charge', d3.forceManyBody().strength(-1005).distanceMax(500))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .on('tick', ticked);
+
+
+            function update() {
+                const nodes = flatten(root);
+                const links = root.links();
+
+                link = view.selectAll('path')
+                    .data(links, (d) => d.target.id);
+
+                link.exit().remove();
+
+                const linkEnter = link.enter()
+                    .append('path')
+                    .attr('class', (d) => (d.target.data.type === "node" || d.target.data.type === "data") ? "live" : "dead")
+                    .attr('id', (d) => "link_" + d.target.id)
+                    .style('stroke', '#000')
+                    .style('opacity', '0.7')
+                    .style('stroke-width', 2);
+                link = linkEnter.merge(link);
+
+                const link_labels = view.selectAll("text")
+                    .data(links, (d) => d.target ? d.target.id : undefined);
+                link_labels.exit().remove();
+
+                link_label = link_labels.enter()
+                    .append("text")
+                    .style("font", "normal 20px Arial")
+                    .attr("dy", 2)
+                    .attr("class", "link-label")
+
+                    .append("textPath")
+                    .style("text-anchor", "middle")
+                    .attr("startOffset", "50%")
+                    .attr("style", "font-size:15px")
+                    .text((d) => (d.target.data.type === "node") ? 0 + "条/分" : undefined)
+                    .attr("id", (d) => "link_" + d.target.id)
+                    .attr("xlink:href", (d) => "#link_" + d.target.id);
+
+                node = view
+                    .selectAll('.node')
+                    .data(nodes, (d) => d.id);
+
+                node.exit().remove();
+
+                const nodeEnter = node
+                    .enter()
+                    .append('g')
+                    .attr('class', 'node')
+                    .attr('stroke', '#666')
+                    .attr('stroke-width', 1)
+                    .style('opacity', d => !d.ignored ? 1 : .1)
+                    .on('click', clicked)
+                    .call(d3.drag()
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended));
+
+
+
+                nodeEnter.append("image")
+                    .attr("xlink:href", (d) => "{% static 'img/resource-topo/' %}" +  ((d.data.type==="server" || d.data.type==="node") ? d.data.img : `${d.data.type}.png`))
+                    .attr("x", (d) => ((d.data.type==="server" || d.data.type==="node") ? -15 : -10))
+                    .attr("y", (d) => ((d.data.type==="server" || d.data.type==="node") ? -30 : -10))
+                    .attr("width", (d) => ((d.data.type==="server" || d.data.type==="node") ? 70 : 40))
+                    .attr("height", (d) => ((d.data.type==="server" || d.data.type==="node") ? 70 : 40));
+
+                node.append("text")
+                    .style('opacity', d => !d.ignored ? 1 : .1)
+                    .attr("x", 10)
+                    .attr("y", 3)
+                    .attr("stroke-width", .2)
+                    .attr("text-anchor", "start")
+                    .text((d) => ((d.data.type==="server" || d.data.type==="node") ? '' :d.data.name ));
+
+                nodeEnter.append("text")
+                    .style('opacity', d => !d.ignored ? 1 : .1)
+                    .attr("x", 30)
+                    .attr("y", (d) => ((d.data.type==="server" || d.data.type==="node") ? -15 : 3))
+                    .attr("stroke-width", .2)
+                    .attr("text-anchor", "start")
+                    .attr("style", "font-size:15px")
+                    .text((d) => ((d.data.type==="server" || d.data.type==="node") ? '' :d.data.name ));
+
+                node = nodeEnter.merge(node);
+
+                simulation.nodes(nodes);
+                simulation.force('link').links(links)
+
+
+
+            }
+
+            function ticked() {
+                link.attr("d", (d) => `M ${d.source.x} ${d.source.y} L ${d.target.x} ${d.target.y}`);
+                node.attr('transform', (d) => `translate(${d.x}, ${d.y})`);
+                link_label.style("color", "red");
+                d3.selectAll(".link-label").style("transform", (d) => (d.source.x > d.target.x) ?
+                    `rotate(180deg)translate(${-(d.source.x + d.target.x)}px, ${-(d.source.y + d.target.y)}px)`
+                    : "rotate(0deg)translate(0px, 0px)"
+                );
+            }
+
+            let shown_data = null;
+
+            function clicked(d) {
+                switch (d.data.type) {
+                    case "data":
+                        const table_html =
+                            "<div><br>&nbsp;数据节点-边缘节点" +
+                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "<tbody><tr>" +
+                            "<th>当前传输量</th>" +
+                            "<th class='random-int1'>8136</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>当日传输量</td>" +
+                            "<td class='random-int2'>5577637</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>历史传输量</td>" +
+                            "<td class='random-int3'>5923773</td>" +
+                            "</tr>" +
+                            "</tbody></table>" +
+                            "</div>" +
+                            "<div><br>&nbsp;边缘节点-中心节点" +
+                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "<tbody><tr>" +
+                            "<th>当前传输量</th>" +
+                            "<th class='random-int4'>4164</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>当日传输量</td>" +
+                            "<td class='random-int5'>5662144</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>历史传输量</td>" +
+                            "<td class='random-int6'>5889784</td>" +
+                            "</tr>" +
+                            "</tbody></table>" +
+                            "</div>" +
+                            "<div><br>&nbsp;中心节点-服务节点" +
+                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "<tbody><tr>" +
+                            "<th>当前传输量</th>" +
+                            "<th class='random-int7'>9293</th>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>当日传输量</td>" +
+                            "<td class='random-int8'>6542556</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td>历史传输量</td>" +
+                            "<td class='random-int9'>6947884</td>" +
+                            "</tr>" +
+                            "</tbody></table>" +
+                            "</div>";
+                        $('.window').remove();
+                        if (shown_data !== d.id) {
+                            shown_data = d.id;
+                            $.messager.show({
+                                title: d.data.name,
+                                // msg: `这里是「${d.data.name}」数据集，您可以访问 ${d.data.url} 查看具体细节。`,
+                                msg: table_html,
+                                showType: 'fade',
+                                timeout: 0,
+                                width: Math.max(200, .2 * width),
+                                height: 360,
+                                style: {
+                                    right: '',
+                                    left: 0,
+                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    bottom: ''
+                                }
+                            });
+                        } else {
+                            shown_data = null;
+                        }
+                        break;
+                    case "node":
+                        {#console.log(d.data.url);#}
+                        {#if (d.data.url && d.data.url !== "") {#}
+                        {#    top.location.href = d.data.url;}#}
+                        {#break;#}
+
+                        console.log(d.data);
+                        const text_html =
+                            "<div><br>&nbsp;节点资料" +
+                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "<tbody><tr>" +
+                            "<th>" +
+                            d.data.info +
+                            "<a href='/bh_edge'>节点监控页面</a>" +
+                            "</tr>" +
+                            "</table>" +
+                            "</div>";
+                        $('.window').remove();
+                        if (shown_data !== d.id) {
+                            shown_data = d.id;
+                            $.messager.show({
+                                title: d.data.name,
+                                // msg: `这里是「${d.data.name}」数据集，您可以访问 ${d.data.url} 查看具体细节。`,
+                                msg: text_html,
+                                showType: 'fade',
+                                timeout: 0,
+                                width: Math.max(200, .2 * width),
+                                height: 360,
+                                style: {
+                                    right: '',
+                                    left: 0,
+                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    bottom: ''
+                                }
+                            });
+                        } else {
+                            shown_data = null;
+                        }
+                        break;
+
+                    case "server":
+                        {#console.log(d.data.url);#}
+                        {#if (d.data.url && d.data.url !== "") {#}
+                        {#    top.location.href = d.data.url;}#}
+                        {#break;#}
+
+                        const server_html =
+                            "<div><br>&nbsp;节点资料" +
+                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "</table>" +
+                            "</div>";
+                        $('.window').remove();
+                        if (shown_data !== d.id) {
+                            shown_data = d.id;
+                            $.messager.show({
+                                title: d.data.name,
+                                // msg: `这里是「${d.data.name}」数据集，您可以访问 ${d.data.url} 查看具体细节。`,
+                                msg: server_html,
+                                showType: 'fade',
+                                timeout: 0,
+                                width: Math.max(200, .2 * width),
+                                height: 360,
+                                style: {
+                                    right: '',
+                                    left: 0,
+                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    bottom: ''
+                                }
+                            });
+                        } else {
+                            shown_data = null;
+                        }
+                        break;
+                    default:
+                        if (!d3.event.defaultPrevented && !d.ignored) {
+                            if (d.children) {
+                                d._children = d.children;
+                                d.children = null;
+                            } else {
+                                d.children = d._children;
+                                d._children = null;
+                            }
+                            update()
+                        }
+                        break;
+                }
+            }
+
+            function dragstarted(d) {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y
+            }
+
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y
+            }
+
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null
+            }
+
+            function flatten(root) {
+                const nodes = [];
+                let i = 0;
+
+                function recurse(node) {
+                    if (node.children) node.children.forEach(recurse);
+                    if (!node.id) node.id = ++i;
+                    else ++i;
+                    nodes.push(node)
+                }
+
+                recurse(root);
+                return nodes
+            }
+
+            function zoomed() {
+                view.attr('transform', d3.event.transform);
+                // svg.transition().duration(0).attr('transform', d3.event.transform)
+            }
+
+            update();
+            {#var base_day=parseInt(Math.random() * 10000);#}
+            {#var base_his=parseInt(Math.random() * 100000);#}
+            {#setInterval(function () {#}
+            {#    var newdata= parseInt(Math.random() * 1000);#}
+            {#    base_day+=newdata;#}
+            {#    base_his+=newdata;#}
+            {#    link_label.text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? parseInt(Math.random() * 1000) + "条/分" : undefined)#}
+            {#    && $(".random-int1").html(newdata)#}
+            {#    && $(".random-int2").html(base_day)#}
+            {#    && $(".random-int3").html(base_his)#}
+            //}, 10000);
+            {#base_day=parseInt(Math.random() * 10000);#}
+            {#base_his=parseInt(Math.random() * 100000);#}
+            {#setInterval(function () {#}
+            {#    var newdata= parseInt(Math.random() * 1000);#}
+            {#    base_day+=newdata;#}
+            {#    base_his+=newdata;#}
+            {#    link_label.text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? parseInt(Math.random() * 1000) + "条/分" : undefined)#}
+            {#    && $(".random-int4").html(newdata)#}
+            {#    && $(".random-int5").html(base_day)#}
+            {#    && $(".random-int6").html(base_his)#}
+            //}, 10000);
+            var base_day=parseInt(Math.random() * 10000);
+            var base_his=parseInt(Math.random() * 100000);
+            setInterval(function () {
+                var newdata= parseInt(Math.random() * 1000);
+                base_day+=newdata;
+                base_his+=newdata;
+                var update_data = 100;
+                $.ajax({
+            url: '/data_flow/',
+            type: 'get',
+            dataType: 'json',
+                    async:false,
+            success: function (data) {
+                update_data = data;
+
+            }
+});
+
+                link_label.text((d) => (d.target.data.type === "node") ? parseInt(update_data[d.index]) + "条/分" : undefined)
+                && $(".random-int1").html(newdata)
+                && $(".random-int2").html(base_day)
+                && $(".random-int3").html(base_his)
+                && $(".random-int4").html(newdata)
+                && $(".random-int5").html(base_day)
+                && $(".random-int6").html(base_his)
+                && $(".random-int7").html(newdata)
+                && $(".random-int8").html(base_day)
+                && $(".random-int9").html(base_his);
+
+            }, 5000);
+            return [svg, zoom];
+        }).then(function (re) {
+            const svg = re[0], zoom = re[1];
+            const zoom_to_node = function (dest) {
+                if (dest === null) {
+                    svg.transition()
+                        .duration(750)
+                        .call(zoom.transform, d3.zoomIdentity);
+                    return;
+                }
+                let k = 2, x = -dest.x + width / k / 2, y = -dest.y + height / k / 2;
+                svg.transition().duration(750)
+                    .call(zoom.transform, d3.zoomIdentity.scale(k).translate(x, y));
+            };
+
+            window.select_node = function (node_id) {
+                const stress = function (d) {
+                    d.ignored = false;
+                    return 1;
+                };
+                const is_stressed = function (node) {
+                    if (node === undefined || node.data === undefined || node.data.type === "server") return false;
+                    while (node.parent !== null && node.parent !== undefined) {
+                        if (node.data.type === "node" && node.data.id === node_id) {
+                            to_node = node;
+                            return true;
+                        }
+                        node = node.parent;
+                    }
+                    return false;
+                };
+                if (node_id === null) {
+                    d3.selectAll("image")
+                        .style("opacity", stress);
+                    d3.selectAll("text")
+                        .style("opacity", stress);
+                    d3.selectAll("path")
+                        .style("opacity", stress);
+                    zoom_to_node(null);
+                    return;
+                }
+                let to_node = null;
+                let get_opacity = function (d) {
+                    if (is_stressed(d) || is_stressed(d.source)) {
+                        d.ignored = false;
+                        return 1;
+                    } else {
+                        d.ignored = true;
+                        return .1;
+                    }
+                };
+
+                d3.selectAll("image")
+                    .style("opacity", get_opacity);
+                d3.selectAll("text")
+                    .style("opacity", get_opacity);
+                d3.selectAll("path")
+                    .style("opacity", get_opacity);
+                if (to_node !== null) {
+                    zoom_to_node(to_node);
+                }
+            };
+        });
+    });
+</script>
+</html>

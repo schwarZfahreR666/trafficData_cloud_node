@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style:none;
+}
+
+
+
+.slideTxtBox{
+    position: relative;
+    width:100%;
+    border:1px solid #ddd;
+    text-align:center;
+
+    
+    top: 0;
+}
+.slideTxtBox .hd{ 
+    height: 30px; 
+    line-height:30px; 
+    background:#f4f4f4; 
+       
+    border-bottom:1px solid #ddd;  
+    position:relative;
+    font-size: 10px;
+}
+.slideTxtBox .hd ul{ 
+    float:left;
+    position:absolute; 
+    left:50px;
+    top:-1px; 
+    height:32px;   
+}
+.slideTxtBox .hd ul li{ 
+    float:left; 
+    padding:0 30px;
+    cursor:pointer;  
+}
+.slideTxtBox .hd ul li.on{ 
+    height:30px;  
+    background:#fff; 
+    border:1px solid #ddd; 
+    border-bottom:2px solid #fff; 
+}
+.slideTxtBox .bd ul{ 
+    padding:5px;
+    zoom:1;  
+}
+.slideTxtBox .bd ul li{
+    text-align:center;
+}
+.slideTxtBox .bd li{ 
+    height:24px; 
+    line-height:24px;   
+}
+
+.txtMarquee-top1{
+    width:100%;  
+    height:100%;
+    overflow:hidden; 
+    position:relative;  
+    border:1px solid #ccc;   
+}
+.txtMarquee-top2{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    position:relative;
+    border:1px solid #ccc;
+}
+.txtMarquee-top1 .infoList1 li{
+    height:24px;
+    line-height:24px;
+}
+.txtMarquee-top2 .infoList2 li{
+    height:24px;
+    line-height:24px;
+}

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>自适应导航栏</title>
+        <link href="{% static 'css/new_ui/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/new_ui/materialdesignicons.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/new_ui/style.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/home_navbar.css' %}" />
+	</head>
+	<body>
+    <div class="home_navbar">
+    <header>
+        <h1>比赛区域</h1>
+    </header>
+        <div class="btn-group btn-group-justified">
+            <button class="btn btn-default"><a href="/new_home">延庆</a></button>
+            <button class="btn btn-default">首体</button>
+            <button class="btn btn-default">奥体</button>
+            <button class="btn btn-default">五棵松</button>
+        </div>
+        </div>
+	</body>
+</html>

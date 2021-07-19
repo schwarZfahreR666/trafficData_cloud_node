@@ -12,7 +12,13 @@ import numpy as np
 import requests
 
 # Create your views here.
+# bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
+database_host = '127.0.0.1'
+database_name = 'TRAFFIC'
+database_usrname = 'root'
+database_password = '06240118'
+
 
 def login(request):
     message = ""
@@ -87,17 +93,24 @@ def get_resource_topo(request):
     return render(request, 'resource-topo.html')
 
 
+def get_new_resource_topo(request):
+
+    return render(request, 'new_resource-topo.html')
+
+
+
+
 def compute_device_check(request, rid):
     return render(request, 'compute_device_check.html', {'rid': rid})
 
 
 def get_road_info_yq(request):
     # 打开数据库连接
-    db = pymysql.connect(host='39.99.192.63',
-                         database='DEMODB',
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
                          port=3306,
-                         user='devops',
-                         password='devops',
+                         user=database_usrname,
+                         password=database_password,
                          charset="utf8",
                          use_unicode=True)
 
@@ -113,7 +126,7 @@ def get_road_info_yq(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2]+':'+data[7], 'speed': data[4], 'section_id': data[9], 'direction': data[8]}
             res.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -155,11 +168,11 @@ def get_road_info_yq(request):
 
 def get_road_info_st(request):
     # 打开数据库连接
-    db = pymysql.connect(host='39.99.192.63',
-                         database='DEMODB',
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
                          port=3306,
-                         user='devops',
-                         password='devops',
+                         user=database_usrname,
+                         password=database_password,
                          charset="utf8",
                          use_unicode=True)
 
@@ -217,11 +230,11 @@ def get_road_info_st(request):
 
 def get_road_info_at(request):
     # 打开数据库连接
-    db = pymysql.connect(host='39.99.192.63',
-                         database='DEMODB',
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
                          port=3306,
-                         user='devops',
-                         password='devops',
+                         user=database_usrname,
+                         password=database_password,
                          charset="utf8",
                          use_unicode=True)
 
@@ -279,11 +292,11 @@ def get_road_info_at(request):
 
 def get_road_info_wks(request):
     # 打开数据库连接
-    db = pymysql.connect(host='39.99.192.63',
-                         database='DEMODB',
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
                          port=3306,
-                         user='devops',
-                         password='devops',
+                         user=database_usrname,
+                         password=database_password,
                          charset="utf8",
                          use_unicode=True)
 
@@ -415,3 +428,58 @@ def RoadInfoState(request):
     res = requests.get(bh_node_url+"roadinfoState").content
 
     return HttpResponse(res)
+
+
+# 集散模式
+def get_mode_analysis(request):
+
+    return render(request, 'mode_analysis.html')
+
+def get_mode_predict(request):
+
+    return render(request, 'mode_predict.html')
+def get_mid_mode_predict(request):
+
+    return render(request, 'mid_mode_predict.html')
+def get_small_mode_predict(request):
+
+    return render(request, 'small_mode_predict.html')
+
+def get_big_mode2_analysis(request):
+
+    return render(request, 'big_mode2_analysis.html')
+def get_big_mode3_analysis(request):
+
+    return render(request, 'big_mode3_analysis.html')
+def get_big_mode4_analysis(request):
+
+    return render(request, 'big_mode4_analysis.html')
+
+def get_mid_mode1_analysis(request):
+
+    return render(request, 'mid_mode1_analysis.html')
+def get_mid_mode2_analysis(request):
+
+    return render(request, 'mid_mode2_analysis.html')
+def get_mid_mode3_analysis(request):
+
+    return render(request, 'mid_mode3_analysis.html')
+def get_small_mode1_analysis(request):
+
+    return render(request, 'small_mode1_analysis.html')
+def get_small_mode2_analysis(request):
+
+    return render(request, 'small_mode2_analysis.html')
+
+def toCloud(request):
+
+    return render(request, 'new_monitor.html');
+
+def tonew_home(request):
+
+    return render(request, 'new_home.html');
+
+
+def toBH(request):
+
+    return render(request, 'bh_edgenode.html');

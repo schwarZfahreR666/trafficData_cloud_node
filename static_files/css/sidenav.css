@@ -42,8 +42,8 @@
 }
 
 #resource_button{
-	position: absolute;
-	bottom: -10px;
+	position: fixed;
+	bottom: 0;
 }
 
 /* :first-child选择器 选择到ul下面的第一个元素 */

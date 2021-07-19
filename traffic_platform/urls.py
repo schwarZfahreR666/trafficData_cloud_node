@@ -35,9 +35,27 @@ urlpatterns = [
     path('home_wks/', views.home_wks),
     path('passenger_flow/', views.passenger_flow),
     path('query_resource/', views.query_resource),
-    path('resource_topo/data_flow/', views.data_flow),
+    path('data_flow/', views.data_flow),
     path('getRoadInfo/', views.getRoadInfo),
     path('switchRoadInfo/', views.switchRoadInfo),
     path('RoadInfoState/', views.RoadInfoState),
+    #   集散模式
+    path('mode_analysis/', views.get_mode_analysis),
+    path('mode_predict/', views.get_mode_predict),
+    path('mid_mode_predict/', views.get_mid_mode_predict),
+    path('small_mode_predict/', views.get_small_mode_predict),
+    path('big_mode2_analysis/', views.get_big_mode2_analysis),
+    path('big_mode3_analysis/', views.get_big_mode3_analysis),
+    path('big_mode4_analysis/', views.get_big_mode4_analysis),
+    path('mid_mode1_analysis/', views.get_mid_mode1_analysis),
+    path('mid_mode2_analysis/', views.get_mid_mode2_analysis),
+    path('mid_mode3_analysis/', views.get_mid_mode3_analysis),
+    path('small_mode1_analysis/', views.get_small_mode1_analysis),
+    path('small_mode2_analysis/', views.get_small_mode2_analysis),
+
+    path('cloud/', views.toCloud),
+    path('new_resource_topo/', views.get_new_resource_topo),
+    path('new_home/', views.tonew_home),
+    path('bh_edge/', views.toBH),
 
 ]

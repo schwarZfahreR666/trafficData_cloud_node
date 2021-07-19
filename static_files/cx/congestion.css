@@ -1,0 +1,149 @@
+html, body, #map {
+    width: 100%;
+    height: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#btn_real, #btn_pre, #btn_rank {
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+#link_btn {
+    position: absolute;
+    top: 8%;
+    z-index: 1000;
+    right: 450px;
+    width: auto;
+    height: auto;
+}
+
+.road-cond-item {
+    width: 25% !important;
+    height: 25px !important;
+}
+
+.road-cond-icon {
+    font-size: 15px !important;
+    height:100% !important;
+    line-height: 20px !important;
+}
+
+#title {
+    position: absolute;
+    top: 2%;
+    z-index: 10;
+}
+
+#func {
+    float:left;
+    height:18px; 
+    padding:0 2px; 
+    margin-top: 10px;
+}
+
+#timeline {
+    position: absolute;
+    bottom: 5%;
+    left: 15%;
+    z-index: 10;
+    width: 70%;
+    height: 50px;
+    color: white;
+}
+
+#picture {
+    position: absolute;
+    text-align: center;
+    z-index: 1000;
+    right: 10%;
+    top: 20%;
+    width: 450px;
+    height: 400px;
+    background-color: rgba(37, 66, 95, 0.88);
+    display: none;
+}
+
+img{
+    width: 95%;
+}
+
+/*
+loading 效果
+*/
+.loadEffect{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 15%;
+    left: 175px;
+    z-index: 1001;
+    margin: 0 auto;
+    display: none;
+    margin-top:100px;
+ }
+ .loadEffect span{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: lightgreen;
+    position: absolute;
+    -webkit-animation: load 1.04s ease infinite;
+ }
+ @-webkit-keyframes load{
+    0%{
+       opacity: 1;
+    }
+    100%{
+       opacity: 0.2;
+    }
+ }
+ .loadEffect span:nth-child(1){
+    left: 0;
+    top: 50%;
+    margin-top:-8px;
+    -webkit-animation-delay:0.13s;
+ }
+ .loadEffect span:nth-child(2){
+    left: 14px;
+    top: 14px;
+    -webkit-animation-delay:0.26s;
+ }
+ .loadEffect span:nth-child(3){
+    left: 50%;
+    top: 0;
+    margin-left: -8px;
+    -webkit-animation-delay:0.39s;
+ }
+ .loadEffect span:nth-child(4){
+    top: 14px;
+    right:14px;
+    -webkit-animation-delay:0.52s;
+ }
+ .loadEffect span:nth-child(5){
+    right: 0;
+    top: 50%;
+    margin-top:-8px;
+    -webkit-animation-delay:0.65s;
+ }
+ .loadEffect span:nth-child(6){
+    right: 14px;
+    bottom:14px;
+    -webkit-animation-delay:0.78s;
+ }
+ .loadEffect span:nth-child(7){
+    bottom: 0;
+    left: 50%;
+    margin-left: -8px;
+    -webkit-animation-delay:0.91s;
+ }
+ .loadEffect span:nth-child(8){
+    bottom: 14px;
+    left: 14px;
+    -webkit-animation-delay:1.04s;
+ }

@@ -81,27 +81,27 @@ WSGI_APPLICATION = 'traffic_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DEMODB',
-        'USER': 'devops',
-        'PASSWORD': 'devops',
-        'HOST': '39.99.192.63',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'TRAFFIC',
-#         'USER': 'root',
-#         'PASSWORD': '06240118',
-#         'HOST': 'localhost',
+#         'NAME': 'DEMODB',
+#         'USER': 'devops',
+#         'PASSWORD': 'devops',
+#         'HOST': '39.99.192.63',
 #         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'TRAFFIC',
+        'USER': 'root',
+        'PASSWORD': '06240118',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 
 # Password validation
