@@ -480,6 +480,10 @@ def tonew_home(request):
     return render(request, 'new_home.html');
 
 
-def toBH(request):
+def getBH(request):
 
     return render(request, 'bh_edgenode.html');
+
+def toMap_test(request):
+
+    return render(request, 'monitor_map.html');

@@ -14,14 +14,23 @@
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
 
+      <!--左侧导航-->
+      {% include 'Nav.html' %}
+      <!--End 左侧导航-->
+
       <!--头部信息-->
       <header class="lyear-layout-header">
 
           <nav class="navbar navbar-default">
               <div class="topbar">
 
-                  <div class="topbar-center">
-                      <span class="navbar-page-title" > 北航节点监控 </span>
+                  <div class="topbar-left">
+                      <div class="lyear-aside-toggler">
+                          <span class="lyear-toggler-bar"></span>
+                          <span class="lyear-toggler-bar"></span>
+                          <span class="lyear-toggler-bar"></span>
+                      </div>
+                      <span class="navbar-page-title"> 北航节点 </span>
                   </div>
 
               </div>
@@ -30,6 +39,7 @@
       </header>
       <!--End 头部信息-->
 
+
     <!--页面主要内容-->
     <main class="lyear-layout-content">
       
@@ -37,60 +47,63 @@
 
         <div class="row">
 
-          <div class="col-md-8">
-
-              <div class="card">
-
-                  <div class="card-body">
-
-                      <div class="table-responsive">
-                          <table class="table table-bordered">
-                              <thead>
-                              <tr>
-                                  <th>任务名</th>
-                                  <th>操作</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr th:each="image : ${images}">
-
-                                  <td></td>
-                                  <td>
-                                      <div class="btn-group">
-                                          <a class="btn btn-xs btn-default" href="#!"  title="新建容器" data-toggle="tooltip"><i class="mdi mdi-skip-next-circle-outline"></i></a>
-                                          <a class="btn btn-xs btn-default" href="#!"  title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                      </div>
-                                  </td>
-                              </tr>
-                              </tbody>
-                          </table>
-                      </div>
-
-
-                  </div>
-              </div>
-
-          </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header"><h4>容器监控</h4></div>
-                    <div class="card-body">
-                        <canvas id="containers-bar" width="400" height="180"></canvas>
-
+            <div class="col-md-8">
+                <div class="map">
+                    <div class="chart">
+                        <iframe id="resource-topo" class="col-sm-10" src="/map_test/"
+                                style="height: 700px;width:100%; border: none"></iframe>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
-                    <div class="card-header"><h4>CPU与内存</h4></div>
+                    <div class="card-header"><h4>节点资源监控</h4></div>
                     <div class="card-body">
-                        <canvas id="cpu-pie" width="180" height="170" style="display: inline-flex"></canvas>
-                        <canvas id="mem-pie" width="180" height="150" style="display: inline-flex"></canvas>
+                        <canvas id="cpu-pie" width="190" height="170" style="display: inline-flex"></canvas>
+                        <canvas id="mem-pie" width="190" height="150" style="display: inline-flex"></canvas>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>任务名</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+
+                                    <td></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-xs btn-default" href="#!"  title="新建容器" data-toggle="tooltip"><i class="mdi mdi-skip-next-circle-outline"></i></a>
+                                            <a class="btn btn-xs btn-default" href="#!"  title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
 
 
 
@@ -195,36 +208,6 @@
     });
 
 
-    var $containers = jQuery( '#containers-bar' );
-
-    var $containersData = {
-        labels: ["总容器数目", "运行容器数目", "暂停容器数目", "停止容器数目", "镜像数目"],
-        datasets: [{
-            backgroundColor: "rgba(51,202,185,0.5)",
-            borderColor: "rgba(0,0,0,0)",
-            hoverBackgroundColor: "rgba(51,202,185,0.7)",
-            hoverBorderColor: "rgba(0,0,0,0)",
-            data: [0, 0, 0, 0, 0]
-        }]
-    };
-
-    var ContainersChart = new Chart($containers, {
-        type: 'horizontalBar',
-        data: $containersData,
-        options: {
-            legend: {
-                display: false
-            },
-            scaleShowGridLines : false,
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        },
-    });
     var $cpu = jQuery( '#cpu-pie' );
     var $mem = jQuery( '#mem-pie' );
 
@@ -280,19 +263,7 @@
         }
     });
 
-    function getHostInfo(){
-        $.ajax({
-            url: '/data/hostInfo',
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
 
-                ContainersChart.data.datasets[0].data = [data["containers"],data["containersRunning"],data["containersPaused"],data["containersStopped"],data["images"]];
-                ContainersChart.update();
-
-            }
-        })
-    }
 
     function getSysInfo(){
         $.ajax({
@@ -310,7 +281,6 @@
             }
         })
     }
-    setInterval(getHostInfo,10000);
     setInterval(getSysInfo,10000);
 </script>
 </body>

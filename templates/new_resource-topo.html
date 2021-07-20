@@ -269,7 +269,7 @@
                             "<tbody><tr>" +
                             "<th>" +
                             d.data.info +
-                            "<a href='/bh_edge'>节点监控页面</a>" +
+                            "<a href='javascript:parentJump(\"/bh_edge/\");'>节点监控页面</a>" +
                             "</tr>" +
                             "</table>" +
                             "</div>";
@@ -498,5 +498,9 @@
             };
         });
     });
+
+    function parentJump(url){
+        parent.location.href = url;
+    }
 </script>
 </html>

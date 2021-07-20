@@ -1,0 +1,322 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛事活动客流集散模式分析与预测系统</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{% static 'cx/template.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'cx/mode_analysis.css'%}" type="text/css">
+    <!-- sys js -->
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+
+    <!-- echarts js -->
+    <!--
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    -->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js'%}"></script>
+
+    <!-- bmap js -->
+   <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=ql7oPcWw2XCXfsGvIFRwjf6usRBEutui"></script>
+    <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+    <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.105/dist/mapvgl.min.js"></script>
+
+        <style type="text/css">
+
+		.selector-group {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            z-index: 100;
+        }
+        select {
+            width: 80px;
+            height: 20px;
+            text-align-last: center;
+        }
+    </style>
+</head>
+<body>
+
+   <div class="container">
+
+
+    <!-- 页面主题部分 -->
+    <section class="mainbox">
+<div id="map"></div>
+
+
+
+            </section>
+    </div>
+   <script>
+       //全局变量
+       var bregion_model=[
+           {"ID": "wx4g8b2523sf", "poly": [["116.39407262665172", " 39.9874278071865"], [" 116.40645338321958", " 39.98802627416739"],
+               [" 116.41164915247421", " 39.995198241507474"], [" 116.41150752054523", " 39.996946888456264"], [" 116.40640051121127", " 40.00123648206145"],
+               [" 116.38683245080864", " 39.99884399687314"], [" 116.38625335572335", " 39.99787841243853"]], "level": 1},
+           {"ID": "wx4g85jkq7ex", "poly": [["116.38625335572335", " 39.99787841243853"], [" 116.38683245080864", " 39.99884399687314"],
+                   [" 116.38615400363223", " 40.01379777682655"], [" 116.38543250925653", " 40.01575130183423"], [" 116.36631261982923", " 40.02023555377464"],
+                   [" 116.36758678283688", " 39.99493450382268"], [" 116.3682913554025", " 39.994543437165746"], [" 116.3817266587883", " 39.99545639935533"]], "level": 3},
+       ];
+
+
+       var map;
+       var addedSrcId = [];
+       var addedLayerId = [];
+       var source_data = new Array();//道路数据
+       var timelineChart;
+       var graphChart;
+       var node_color={};
+       var cur_time = 0;
+       var cur_loc = 'DZM';
+       var flowdata=[];
+       var view;
+       var pointLayer;
+       var trafficIndex=[];
+       var polygons=[];
+       $(function(){
+
+
+           loadMap();
+
+           loadPoly();
+
+           addVenue(116.393857,39.994241,116.407223,40.00115,116.399426,40.001122,'国家体育馆');
+           addVenue(116.332181,39.944553,116.335541,39.949842,116.331642,39.950907,'首都体育馆');
+           addVenue(116.280475,39.913755,116.289709,39.919206,116.285038,39.924048,'五棵松体育馆');
+
+           setInterval(changeColor,100);
+
+
+       });
+       function loadMap(){
+           map = new BMapGL.Map("map");
+           map.centerAndZoom(new BMapGL.Point(116.351376,40.002346), 15);
+
+           //创建地址解析器实例
+           var myGeo = new BMapGL.Geocoder();
+
+           // 将地址解析结果显示在地图上，并调整地图视野
+           myGeo.getPoint('明光桥', function(point){
+               if(point){
+                   map.centerAndZoom(point, 13);
+               }}, '北京市')
+
+           map.disableDragging();   //禁止拖拽地图
+           //map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+           map.setDisplayOptions({
+               poiText: false,  // 隐藏poi标注
+               //poiIcon: false,  // 隐藏poi图标
+               //building: false  // 隐藏楼块
+           });
+           map.setMapStyleV2({
+               styleId: 'f93e20266be1e44e35abd488256458fe'
+           });
+           map.setTrafficOn(); // 叠加路况图层
+
+
+       }
+
+       // 自定义canvas
+       function getTextureCanvas() {
+           var textureCanvas = document.createElement('canvas');
+           textureCanvas.width = textureCanvas.height = 200;
+           var ctx = textureCanvas.getContext('2d');
+           ctx.fillStyle = '#79a913';
+           ctx.strokeStyle = '#79a913';
+           ctx.fillOpacity=0.9;
+           ctx.lineWidth = 6;
+           ctx.lineCap = 'square';
+           ctx.fillRect(0, 0, 200, 200);
+           ctx.moveTo(50, 50);
+           ctx.lineTo(150, 50);
+           ctx.lineTo(150, 150);
+           ctx.lineTo(50, 150);
+           ctx.lineTo(50, 50);
+           ctx.stroke();
+           return textureCanvas;
+       }
+       //添加场馆
+       function addVenue(S1,S2,E1,E2,N1,N2,N){
+
+           var pStart = new BMapGL.Point(S1,S2);
+           var pEnd = new BMapGL.Point(E1,E2);
+           var bounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
+           var canvasOverlay = new BMapGL.GroundOverlay(bounds, {
+               type: 'canvas',
+               url: getTextureCanvas(),
+               opacity: 0.9
+           });
+           map.addOverlay(canvasOverlay);
+
+// 添加文本标注
+           var opts = {
+               position: new BMapGL.Point(N1,N2),
+               offset: new BMapGL.Size(-40, -40)
+           };
+           var label = new BMapGL.Label(N, opts);
+           label.setStyle({
+               color: '#fff',
+               borderRadius: '5px',
+               borderColor: '#fff',
+               backgroundColor: '#79a913',
+               fontSize: '20px',
+               height: '40px',
+               lineHeight: '35px',
+               maxWidth:"none",
+
+           });
+//label.setZIndex(zIndex:1);
+           map.addOverlay(label);
+
+       }
+
+       function loadPoly(){
+           // 根据出入流量显示不同颜色
+//>5000红色；>1000黄色；>500蓝色；>100粉色；其余是绿色
+           var region_o1=[];
+           var region_o2=[];
+           var region_o3=[];
+           var region_o4=[];
+           var region_o5=[];
+           var regionWithTrafficIndex=bregion_model;
+
+           var polyColor=[];
+           var polyLevel=[];
+
+//为每个多边形添加交通指数属性
+           for(var i=0;i<bregion_model.length;i++){
+               if(regionWithTrafficIndex[i]['level'] === 3){
+                   polyColor.push('#FF0000');
+                   polyLevel.push(3);
+               }
+               else if(regionWithTrafficIndex[i]['level'] === 2){
+                   polyColor.push('#FFA500');
+                   polyLevel.push(2);
+               }
+               else {
+                   polyColor.push('#00FF7F');
+                   polyLevel.push(1);
+               }
+           }
+
+//绘制多边形区域
+           var polygon;
+           for(var i=0;i<regionWithTrafficIndex.length;i++){
+               var lines=[];
+//根据交通指数分别绘制多边形
+               for(var j=0;j<regionWithTrafficIndex[i]["poly"].length;j++){
+                   lines.push(new BMapGL.Point(regionWithTrafficIndex[i]["poly"][j][0], regionWithTrafficIndex[i]["poly"][j][1]));
+               }
+               polygon = new BMapGL.Polygon(lines, {
+                   strokeColor: '#FFFFFF',
+                   strokeWeight: 2,
+                   strokeOpacity: 0.5,
+                   fillColor: polyColor[i],
+                   fillOpacity: 0,
+               });
+               polygons.push({"object":polygon,"label":0,"frequent":polyLevel[i]});
+               map.addOverlay(polygon);
+
+           }
+       }
+
+       function changeColor(){
+           for(var i=0;i<polygons.length;i++){
+               var polygon = polygons[i]['object'];
+               var opacity = polygon.getFillOpacity();
+               var label = polygons[i]['label'];
+               var frequent = polygons[i]['frequent'];
+               var add;
+               if(frequent===0){
+                   add=0.01;
+               }else if(frequent===1){
+                   add=0.025;
+               }else{
+                   add=0.05;
+               }
+               if(label===0){
+                   opacity+=add;
+                   polygon.setFillOpacity(opacity);
+                   if(opacity>=1){
+                       polygons[i]['label']=1;
+                   }
+               }else{
+                   opacity-=add;
+                   polygon.setFillOpacity(opacity);
+                   if(opacity<=0){
+                       polygons[i]['label']=0;
+                   }
+               }
+
+           }
+       }
+
+
+
+       //添加区域重要公交地铁站点
+       function addMarker(){
+           //重要公交站点
+           var stations=[
+               {"AreaID":"wx4g85jkq7ex","Station":"B北沙滩桥东","Lng":116.38552,"Lat":40.00913615,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B二里庄北口","Lng":116.3752704,"Lat":40.00878817,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B南沙滩","Lng":116.3865837,"Lat":40.00363204,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B双泉堡","Lng":116.3775527,"Lat":40.01555985,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B北京科技大学北门","Lng":116.3718818,"Lat":40.00088441,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B北沙滩桥西","Lng":116.3796061,"Lat":40.00882345,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B志新路","Lng":116.3800677,"Lat":40.00137604,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B志新路东口","Lng":116.3854707,"Lat":40.00164418,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B二里庄","Lng":116.3775653,"Lat":40.0067989,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B二里庄南口","Lng":116.3777683,"Lat":40.00233387,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B志新北里","Lng":116.381759,"Lat":40.00074348,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B中国农业大学东校区","Lng":116.3696507,"Lat":40.00850902,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B科荟路西口","Lng":116.3699537,"Lat":40.01520523,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"R北沙滩","Lng":116.3748462,"Lat":40.00749515,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B志新桥北","Lng":116.3820132,"Lat":39.99584476,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B北沙滩桥南","Lng":116.383371,"Lat":40.00781286,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B北沙滩桥北","Lng":116.3814279,"Lat":40.01037694,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B双泉堡南","Lng":116.3793873,"Lat":40.01308101,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"R北京科技大学北门","Lng":116.3718818,"Lat":40.00088441,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B北沙滩","Lng":116.3748462,"Lat":40.00749515,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"R北沙滩桥东","Lng":116.38552,"Lat":40.00913615,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"R二里庄南口","Lng":116.3777683,"Lat":40.00233387,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"R志新路","Lng":116.3800677,"Lat":40.00137604,"":"aosen"},
+               {"AreaID":"wx4g85jkq7ex","Station":"B双泉堡东","Lng":116.3788059,"Lat":40.01714662,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R奥林匹克公园","Lng":116.3992082,"Lat":40.00727944,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B奥运村西","Lng":116.388364,"Lat":40.01248452,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B中科院地理所","Lng":116.3959637,"Lat":40.00950142,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B南沟泥河","Lng":116.3915035,"Lat":40.0095468,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B国家体育馆","Lng":116.3998868,"Lat":40.00342605,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B科学园南里","Lng":116.3939891,"Lat":40.0054449,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B科学园南里中街","Lng":116.3931255,"Lat":40.00693123,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B安翔桥北","Lng":116.3881932,"Lat":40.00240182,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B安翔桥南","Lng":116.3887805,"Lat":40.00080926,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B安翔北路西口","Lng":116.393671,"Lat":40.00198966,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B新闻中心","Lng":116.3994991,"Lat":40.0085419,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R南沟泥河","Lng":116.3915035,"Lat":40.0095468,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R安翔北路西口","Lng":116.393671,"Lat":40.00198966,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B奥林匹克公园","Lng":116.3992082,"Lat":40.00727944,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R奥运村西","Lng":116.388364,"Lat":40.01248452,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R国家体育馆","Lng":116.3998868,"Lat":40.00342605,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"B安翔北路东口","Lng":116.3988158,"Lat":40.00222076,"":"aosen"},
+               {"AreaID":"wx4g8eqd9f3v","Station":"R中科院地理所","Lng":116.3959637,"Lat":40.00950142,"":"aosen"},
+               {"AreaID":"wx4ex3x2kwc7","Station":"R五道口","Lng":116.34444771316686,"Lat":39.99844346071147,"":"aosen"},
+           ];
+           console.log(stations);
+           // 创建点标记
+           for(var i=0;i<stations.length;i++){
+               var marker = new BMapGL.Marker(new BMapGL.Point(stations[i]['Lng'], stations[i]['Lat']));
+               map.addOverlay(marker);
+           }
+       }
+
+
+   </script>
+
+</body>
+</html>

@@ -56,6 +56,7 @@ urlpatterns = [
     path('cloud/', views.toCloud),
     path('new_resource_topo/', views.get_new_resource_topo),
     path('new_home/', views.tonew_home),
-    path('bh_edge/', views.toBH),
+    path('bh_edge/', views.getBH),
+    path('map_test/', views.toMap_test),
 
 ]
