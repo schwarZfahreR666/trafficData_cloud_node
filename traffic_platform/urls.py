@@ -58,5 +58,8 @@ urlpatterns = [
     path('new_home/', views.tonew_home),
     path('bh_edge/', views.getBH),
     path('map_test/', views.toMap_test),
+    path('javaNode_sysInfo/', views.get_javaNode_sysInfo),
+    path('start_task/', views.start_task),
+
 
 ]

@@ -10,14 +10,20 @@ import pymysql
 import random
 import numpy as np
 import requests
+import uuid
+from kafka import KafkaProducer,KafkaConsumer
+from kafka.errors import KafkaError
 
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
+java_node_url = 'http://127.0.0.1:9999/'
 database_host = '127.0.0.1'
 database_name = 'TRAFFIC'
 database_usrname = 'root'
 database_password = '06240118'
+kafka_server = '47.95.159.86:9092'
+
 
 
 def login(request):
@@ -471,6 +477,7 @@ def get_small_mode2_analysis(request):
 
     return render(request, 'small_mode2_analysis.html')
 
+
 def toCloud(request):
 
     return render(request, 'new_monitor.html');
@@ -481,9 +488,54 @@ def tonew_home(request):
 
 
 def getBH(request):
+    tasks = requests.get(java_node_url+'/rest/tasks')
+    tasks = json.loads(tasks.content)
+    task_name = []
+    for task in tasks:
+        task_name.append(task['name'])
 
-    return render(request, 'bh_edgenode.html');
+    return render(request, 'bh_edgenode.html', {'tasks': task_name});
 
 def toMap_test(request):
 
     return render(request, 'monitor_map.html');
+
+def get_javaNode_sysInfo(request):
+    res = requests.get(java_node_url+'/rest/sysInfo')
+    return HttpResponse(res)
+
+def start_task(request):
+    res = ""
+    if request.method == 'POST':
+        producer = KafkaProducer(bootstrap_servers=kafka_server)
+        consumer = KafkaConsumer('edge-cloud', group_id='cloud-edge-0', #auto_offset_reset='earliest',
+                                 bootstrap_servers=kafka_server)
+        topic = 'cloud-edge'
+        name = request.POST['name']
+        input = request.POST['input']
+        try:
+
+            dic = {}
+            dic['id'] = str(uuid.uuid4().hex)
+            dic['time'] = datetime.datetime.now().strftime("%Y%m%d %H:%M:%S")
+            dic['name'] = name
+            dic['input'] = input
+            producer.send(topic, json.dumps(dic).encode())
+            flag = 1
+        except KafkaError as e:
+            print(e)
+        finally:
+            producer.close()
+
+
+        try:
+            while flag:
+                message = next(consumer)
+
+                res = json.loads(message.value.decode())
+                print(res)
+                flag = res['status']
+        except KeyboardInterrupt as e:
+            print(e)
+
+    return HttpResponse(res['info'])
