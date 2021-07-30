@@ -13,6 +13,7 @@ import requests
 import uuid
 from kafka import KafkaProducer,KafkaConsumer
 from kafka.errors import KafkaError
+import pika
 
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
@@ -23,6 +24,7 @@ database_name = 'TRAFFIC'
 database_usrname = 'root'
 database_password = '06240118'
 kafka_server = '47.95.159.86:9092'
+
 
 
 
@@ -506,10 +508,15 @@ def get_javaNode_sysInfo(request):
 
 def start_task(request):
     res = ""
+    # producer = KafkaProducer(bootstrap_servers=kafka_server)
+    # consumer = KafkaConsumer('edge-cloud', group_id='cloud-edge-0', #auto_offset_reset='earliest',
+    #                      bootstrap_servers=kafka_server)
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+
     if request.method == 'POST':
-        producer = KafkaProducer(bootstrap_servers=kafka_server)
-        consumer = KafkaConsumer('edge-cloud', group_id='cloud-edge-0', #auto_offset_reset='earliest',
-                                 bootstrap_servers=kafka_server)
+
         topic = 'cloud-edge'
         name = request.POST['name']
         input = request.POST['input']
@@ -520,22 +527,35 @@ def start_task(request):
             dic['time'] = datetime.datetime.now().strftime("%Y%m%d %H:%M:%S")
             dic['name'] = name
             dic['input'] = input
-            producer.send(topic, json.dumps(dic).encode())
+            # producer.send(topic, json.dumps(dic).encode())
+            msg = json.dumps(dic)
+            channel = connection.channel()
+            channel.basic_publish(exchange='cloud-edge',
+                                  routing_key='',
+                                  body=msg)
+            print("发送数据：" + str(dic))
             flag = 1
         except KafkaError as e:
             print(e)
-        finally:
-            producer.close()
+
 
 
         try:
             while flag:
-                message = next(consumer)
 
-                res = json.loads(message.value.decode())
-                print(res)
+                # message = next(consumer)
+                channel = connection.channel()
+                method_frame = None
+                while method_frame == None:
+                    method_frame, header_frame, body = channel.basic_get(queue='edge-cloud-queue',
+                                            auto_ack=True)
+                res = json.loads(body)
+
+                print("接收数据:" + str(res))
                 flag = res['status']
         except KeyboardInterrupt as e:
             print(e)
+        finally:
+            connection.close()
 
     return HttpResponse(res['info'])
