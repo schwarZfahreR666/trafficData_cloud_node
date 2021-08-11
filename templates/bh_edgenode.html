@@ -61,8 +61,8 @@
                 <div class="card">
                     <div class="card-header"><h4>节点资源监控</h4></div>
                     <div class="card-body">
-                        <canvas id="cpu-pie" width="190" height="170" style="display: inline-flex"></canvas>
-                        <canvas id="mem-pie" width="190" height="150" style="display: inline-flex"></canvas>
+                        <canvas id="cpu-pie" width="150" height="170" style="display: inline-flex"></canvas>
+                        <canvas id="mem-pie" width="150" height="150" style="display: inline-flex"></canvas>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                                                                 <h4 class="modal-title" id="exampleModalLabel">启动容器</h4>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form enctype="multipart/form-data" id="startForm" method="post" action="/start_task/" >
+                                                                <form enctype="multipart/form-data" id="startForm{{ task }}" method="post" action="/start_task/" >
                                                                     {% csrf_token %}
                                                                     <div class="form-group">
                                                                         <label for="id" class="control-label">任务名:</label>
@@ -107,11 +107,22 @@
                                                                         <label for="input" class="control-label">输入数据(若有):</label>
                                                                         <textarea class="form-control" id="input" name="input" placeholder="Input"></textarea>
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <p class="m-t-10">是否返回数据</p>
+                                                                        <div class="example-box">
+                                                                            <label class="lyear-radio radio-inline radio-primary">
+                                                                                <input type="radio" value="yes" name="res"><span>是</span>
+                                                                            </label>
+                                                                            <label class="lyear-radio radio-inline radio-primary">
+                                                                                <input type="radio" value="no" checked="true" name="res"><span>否</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </form>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                <button type="submit" class="btn btn-primary" data-loading-text="处理中..." onclick="add('确定启动任务吗？','startForm')">确定</button>
+                                                                <button type="submit" class="btn btn-primary" data-loading-text="处理中..." onclick="add('确定启动任务吗？','startForm{{ task }}')">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -164,11 +175,66 @@
 <script type="text/javascript" src="{% static 'js/new_ui/Chart.js' %}"></script>
 <script type="text/javascript">
     jQuery('.loading').hide();
+    // 创建一个div
+    var layer=document.createElement("div");
+    // 设置div的id值
+    layer.id="layer";
+    // 上面按钮点击事件
+    function tip(data){
+        /* 创建div的样式，宽200px,高80px，下面的是css样式居中，
+         * css样式居中具体了解链接：https://blog.csdn.net/A_Bear/article/details/80546181
+         */
+        var style={
+            background:"white",
+            border: "1px solid #ccc",
+            'font-size': "20px" ,
+            position:"absolute",
+            clear: "left",
+            zIndex:100001,
+            width:"200px",
+            height:"80px",
+            left:"50%",
+            top:"50%",
+            marginLeft:"-100px",
+            marginTop:"-40px",
+            opacity: 0.65,
+            'font-family': 'tahoma, helvetica, "microsoft yahei", "宋体",arial',
+        }
+        for(var i in style)
+            layer.style[i]=style[i];
+
+        // 当找不到id为layer的控件时
+        if(document.getElementById("layer")==null){
+            // 在body中添加layer控件（layer在上面创建的）
+            document.body.appendChild(layer);
+            // 设置显示类容
+            layer.innerHTML=data;
+            // 将div中文本居中
+            layer.style.textAlign="center";
+            layer.style.lineHeight="80px"; // 作用是调节字体行高与div同高，使其保持水平居中
+            // 设置3s后去掉弹出窗
+            setTimeout("document.body.removeChild(layer)",3000)
+        }
+    }
     function add(mess,formid){
         if(confirm(mess)){
-            var form = document.getElementById(formid);
-            form.submit();
             jQuery('.loading').show();
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                {#dataType: "json",//预期服务器返回的数据类型#}
+                url: "/start_task/" ,//url
+                data: $('#'+formid).serialize(),
+                success: function (result) {
+                    jQuery('.loading').hide();
+                    console.log(result)
+                    tip(result);
+                },
+                error : function() {
+                    jQuery('.loading').hide();
+                    tip("出现异常");
+                }
+            });
         }
     }
     Chart.pluginService.register({

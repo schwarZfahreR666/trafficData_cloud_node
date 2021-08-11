@@ -488,12 +488,15 @@ def tonew_home(request):
 
     return render(request, 'new_home.html');
 
+tasks_map = {}
 
 def getBH(request):
     tasks = requests.get(java_node_url+'/rest/tasks')
     tasks = json.loads(tasks.content)
     task_name = []
+    global tasks_map
     for task in tasks:
+
         task_name.append(task['name'])
 
     return render(request, 'bh_edgenode.html', {'tasks': task_name});
@@ -520,6 +523,8 @@ def start_task(request):
         topic = 'cloud-edge'
         name = request.POST['name']
         input = request.POST['input']
+        res = request.POST['res']
+
         try:
 
             dic = {}
@@ -527,6 +532,8 @@ def start_task(request):
             dic['time'] = datetime.datetime.now().strftime("%Y%m%d %H:%M:%S")
             dic['name'] = name
             dic['input'] = input
+            dic['res'] = res
+
             # producer.send(topic, json.dumps(dic).encode())
             msg = json.dumps(dic)
             channel = connection.channel()
@@ -541,21 +548,32 @@ def start_task(request):
 
 
         try:
+
             while flag:
 
                 # message = next(consumer)
                 channel = connection.channel()
                 method_frame = None
+                count = 0
                 while method_frame == None:
+                    count += 1
                     method_frame, header_frame, body = channel.basic_get(queue='edge-cloud-queue',
                                             auto_ack=True)
+                    if count >= 10000:
+                        return HttpResponse("请求超时")
+
                 res = json.loads(body)
 
                 print("接收数据:" + str(res))
                 flag = res['status']
+
+
         except KeyboardInterrupt as e:
             print(e)
         finally:
             connection.close()
-
-    return HttpResponse(res['info'])
+    ans = res['info']
+    if res['res'] != "":
+        ans = "返回数据："
+        ans += res['res']
+    return HttpResponse(ans)
