@@ -24,6 +24,34 @@
             font: 15px "Microsoft JhengHei";
         }
 
+        #tooltip {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #ccc;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            font-style: 12px;
+            -webkit-box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4);
+            -moz-box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4);
+            box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        #tooltip.hidden {
+            display: none;
+        }
+
+        #tooltip p {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
         @keyframes dash {
             from {
                 stroke-dashoffset: 0;
@@ -42,17 +70,26 @@
     </style>
 </head>
 <body>
+<div id="tooltip" class="hidden">
+    <p><strong>节点健康:</strong></p>
+    <p><span id="tooltip_value"></span></p>
+</div>
 </body>
 <script type="text/javascript" src="{% static 'js/d3.v5.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
 <script type="text/javascript">
     $(window).load(function () {
+
+
         const width = Math.max($("body").width(), 0),
             height = Math.max($("body").height(), 0);
 
+
+
         d3.json("{% static 'data/resource-topo.json' %}").then(function (data) {
-            console.log(data);
+
+
 
             const pack = data => d3.pack()
                 .size([width, height])
@@ -61,6 +98,19 @@
                     .sort((a, b) => b.id - a.id));
 
             const root = pack(data);
+
+            {#node_health = {"BUAA 北京航空航天大学":"暂无健康度数据"}#}
+            node_health = new Array();
+
+            nodes = flatten(root);
+
+            for(var i=0;i<nodes.length;i++){
+                if(nodes[i].data.type === "node"){
+                    node_health[nodes[i].data.name] = "暂无健康度数据";
+                }
+            }
+
+
             let node, link, link_label;
 
             //设置允许的最小最大缩放比例
@@ -130,6 +180,8 @@
                     .attr('stroke-width', 1)
                     .style('opacity', d => !d.ignored ? 1 : .1)
                     .on('click', clicked)
+                    .on('mouseover',mouseover)
+                    .on('mouseout', function (v) {d3.select("#tooltip").classed("hidden", true);})
                     .call(d3.drag()
                         .on('start', dragstarted)
                         .on('drag', dragged)
@@ -163,6 +215,7 @@
 
                 node = nodeEnter.merge(node);
 
+
                 simulation.nodes(nodes);
                 simulation.force('link').links(links)
 
@@ -181,6 +234,20 @@
             }
 
             let shown_data = null;
+
+            function mouseover(v) {
+                //显示提示信息方案一：更新提示条位置和值
+                switch (v.data.type) {
+                    case "node":
+                        d3.select("#tooltip")
+                            .attr("style", "left:" + v.x + "px" + ";top:" + v.y + "px")
+                            .select("#tooltip_value")
+                            .text(node_health[v.data.name]);
+                        //显示提示条
+                        d3.select("#tooltip").classed("hidden", false);
+                }
+
+            }
 
             function clicked(d) {
                 switch (d.data.type) {
@@ -247,8 +314,8 @@
                                 height: 360,
                                 style: {
                                     right: '',
-                                    left: 0,
-                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    left: d.x + "px",
+                                    top: d.y + "px",
                                     bottom: ''
                                 }
                             });
@@ -264,14 +331,16 @@
 
                         console.log(d.data);
                         const text_html =
-                            "<div><br>&nbsp;节点资料" +
+                            "<div>" +
+                            "<a href='javascript:parentJump(\"" + d.data.url + "\");'>节点监控页面</a>" +
+                            "<p><strong>节点资料</strong></p>" +
                             "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
                             "<tbody><tr>" +
                             "<th>" +
                             d.data.info +
-                            "<a href='javascript:parentJump(\"/bh_edge/\");'>节点监控页面</a>" +
                             "</tr>" +
                             "</table>" +
+
                             "</div>";
                         $('.window').remove();
                         if (shown_data !== d.id) {
@@ -286,8 +355,8 @@
                                 height: 360,
                                 style: {
                                     right: '',
-                                    left: 0,
-                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    left: d.x + "px",
+                                    top: d.y + "px",
                                     bottom: ''
                                 }
                             });
@@ -303,8 +372,13 @@
                         {#break;#}
 
                         const server_html =
-                            "<div><br>&nbsp;节点资料" +
-                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
+                            "<div>" +
+                            "<p><strong>节点资料</strong></p>" +
+                            "<table border=\"1\" style=\"width: 100%;height: 100%;margin:auto\">" +
+                            "<tbody><tr>" +
+                            "<th>" +
+                            d.data.info +
+                            "</tr>" +
                             "</table>" +
                             "</div>";
                         $('.window').remove();
@@ -320,8 +394,8 @@
                                 height: 360,
                                 style: {
                                     right: '',
-                                    left: 0,
-                                    top: document.body.scrollTop + document.documentElement.scrollTop + 50,
+                                    left: d.x + "px",
+                                    top: d.y + "px",
                                     bottom: ''
                                 }
                             });
@@ -382,28 +456,7 @@
             }
 
             update();
-            {#var base_day=parseInt(Math.random() * 10000);#}
-            {#var base_his=parseInt(Math.random() * 100000);#}
-            {#setInterval(function () {#}
-            {#    var newdata= parseInt(Math.random() * 1000);#}
-            {#    base_day+=newdata;#}
-            {#    base_his+=newdata;#}
-            {#    link_label.text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? parseInt(Math.random() * 1000) + "条/分" : undefined)#}
-            {#    && $(".random-int1").html(newdata)#}
-            {#    && $(".random-int2").html(base_day)#}
-            {#    && $(".random-int3").html(base_his)#}
-            //}, 10000);
-            {#base_day=parseInt(Math.random() * 10000);#}
-            {#base_his=parseInt(Math.random() * 100000);#}
-            {#setInterval(function () {#}
-            {#    var newdata= parseInt(Math.random() * 1000);#}
-            {#    base_day+=newdata;#}
-            {#    base_his+=newdata;#}
-            {#    link_label.text((d) => (d.target.data.type === "node" || d.target.data.type === "data") ? parseInt(Math.random() * 1000) + "条/分" : undefined)#}
-            {#    && $(".random-int4").html(newdata)#}
-            {#    && $(".random-int5").html(base_day)#}
-            {#    && $(".random-int6").html(base_his)#}
-            //}, 10000);
+
             var base_day=parseInt(Math.random() * 10000);
             var base_his=parseInt(Math.random() * 100000);
             setInterval(function () {
@@ -434,6 +487,26 @@
                 && $(".random-int9").html(base_his);
 
             }, 5000);
+
+            setInterval(function () {
+
+                $.ajax({
+                    url: '/node_health/',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        $.each(data,function (key,value){
+                            if(node_health.hasOwnProperty(key)){
+                                node_health[key] = value;
+                            }
+                        });
+
+                    }
+                });
+
+            }, 5000);
+
             return [svg, zoom];
         }).then(function (re) {
             const svg = re[0], zoom = re[1];

@@ -3,15 +3,15 @@
   "name": "阿里云节点",
   "type": "server",
   "img": "aliyun.png",
-  "info": "机构介绍",
+  "info": "阿里云节点是云边协同系统的主要节点，负责任务的调度和资源的监控。",
   "children": [
     {
       "id": 12,
       "name": "BUAA 北京航空航天大学",
       "type": "node",
-      "url": "www.buaa.edu.cn",
+      "url": "/bh_edge/",
       "img": "beihang-png.png",
-      "info": "机构介绍",
+      "info": "BUAA节点是部署在北航的边缘节点，主要负责数据的采集和融合工作。",
       "children": [
         {
           "id": 25,
@@ -40,41 +40,6 @@
               "name": "北京市交通事件",
               "url": "http://192.168.23.76:9012",
               "id": 11
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 11,
-      "name": "航天长峰公司",
-      "type": "node",
-      "img": "cf-png.png",
-      "info": "机构介绍",
-      "children": [
-        {
-          "id": 14,
-          "name": "11应用14",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市公交信息统计",
-              "url": "http://114.67.37.247:9013",
-              "id": 20
-            }
-          ]
-        },
-        {
-          "id": 1,
-          "name": "11应用1",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "出租车网格计算应用",
-              "url": "http://114.67.37.247:9006",
-              "id": 16
             }
           ]
         }

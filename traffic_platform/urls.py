@@ -60,6 +60,8 @@ urlpatterns = [
     path('map_test/', views.toMap_test),
     path('javaNode_sysInfo/', views.get_javaNode_sysInfo),
     path('start_task/', views.start_task),
+    path('topo/', views.toTopo),
+    path('node_health/', views.getHealth),
 
 
 ]

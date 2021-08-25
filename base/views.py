@@ -484,6 +484,10 @@ def toCloud(request):
 
     return render(request, 'new_monitor.html');
 
+def toTopo(request):
+
+    return render(request, 'new_resource-topo.html');
+
 def tonew_home(request):
 
     return render(request, 'new_home.html');
@@ -576,4 +580,12 @@ def start_task(request):
     if res['res'] != "":
         ans = "返回数据："
         ans += res['res']
+    return HttpResponse(ans)
+
+
+
+def getHealth(request):
+    res = requests.get(java_node_url+'/rest/health')
+    ans = {"BUAA 北京航空航天大学": res.text}
+    ans = json.dumps(ans)
     return HttpResponse(ans)
