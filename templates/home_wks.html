@@ -9,163 +9,161 @@
     <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
 </head>
 <body style="font-size: 16px;">
-    <!-- 左边栏 -->
-    <div class="leftbox">
-        {% include 'sidenav.html' %}
-    </div>
-    <!-- 主容器 -->
-    <div class="container">
-        <!-- 上面头部 -->
-        <header>
-            <h1>态势感知数据采集及融合系统-五棵松体育馆</h1>
+<!-- 左边栏 -->
+<div class="leftbox">
+    {% include 'sidenav.html' %}
+</div>
+<!-- 主容器 -->
+<div class="container">
+    <!-- 上面头部 -->
+    <header>
+        <h1>态势感知数据采集及融合系统-五棵松体育馆</h1>
 
-        </header>
-        <!-- 下面主体 -->
-        <section class="mainbox">
-            <!-- 分两列 -->
-            <div class="column1">
-                <!-- 主体图 -->
-                <div class="map">
-                    <div class="map1" id="map1">
+    </header>
+    <!-- 下面主体 -->
+    <section class="mainbox">
+        <!-- 分两列 -->
+        <div class="column1">
+            <!-- 主体图 -->
+            <div class="map">
+                <div class="map1" id="map1">
 
-                    </div>
-                    <div class="anchor">
+                </div>
+                <div class="anchor">
 
-                    </div>
                 </div>
             </div>
-            <div class="column2">
-                <div class="weather">
-                    <!-- 天气图表 -->
-{#                    <div id="weather-v2-plugin-standard"></div>#}
-                    <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=71144&w=270&h=270&align=center"></iframe>
-                </div>
-                <div class="navbar">
-                    {% include 'home_navbar_bj.html' %}
+        </div>
+        <div class="column2">
+            <div class="weather">
+                <!-- 天气图表 -->
+                {#                    <div id="weather-v2-plugin-standard"></div>#}
+                <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no"
+                        src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=71144&w=270&h=270&align=center"></iframe>
+            </div>
+            <div class="navbar">
+                {% include 'home_navbar_bj.html' %}
 
-                </div>
-                <div class="slider">
+            </div>
+            <div class="slider">
                 <div class="slideTxtBox">
                     <div class="hd">
-                        <ul><li>事件信息</li><li>赛事信息</li></ul>
+                        <ul>
+                            <li>事件信息</li>
+                            <li>赛事信息</li>
+                        </ul>
                     </div>
 
 
                     <div class="bd" id="bd_slide">
-                    <div class="txtMarquee-top1">
-                        <ul class="infoList1" id="p1" >
+                        <div class="txtMarquee-top1">
+                            <ul class="infoList1" id="p1">
 
-                        </ul>
+                            </ul>
+                        </div>
+
+                        <div class="txtMarquee-top2">
+                            <ul class="infoList2" id="p2">
+
+                            </ul>
+                        </div>
+
                     </div>
-
-                    <div class="txtMarquee-top2">
-                        <ul class="infoList2" id="p2">
-
-                        </ul>
-                    </div>
-
-                </div>
                 </div>
 
             </div>
         </div>
-        </section>
-    </div>
+    </section>
+</div>
 
 
-
-    <!-- script部分 -->
-    <script src="{% static 'js/flexible.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.SuperSlide.2.1.1.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.drag.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.dialog.js' %}"></script>
-
+<!-- script部分 -->
+<script src="{% static 'js/flexible.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.SuperSlide.2.1.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.drag.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.dialog.js' %}"></script>
 
 
-
-
-    <script type="text/javascript">
-        $(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-        $(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-        {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
-        {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
-        $(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
-    </script>
+<script type="text/javascript">
+    $(".txtMarquee-top1").slide({mainCell: ".infoList1", autoPlay: true, effect: "topMarquee", vis: 20, interTime: 50});
+    $(".txtMarquee-top2").slide({mainCell: ".infoList2", autoPlay: true, effect: "topMarquee", vis: 20, interTime: 50});
+    {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+    {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+    $(".slideTxtBox").slide({effect: "left", autoPlay: true, interTime: 10000});
+</script>
 
 <script>
     WIDGET = {
-      CONFIG: {
-        "layout": 2,
-        "width": "270",
-        "height": "270",
-        "background": 1,
-        "dataColor": "FFFFFF",
-        "borderRadius": 5,
-        "city": "CN101010200",
-        "key": "H1kQFiLkmC"
-      }
+        CONFIG: {
+            "layout": 2,
+            "width": "270",
+            "height": "270",
+            "background": 1,
+            "dataColor": "FFFFFF",
+            "borderRadius": 5,
+            "city": "CN101010200",
+            "key": "H1kQFiLkmC"
+        }
     }
-    </script>
-    <script src="https://apip.weatherdt.com/standard/static/js/weather-standard-common.js?v=2.0"></script>
+</script>
+<script src="https://apip.weatherdt.com/standard/static/js/weather-standard-common.js?v=2.0"></script>
 
 
-    <script>
+<script>
     //假设每隔5秒发送一次请求
     window.onload = function () {
 
         loadSVGInline();
         getApi();
-        setTimeout('myrefresh()',700*1000);
+        setTimeout('myrefresh()', 700 * 1000);
 
 
     };
-    function myrefresh()
-    {
+
+    function myrefresh() {
         window.location.reload();
         console.log(1111);
     }
 
-    function loadSVGInline()
-{
-    var SVGFile="{% static 'img/bdmap_wks.svg' %}";
-    var loadXML = new XMLHttpRequest;
-    function handler(){
+    function loadSVGInline() {
+        var SVGFile = "{% static 'img/bdmap_wks.svg' %}";
+        var loadXML = new XMLHttpRequest;
 
-        var svgDiv = document.getElementById("map1");
-        if(loadXML.readyState == 4 && loadXML.status == 200)
-        {
-            svgDiv.innerHTML=loadXML.responseText;
+        function handler() {
 
-            svg = document.getElementsByClassName("st11")[0];
-            {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
+            var svgDiv = document.getElementById("map1");
+            if (loadXML.readyState == 4 && loadXML.status == 200) {
+                svgDiv.innerHTML = loadXML.responseText;
 
-            map1 = document.getElementById("map1");
-            svg.setAttribute("viewBox","0 0 875 600");
-            mapw =  map1.clientWidth || map1.offsetWidth;
-            maph =  map1.clientHeight || map1.offsetHeight;
-            console.log(mapw);
-            svg.setAttribute("width",mapw*1.08);
-            svg.setAttribute("height",maph*1.05);
+                svg = document.getElementsByClassName("st11")[0];
+                {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
 
+                map1 = document.getElementById("map1");
+                svg.setAttribute("viewBox", "0 0 875 600");
+                mapw = map1.clientWidth || map1.offsetWidth;
+                maph = map1.clientHeight || map1.offsetHeight;
+                console.log(mapw);
+                svg.setAttribute("width", mapw * 1.08);
+                svg.setAttribute("height", maph * 1.05);
+
+
+            }
+        }
+
+        if (loadXML != null) {
+            loadXML.open("GET", SVGFile, true);
+            loadXML.onreadystatechange = handler;
+            loadXML.send();
 
         }
     }
-    if (loadXML != null){
-        loadXML.open("GET", SVGFile, true);
-        loadXML.onreadystatechange = handler;
-        loadXML.send();
-
-    }
-}
 
     function getApi() {
         //设置时间 300-秒  1000-毫秒  这里设置你自己想要的时间
-        setTimeout(getApi,300*1000);
-
-
+        setTimeout(getApi, 300 * 1000);
 
 
         $.ajax({
@@ -235,14 +233,14 @@
                 road_info = data['road'];
                 events = data['event'];
                 games = data['game'];
-                for(var i=0;i<road_list.length;i++){
-                    document.getElementById(road_list[i]+'d0').style="fill:#00b050;";
-                    document.getElementById(road_list[i]+'d1').style="fill:#00b050;";
+                for (var i = 0; i < road_list.length; i++) {
+                    document.getElementById(road_list[i] + 'd0').style = "fill:#00b050;";
+                    document.getElementById(road_list[i] + 'd1').style = "fill:#00b050;";
 
                 }
 
                 var dialogs = document.getElementsByClassName("j-dialog");
-                for(var i=0;i<dialogs.length;i++){
+                for (var i = 0; i < dialogs.length; i++) {
                     console.log(dialogs);
                     dialogs[i--].remove();
                 }
@@ -285,15 +283,15 @@
                 var h = dt.getHours();//获取时
                 var m = dt.getMinutes();//获取分
                 var s = dt.getSeconds();//获取秒
-                var minutes = (dt.getMinutes()<10?'0':'') + dt.getMinutes();
-                var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
-                var hms = h + ":" + minutes ;
+                var minutes = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+                var time = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                var hms = h + ":" + minutes;
 
                 var list1 = document.getElementById("p1");
                 var list2 = document.getElementById("p2");
                 var attr1 = '';
                 var attr2 = '';
-                if(road_info.length===0){
+                if (road_info.length === 0) {
                     var dt = new Date();
                     var y = dt.getFullYear();
                     var mt = dt.getMonth() + 1;
@@ -301,7 +299,7 @@
                     var h = dt.getHours();//获取时
                     var m = dt.getMinutes();//获取分
                     var s = dt.getSeconds();//获取秒
-                    var time =  y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                    var time = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
                     html = "<div>" + time + ":" + "五棵松场馆周边道路全线畅通。</div>";
                     offset = {
                         top: -400,
@@ -320,14 +318,14 @@
                     });
 
                 }
-                for(var i = 0;i<road_info.length;i++){
+                for (var i = 0; i < road_info.length; i++) {
                     var road_name = road_info[i]['road_name'];
 
-                    if(roads_wks_section.includes(road_name)){
-                        if(road_info[i]['section_id']===null){
-                            road_info[i]['section_id']='1';
+                    if (roads_wks_section.includes(road_name)) {
+                        if (road_info[i]['section_id'] === null) {
+                            road_info[i]['section_id'] = '1';
                         }
-                        road_name = road_name + 'n' +road_info[i]['section_id'];
+                        road_name = road_name + 'n' + road_info[i]['section_id'];
 
 
                     }
@@ -335,19 +333,18 @@
                     var direction = parseInt(road_info[i]['direction']);
                     road_name = road_name + 'd' + direction;
 
-                    if (speed>=30){
+                    if (speed >= 30) {
 
                         console.log(road_name);
-                        var color = 'y'+direction;
-                        document.getElementById(road_name).style="fill:url(#"+color+");";
+                        var color = 'y' + direction;
+                        document.getElementById(road_name).style = "fill:url(#" + color + ");";
 
 
-                    }
-                    else {
-                        var color = 'r'+direction;
+                    } else {
+                        var color = 'r' + direction;
                         console.log(road_name);
                         console.log(color);
-                        document.getElementById(road_name).style="fill:url(#"+color+");";
+                        document.getElementById(road_name).style = "fill:url(#" + color + ");";
 
                     }
 
@@ -359,8 +356,8 @@
                     console.log(target.offset());
                     html = "<div>" + str + "</div>";
                     offset = {
-                        top: -target.offset().top-100+Math.max(50,Math.round(Math.random()*200)),//-target.offset().top-50,
-                        left: target.offset().left-550,
+                        top: -target.offset().top - 100 + Math.max(50, Math.round(Math.random() * 200)),//-target.offset().top-50,
+                        left: target.offset().left - 550,
                         right: 0,
                         bottom: 0
                     };
@@ -377,53 +374,51 @@
                     });
 
 
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
                         str = str.substring(line_len);
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
-                        if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        if (str.length <= line_len) {
+                            attr1 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
 
                     }
                     attr1 += '<li><span>*****************</li></span>';
                 }
 
-                for(var i = 0;i<events.length;i++){
+                for (var i = 0; i < events.length; i++) {
 
                     var str = events[i]['date'] + ' ' + hms + ' ' + events[i]['content'];
                     var pre = '';
 
 
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
                         str = str.substring(line_len);
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr1 += text;
-                        if(str.length<=line_len){
-                           attr1 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        if (str.length <= line_len) {
+                            attr1 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
-
 
 
                     }
                     attr1 += '<li><span>*****************</li></span>';
                 }
 
-                for(var i = 0;i<games.length;i++){
+                for (var i = 0; i < games.length; i++) {
 
                     var str = games[i]['date'] + ' ' + hms + ' ' + games[i]['content'];
                     var pre = '';
-                    while(str.length>line_len){
-                        pre = str.substr(0,line_len);
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
                         str = str.substring(line_len);
                         let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
                         attr2 += text;
-                        if(str.length<=line_len){
-                           attr2 +=  '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        if (str.length <= line_len) {
+                            attr2 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
                         }
-
 
 
                     }
@@ -431,21 +426,31 @@
                 }
 
 
-
-
                 list1.innerHTML = attr1;
                 list2.innerHTML = attr2;
-                $(".txtMarquee-top1").slide({mainCell:".infoList1",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
-                $(".txtMarquee-top2").slide({mainCell:".infoList2",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});
+                $(".txtMarquee-top1").slide({
+                    mainCell: ".infoList1",
+                    autoPlay: true,
+                    effect: "topMarquee",
+                    vis: 20,
+                    interTime: 50
+                });
+                $(".txtMarquee-top2").slide({
+                    mainCell: ".infoList2",
+                    autoPlay: true,
+                    effect: "topMarquee",
+                    vis: 20,
+                    interTime: 50
+                });
                 {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
                 {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
-                $(".slideTxtBox").slide({ effect:"left" ,autoPlay:true, interTime:10000});
-                }})
+                $(".slideTxtBox").slide({effect: "left", autoPlay: true, interTime: 10000});
+            }
+        })
     }
 
 
-
-    </script>
+</script>
 
 </body>
 </html>

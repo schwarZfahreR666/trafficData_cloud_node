@@ -28,6 +28,9 @@ urlpatterns = [
     path('road_info_st/', views.get_road_info_st),
     path('road_info_at/', views.get_road_info_at),
     path('road_info_wks/', views.get_road_info_wks),
+    path('road_info_sg/', views.get_road_info_sg),
+    path('road_info_zjk/', views.get_road_info_zjk),
+
     path('trafficflow/', views.trafficflow),
     path('home_zjk/', views.home_zjk),
     path('home_st/', views.home_st),
@@ -63,5 +66,10 @@ urlpatterns = [
     path('topo/', views.toTopo),
     path('node_health/', views.getHealth),
 
+    path('new_home_at/', views.new_home_at),
+    path('new_home_st/', views.new_home_st),
+    path('new_home_wks/', views.new_home_wks),
+    path('new_home_sg/', views.new_home_sg),
+    path('new_home_zjk/', views.new_home_zjk),
 
 ]

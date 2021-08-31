@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>云边协同监控系统</title>
+    <link href="{% static 'css/new_ui/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/new_ui/materialdesignicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/new_ui/style.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/new_ui/new_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jDialog.css' %}">
+</head>
+
+<body data-theme="default" data-sidebarbg="color_8" data-headerbg="default" data-logobg="color_8">
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        {% include 'Nav.html' %}
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 态势感知 </span>
+                    </div>
+
+                </div>
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <div class="col-md-9" style="padding: 10px 30px 0px 5px">
+                        <div class="map">
+                            <div class="map1" id="map1">
+
+                            </div>
+                            <div class="anchor">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <!-- 天气图表 -->
+                        <div class="card-body" style="width: 300px;padding: 10px">
+                            {#                    <div id="weather-v2-plugin-standard"></div>#}
+                            {#                            <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no"#}
+                            {#                                    src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=60199&w=270&h=270&align=right"></iframe>#}
+                            <iframe allowtransparency="true" frameborder="0" width="270" height="270" scrolling="no"
+                                    src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=1&v=1&d=3&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=0&a=0&c=70176&w=270&h=270&align=right"></iframe>
+                        </div>
+
+                        <div class="card-body" style="width: 300px;padding: 10px">
+                            {% include 'new_home_navbar.html' %}
+
+                        </div>
+
+                        <div class="card-body" style="width: 300px;padding: 10px">
+                            <div class="slideTxtBox">
+                                <div class="hd">
+                                    <ul>
+                                        <li>事件信息</li>
+                                        <li>赛事信息</li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="bd" id="bd_slide">
+                                    <div class="txtMarquee-top1">
+                                        <ul class="infoList1" id="p1">
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="txtMarquee-top2">
+                                        <ul class="infoList2" id="p2">
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'js/new_ui/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_ui/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_ui/perfect-scrollbar.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_ui/main.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/jquery.easyui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.SuperSlide.2.1.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.drag.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.dialog.js' %}"></script>
+
+
+<script type="text/javascript">
+    $(".txtMarquee-top1").slide({mainCell: ".infoList1", autoPlay: true, effect: "topMarquee", vis: 20, interTime: 50});
+    $(".txtMarquee-top2").slide({mainCell: ".infoList2", autoPlay: true, effect: "topMarquee", vis: 20, interTime: 50});
+    {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+    {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+    $(".slideTxtBox").slide({effect: "left", autoPlay: true, interTime: 10000});
+</script>
+
+
+<script>
+    WIDGET = {
+        CONFIG: {
+            "layout": 2,
+            "width": "270",
+            "height": "270",
+            "background": 1,
+            "dataColor": "FFFFFF",
+            "borderRadius": 5,
+            "city": "CN101010800",
+            "key": "H1kQFiLkmC"
+        }
+    }
+</script>
+<script src="https://apip.weatherdt.com/standard/static/js/weather-standard-common.js?v=2.0"></script>
+
+
+<script>
+    //假设每隔5秒发送一次请求
+    window.onload = function () {
+
+        loadSVGInline();
+
+        getApi();
+        setTimeout('myrefresh()', 700 * 1000);
+
+
+    };
+
+    function myrefresh() {
+        window.location.reload();
+        console.log(1111);
+    }
+
+    function loadSVGInline() {
+        var SVGFile = "{% static 'img/bdmap_zjk.svg' %}";
+        var loadXML = new XMLHttpRequest;
+
+        function handler() {
+
+            var svgDiv = document.getElementById("map1");
+            if (loadXML.readyState == 4 && loadXML.status == 200) {
+                svgDiv.innerHTML = loadXML.responseText;
+
+                svg = document.getElementsByClassName("st10")[0];
+                {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
+
+                map1 = document.getElementById("map1");
+                svg.setAttribute("viewBox", "0 0 841 595");
+                mapw = map1.clientWidth || map1.offsetWidth;
+                maph = map1.clientHeight || map1.offsetHeight;
+                console.log(mapw);
+                svg.setAttribute("width", mapw * 1.03);
+                svg.setAttribute("height", maph * 0.88);
+
+            }
+        }
+
+        if (loadXML != null) {
+            loadXML.open("GET", SVGFile, true);
+            loadXML.onreadystatechange = handler;
+            loadXML.send();
+
+        }
+    }
+
+    function getApi() {
+        //设置时间 300-秒  1000-毫秒  这里设置你自己想要的时间
+        setTimeout(getApi, 300 * 1000);
+
+
+        $.ajax({
+            url: '/road_info_zjk/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                //方法中传入的参数data为后台获取的数据
+                var line_len = 16;
+                {#var bd = '<div class="txtMarquee-top1"><ul class="infoList1" id="p1" ></ul></div><div class="txtMarquee-top2"><ul class="infoList3" id="p2"></ul></div>';#}
+                {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
+                {#$('.slider').html(slide_box);#}
+                var road_list = [
+                    '科学院南里西街',
+                    '科学院南里东街',
+                    '国家体育馆北路',
+                    '安翔北路',
+                    '慧忠路隧道',
+                    '林萃路',
+                    '奥林西路',
+                    '天辰西路',
+                    '天辰东路',
+                    '北辰西路',
+                    '北辰东路',
+                    '科芸路n1',
+                    '科芸路n2',
+                    '科芸南路n1',
+                    '科芸南路n2',
+                    '科芸南路n3',
+                    '科芸南路n4',
+                    '科芸南路n5',
+                    '大屯路n1',
+                    '大屯路n2',
+                    '大屯路n3',
+                    '北土城西路n1',
+                    '北土城西路n2',
+                    '京藏高速n1',
+                    '京藏高速n2',
+                    '京藏高速n3',
+                    '京藏高速n4',
+                    '京藏高速n5',
+                    '北辰路n1',
+                    '安立路n1',
+                    '安立路n2',
+                ];
+
+                var roads_at_section = [
+                    '科芸路',
+                    '科芸南路',
+                    '大屯路',
+                    '北土城西路',
+                    '京藏高速',
+                    '北辰路',
+                    '安立路',
+                ];
+
+                road_info = data['road'];
+                events = data['event'];
+                games = data['game'];
+                for (var i = 0; i < road_list.length; i++) {
+                    document.getElementById(road_list[i] + 'd0').style = "fill:#00b050;";
+                    document.getElementById(road_list[i] + 'd1').style = "fill:#00b050;";
+                }
+
+                var dialogs = document.getElementsByClassName("j-dialog");
+                for (var i = 0; i < dialogs.length; i++) {
+                    console.log(dialogs);
+                    dialogs[i--].remove();
+                }
+
+
+                var dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();//获取时
+                var m = dt.getMinutes();//获取分
+                var s = dt.getSeconds();//获取秒
+                var minutes = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+                var time = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                var hms = h + ":" + minutes;
+
+                var list1 = document.getElementById("p1");
+                var list2 = document.getElementById("p2");
+                var attr1 = '';
+                var attr2 = '';
+                if (road_info.length === 0) {
+                    var dt = new Date();
+                    var y = dt.getFullYear();
+                    var mt = dt.getMonth() + 1;
+                    var day = dt.getDate();
+                    var h = dt.getHours();//获取时
+                    var m = dt.getMinutes();//获取分
+                    var s = dt.getSeconds();//获取秒
+                    var time = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
+                    html = "<div>" + time + ":" + "崇礼场馆周边道路全线畅通。</div>";
+                    offset = {
+                        top: 400,
+                        left: -200,
+                        right: 0,
+                        bottom: 0
+                    };
+
+                    dialog = jDialog.tip(html, {
+                        target: $('.anchor'),
+                        position: 'top',
+                        trianglePosFromStart: 100,
+                        padding: '10px 5px',
+                        autoClose: 1,
+                        offset: offset
+                    });
+
+                }
+                for (var i = 0; i < road_info.length; i++) {
+                    var road_name = road_info[i]['road_name'];
+
+                    if (roads_at_section.includes(road_name)) {
+                        if (road_info[i]['section_id'] === null) {
+                            road_info[i]['section_id'] = '1';
+                        }
+                        road_name = road_name + 'n' + road_info[i]['section_id'];
+                    }
+                    var speed = parseFloat(road_info[i]['speed']);
+                    var direction = parseInt(road_info[i]['direction']);
+                    road_name = road_name + 'd' + direction;
+
+                    if (speed >= 30) {
+
+                        console.log(road_name);
+                        var color = 'y' + direction;
+                        document.getElementById(road_name).style = "fill:url(#" + color + ");";
+
+
+                    } else {
+                        var color = 'r' + direction;
+                        console.log(road_name);
+                        console.log(color);
+                        document.getElementById(road_name).style = "fill:url(#" + color + ");";
+
+                    }
+
+                    var str = road_info[i]['text'];
+                    var pre = '';
+
+                    var target = $('#' + road_name);
+
+                    console.log(target.offset());
+                    html = "<div>" + str + "</div>";
+                    offset = {
+                        top: -target.offset().top + 680 + Math.max(50, Math.round(Math.random() * 200)),//-target.offset().top-50,
+                        left: target.offset().left - 880,
+                        right: 150,
+                        bottom: 0
+                    };
+
+                    dialog = jDialog.tip(html, {
+                        target: $('.anchor'),
+                        position: 'top',
+                        trianglePosFromStart: 100,
+                        padding: '1px 1px',
+                        width: '150px',
+                        minWidth: '100px',
+                        autoClose: 1,
+                        offset: offset
+                    });
+
+
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
+                        str = str.substring(line_len);
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
+                        attr1 += text;
+                        if (str.length <= line_len) {
+                            attr1 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        }
+
+                    }
+                    attr1 += '<li><span>*****************</li></span>';
+                }
+
+                for (var i = 0; i < events.length; i++) {
+
+                    var str = events[i]['date'] + ' ' + hms + ' ' + events[i]['content'];
+                    var pre = '';
+
+
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
+                        str = str.substring(line_len);
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
+                        attr1 += text;
+                        if (str.length <= line_len) {
+                            attr1 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        }
+
+
+                    }
+                    attr1 += '<li><span>*****************</li></span>';
+                }
+
+                for (var i = 0; i < games.length; i++) {
+
+                    var str = games[i]['date'] + ' ' + hms + ' ' + games[i]['content'];
+                    var pre = '';
+                    while (str.length > line_len) {
+                        pre = str.substr(0, line_len);
+                        str = str.substring(line_len);
+                        let text = '<li><span style="white-space:normal;font-size:16px;">' + pre + '</li></span>';
+                        attr2 += text;
+                        if (str.length <= line_len) {
+                            attr2 += '<li><span style="white-space:normal;font-size:16px;">' + str + '</li></span>';
+                        }
+
+
+                    }
+                    attr2 += '<li><span>*****************</li></span>';
+                }
+
+
+                list1.innerHTML = attr1;
+                list2.innerHTML = attr2;
+                $(".txtMarquee-top1").slide({
+                    mainCell: ".infoList1",
+                    autoPlay: true,
+                    effect: "topMarquee",
+                    vis: 20,
+                    interTime: 50
+                });
+                $(".txtMarquee-top2").slide({
+                    mainCell: ".infoList2",
+                    autoPlay: true,
+                    effect: "topMarquee",
+                    vis: 20,
+                    interTime: 50
+                });
+                {#$(".txtMarquee-top3").slide({mainCell:".infoList3",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+                {#jQuery(".txtMarquee-top4").slide({mainCell:".infoList4",autoPlay:true,effect:"topMarquee",vis:20,interTime:50});#}
+                $(".slideTxtBox").slide({effect: "left", autoPlay: true, interTime: 10000});
+            }
+        })
+    }
+
+
+</script>
+
+</body>
+</html>

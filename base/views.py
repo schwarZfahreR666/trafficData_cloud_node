@@ -11,15 +11,15 @@ import random
 import numpy as np
 import requests
 import uuid
-from kafka import KafkaProducer,KafkaConsumer
-from kafka.errors import KafkaError
+# from kafka import KafkaProducer,KafkaConsumer
+# from kafka.errors import KafkaError
 import pika
 
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
 java_node_url = 'http://127.0.0.1:9999/'
-database_host = '127.0.0.1'
+database_host = '47.95.159.86'
 database_name = 'TRAFFIC'
 database_usrname = 'root'
 database_password = '06240118'
@@ -196,7 +196,8 @@ def get_road_info_st(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
             res.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -257,8 +258,11 @@ def get_road_info_at(request):
         cursor.execute(sql)
         # 获取所有记录列表
         results = cursor.fetchall()
+
         for data in results:
-            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
+            # print(data)
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
             res.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -320,7 +324,8 @@ def get_road_info_wks(request):
         # 获取所有记录列表
         results = cursor.fetchall()
         for data in results:
-            dic = {'date': str(data[0]), 'road_name': data[1], 'text': data[1]+':'+data[6], 'speed': data[3], 'section_id': data[7], 'direction': data[9]}
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
             res.append(dic)
     except:
         print("Error: unable to fetch data")
@@ -351,6 +356,129 @@ def get_road_info_wks(request):
     except:
         print("Error: unable to fetch data")
 
+    # 关闭数据库连接
+    db.close()
+    re = {'road': res, 'event': events, 'game': games}
+    js = json.dumps(re)
+
+    return HttpResponse(js)
+
+
+def get_road_info_sg(request):
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT * FROM bd_road_sg;"
+    res = []
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
+            res.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    event_sql = " SELECT * FROM EVENT_sg;"
+    events = []
+    try:
+        # 执行SQL语句
+        cursor.execute(event_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            events.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    game_sql = " SELECT * FROM GAME_sg;"
+    games = []
+    try:
+        # 执行SQL语句
+        cursor.execute(game_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            games.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    # 关闭数据库连接
+    db.close()
+    re = {'road': res, 'event': events, 'game': games}
+    js = json.dumps(re)
+
+    return HttpResponse(js)
+
+
+def get_road_info_zjk(request):
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT * FROM bd_road_zjk;"
+    res = []
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
+            res.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    event_sql = " SELECT * FROM EVENT_zjk;"
+    events = []
+    try:
+        # 执行SQL语句
+        cursor.execute(event_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            events.append(dic)
+    except:
+        print("Error: unable to fetch data")
+
+    game_sql = " SELECT * FROM GAME_zjk;"
+    games = []
+    try:
+        # 执行SQL语句
+        cursor.execute(game_sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            dic = {'date': str(data[0]), 'content': data[2]}
+            games.append(dic)
+    except:
+        print("Error: unable to fetch data")
 
     # 关闭数据库连接
     db.close()
@@ -361,7 +489,6 @@ def get_road_info_wks(request):
 
 
 def trafficflow(request):
-
     return render(request, 'home_trafficflow.html')
 
 
@@ -481,21 +608,42 @@ def get_small_mode2_analysis(request):
 
 
 def toCloud(request):
-
     return render(request, 'new_monitor.html');
 
-def toTopo(request):
 
+def toTopo(request):
     return render(request, 'new_resource-topo.html');
 
-def tonew_home(request):
 
+def tonew_home(request):
     return render(request, 'new_home.html');
+
+
+def new_home_at(request):
+    return render(request, 'new_home_at.html');
+
+
+def new_home_st(request):
+    return render(request, 'new_home_st.html');
+
+
+def new_home_wks(request):
+    return render(request, 'new_home_wks.html');
+
+
+def new_home_sg(request):
+    return render(request, 'new_home_sg.html');
+
+
+def new_home_zjk(request):
+    return render(request, 'new_home_zjk.html');
+
 
 tasks_map = {}
 
+
 def getBH(request):
-    tasks = requests.get(java_node_url+'/rest/tasks')
+    tasks = requests.get(java_node_url + '/rest/tasks')
     tasks = json.loads(tasks.content)
     task_name = []
     global tasks_map

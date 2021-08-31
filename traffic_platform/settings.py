@@ -98,11 +98,10 @@ DATABASES = {
         'NAME': 'TRAFFIC',
         'USER': 'root',
         'PASSWORD': '06240118',
-        'HOST': 'localhost',
+        'HOST': '47.95.159.86',
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
