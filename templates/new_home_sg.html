@@ -181,7 +181,7 @@
             if (loadXML.readyState == 4 && loadXML.status == 200) {
                 svgDiv.innerHTML = loadXML.responseText;
 
-                svg = document.getElementsByClassName("st10")[0];
+                svg = document.getElementsByClassName("st11")[0];
                 {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
 
                 map1 = document.getElementById("map1");
@@ -219,47 +219,44 @@
                 {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
                 {#$('.slider').html(slide_box);#}
                 var road_list = [
-                    '科学院南里西街',
-                    '科学院南里东街',
-                    '国家体育馆北路',
-                    '安翔北路',
-                    '慧忠路隧道',
-                    '林萃路',
-                    '奥林西路',
-                    '天辰西路',
-                    '天辰东路',
-                    '北辰西路',
-                    '北辰东路',
-                    '科芸路n1',
-                    '科芸路n2',
-                    '科芸南路n1',
-                    '科芸南路n2',
-                    '科芸南路n3',
-                    '科芸南路n4',
-                    '科芸南路n5',
-                    '大屯路n1',
-                    '大屯路n2',
-                    '大屯路n3',
-                    '北土城西路n1',
-                    '北土城西路n2',
-                    '京藏高速n1',
-                    '京藏高速n2',
-                    '京藏高速n3',
-                    '京藏高速n4',
-                    '京藏高速n5',
-                    '北辰路n1',
-                    '安立路n1',
-                    '安立路n2',
+                    '石担路',
+                    '西六环',
+                    '阜石路n1',
+                    '阜石路n2',
+                    '阜石路n3',
+                    '石门路',
+                    '京原路',
+                    '莲石西路',
+                    '北辛安路',
+                    '杨庄大街',
+                    '古城西路',
+                    '西五环n1',
+                    '西五环n2',
+                    '西五环n3',
+                    '西五环n4',
+                    '石景山路n1',
+                    '石景山路n2',
+                    '莲石东路n1',
+                    '莲石东路n2',
+                    '玉泉路n1',
+                    '玉泉路n2',
+                    '北五环',
+                    '万泉河路',
+                    '北四环',
+                    '西四环n1',
+                    '西四环n2',
+                    '西四环n3',
+                    '西四环n4',
+                    '复兴路',
                 ];
 
                 var roads_at_section = [
-                    '科芸路',
-                    '科芸南路',
-                    '大屯路',
-                    '北土城西路',
-                    '京藏高速',
-                    '北辰路',
-                    '安立路',
+                    '阜石路',
+                    '西五环',
+                    '石景山路',
+                    '玉泉路',
+                    '莲石东路',
+                    '西四环',
                 ];
 
                 road_info = data['road'];
@@ -303,8 +300,12 @@
                     var time = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分";
                     html = "<div>" + time + ":" + "首钢场馆周边道路全线畅通。</div>";
                     offset = {
-                        top: 400,
-                        left: -200,
+                        {#top: 400,#}
+                        {#left: -200,#}
+                        {#right: 0,#}
+                        {#bottom: 0#}
+                        top: 100,
+                        left: 100,
                         right: 0,
                         bottom: 0
                     };

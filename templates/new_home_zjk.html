@@ -180,7 +180,7 @@
             if (loadXML.readyState == 4 && loadXML.status == 200) {
                 svgDiv.innerHTML = loadXML.responseText;
 
-                svg = document.getElementsByClassName("st10")[0];
+                svg = document.getElementsByClassName("st15")[0];
                 {#viewBox="0 0 779.644 639.445" width="11.8284in" height="8.88118in"#}
 
                 map1 = document.getElementById("map1");
@@ -218,47 +218,36 @@
                 {#var slide_box = '<div class="slideTxtBox">' + '<div class="hd">' + '<ul><li>事件信息</li><li>赛事信息</li></ul>' + '</div>' + bd + '</div>';#}
                 {#$('.slider').html(slide_box);#}
                 var road_list = [
-                    '科学院南里西街',
-                    '科学院南里东街',
-                    '国家体育馆北路',
-                    '安翔北路',
-                    '慧忠路隧道',
-                    '林萃路',
-                    '奥林西路',
-                    '天辰西路',
-                    '天辰东路',
-                    '北辰西路',
-                    '北辰东路',
-                    '科芸路n1',
-                    '科芸路n2',
-                    '科芸南路n1',
-                    '科芸南路n2',
-                    '科芸南路n3',
-                    '科芸南路n4',
-                    '科芸南路n5',
-                    '大屯路n1',
-                    '大屯路n2',
-                    '大屯路n3',
-                    '北土城西路n1',
-                    '北土城西路n2',
+                    '首都环线高速',
+                    'G95n1',
+                    'G95n2',
+                    '京礼高速n1',
+                    '京礼高速n2',
+                    '京礼高速n3',
+                    '京礼高速n4',
+                    '京礼高速n5',
+                    '京礼高速n6',
+                    '京礼高速n7',
+                    '112国道n1',
+                    '112国道n2',
+                    '京新高速n1',
+                    '京新高速n2',
+                    '京新高速n3',
+                    '京新高速n4',
                     '京藏高速n1',
                     '京藏高速n2',
                     '京藏高速n3',
                     '京藏高速n4',
                     '京藏高速n5',
-                    '北辰路n1',
-                    '安立路n1',
-                    '安立路n2',
                 ];
 
                 var roads_at_section = [
-                    '科芸路',
-                    '科芸南路',
-                    '大屯路',
-                    '北土城西路',
+                    'G95',
+                    '京礼高速',
+                    '112国道',
+                    '京新高速',
                     '京藏高速',
-                    '北辰路',
-                    '安立路',
+
                 ];
 
                 road_info = data['road'];
