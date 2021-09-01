@@ -65,6 +65,8 @@ urlpatterns = [
     path('start_task/', views.start_task),
     path('topo/', views.toTopo),
     path('node_health/', views.getHealth),
+    path('eventdriving/', views.eventDriving),
+    path('taskstate/', views.taskState),
 
     path('new_home_at/', views.new_home_at),
     path('new_home_st/', views.new_home_st),

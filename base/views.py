@@ -11,8 +11,13 @@ import random
 import numpy as np
 import requests
 import uuid
-# from kafka import KafkaProducer,KafkaConsumer
-# from kafka.errors import KafkaError
+from apscheduler.events import EVENT_JOB_EXECUTED
+from apscheduler.executors.pool import ThreadPoolExecutor
+from apscheduler.jobstores.memory import MemoryJobStore
+from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.schedulers.background import BackgroundScheduler
+from kafka import KafkaProducer,KafkaConsumer
+from kafka.errors import KafkaError
 import pika
 
 # Create your views here.
@@ -25,8 +30,228 @@ database_usrname = 'root'
 database_password = '06240118'
 kafka_server = '47.95.159.86:9092'
 
+TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
+
+LEVEL_MAP = {1: 4, 2: 3, 3: 2}
+
+task_state = []
+init = 0
+event_switch = 0
+
+default_jobstore = MemoryJobStore()
+default_executor = ThreadPoolExecutor(10)
+
+init_scheduler_options = {
+    "jobstores": {
+        # first 为 jobstore的名字，在创建Job时直接直接此名字即可
+        "default": default_jobstore
+    },
+    "executors": {
+        # first 为 executor 的名字，在创建Job时直接直接此名字，执行时则会使用此executor执行
+        "default": default_executor
+    },
+    # 创建job时的默认参数
+    "job_defaults": {
+        'coalesce': False,  # 是否合并执行
+        'max_instances': 1  # 最大实例数
+    }
+}
+
+scheduler = BackgroundScheduler(**init_scheduler_options)
+scheduler.start()
 
 
+def job_execute(event):
+    """
+    监听事件处理
+    :param event:
+    :return:
+    """
+    print(
+        "job执行job:\ncode => {}\njob.id => {}\njobstore=>{}".format(
+            event.code,
+            event.job_id,
+            event.jobstore
+        ))
+    if event.job_id in TASKS:
+        state = "数据融合"
+        global task_state
+        for i in range(0,len(task_state)):
+            if task_state[i]['name'] == event.job_id:
+                task_state[i]['state'] = state
+
+
+
+
+def buildTask():
+    tasks = requests.get(java_node_url+'/rest/tasks')
+    tasks = json.loads(tasks.content)
+
+    global task_state
+    task_state = []
+    for task in tasks:
+        item = {}
+        if task['name'] in TASKS:
+            item['name'] = task['name']
+            item['level'] = random.randint(1, 3)
+            item['state'] = "初始化"
+            item['frequent'] = LEVEL_MAP[item['level']]
+            item['edge_flow'] = 0
+            item['cloud_flow'] = 0
+            task_state.append(item)
+
+
+def updateTask():
+    global task_state
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT task_name,edge_flow,cloud_flow as cloud_sum FROM flow_table where to_days(time) = to_days(now());"
+    res = {}
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        for data in results:
+            if data[0] in TASKS:
+                if data[0] not in res:
+                    res[data[0]] = [0, 0]
+                res[data[0]][0] += data[1]
+                res[data[0]][1] += data[2]
+        for i in range(0,len(task_state)):
+            if task_state[i]['name'] in res:
+                task_state[i]['edge_flow'] = res[task_state[i]['name']][0]
+                task_state[i]['cloud_flow'] = res[task_state[i]['name']][1]
+
+    except:
+        print("Error: unable to fetch data")
+    db.close()
+
+def taskSchedule():
+    global event_switch
+    global scheduler
+    global task_state
+    if event_switch == 1:
+        state = "事件采集"
+        i = random.randint(0, 2)
+        task_state[i]['state'] = state
+        time.sleep(20)
+
+
+        state = "态势研判"
+        task_state[i]['state'] = state
+        time.sleep(10)
+        level = random.randint(1, 3)
+        if level != task_state[i]['level']:
+            task_state[i]['level'] = level
+            task_state[i]['frequent'] = LEVEL_MAP[level]
+            if scheduler.get_job(task_state[i]['name'], "default"):
+                # 存在的话，先删除
+                scheduler.get_job(task_state[i]['name'], "default").pause()
+                scheduler.remove_job(task_state[i]['name'], "default")
+
+            scheduler.add_job(task_job, IntervalTrigger(minutes=LEVEL_MAP[level]), args=["BUAA", task_state[i]['name']], id=task_state[i]['name'], jobstore="default", executor="default")
+
+
+def taskInit():
+    global event_switch
+    global init
+    global task_state
+    if event_switch == 1 and init == 0:
+        for task in task_state:
+            scheduler.add_job(task_job, IntervalTrigger(minutes=LEVEL_MAP[task['level']]), args=["BUAA", task['name']], id=task['name'], jobstore="default", executor="default")
+
+        init = 1
+
+
+buildTask()
+scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
+scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
+scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
+scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+
+
+def task_job(node_name, task_name):
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    state = "数据采集"
+    global task_state
+    for i in range(0,len(task_state)):
+        if task_state[i]['name'] == task_name:
+
+            task_state[i]['state'] = state
+    try:
+
+        dic = {"node_name": node_name, "task_name": task_name}
+
+        msg = json.dumps(dic)
+        channel = connection.channel()
+        channel.basic_publish(exchange='auto-cloud-edge',
+                                  routing_key='',
+                                  body=msg)
+
+
+        flag = 1
+
+        while flag:
+
+            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue',
+                                                             auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['res'] == task_name:
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
+
+
+
+def eventDriving(request):
+    ans = {'status': "off"}
+    ans = json.dumps(ans)
+
+    if request.method == "POST":
+        global task_state
+        global event_switch
+
+        switch = request.POST['switch']
+        if switch == "on":
+            event_switch = 1
+
+            ans = {'status': "on", 'task_state': task_state}
+            ans = json.dumps(ans)
+        elif switch == "off":
+            event_switch = 0
+            ans = {'status': "off"}
+            ans = json.dumps(ans)
+    return HttpResponse(ans)
+
+def taskState(request):
+    if event_switch == 0:
+        ans = {"status": 0}
+        ans = json.dumps(ans)
+
+    elif event_switch == 1:
+        ans = {"status": 1, "data": task_state}
+        ans = json.dumps(ans)
+
+    return HttpResponse(ans)
 
 def login(request):
     message = ""
@@ -542,8 +767,36 @@ def query_resource(request):
 
 
 def data_flow(request):
-    data = np.random.randint(200, 800, 26)
+    data = np.random.randint(200, 800, 1)
     js = json.dumps(data.tolist())
+
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT sum(edge_flow) as edge_sum,sum(cloud_flow) as cloud_sum FROM flow_table;"
+    res = []
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+
+        res = []
+        res.append(int(results[0][0]))
+        js = json.dumps(res)
+
+    except:
+        print("Error: unable to fetch data")
+    db.close()
     return HttpResponse(js)
 
 
@@ -647,11 +900,16 @@ def getBH(request):
     tasks = json.loads(tasks.content)
     task_name = []
     global tasks_map
+    global event_switch
+    if event_switch == 1:
+        switch = "on"
+    else:
+        switch = "off"
     for task in tasks:
 
         task_name.append(task['name'])
 
-    return render(request, 'bh_edgenode.html', {'tasks': task_name});
+    return render(request, 'bh_edgenode.html', {'tasks': task_name, 'switch': switch});
 
 def toMap_test(request):
 

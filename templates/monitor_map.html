@@ -9,9 +9,17 @@
 
     <link rel="stylesheet" href="{% static 'cx/template.css'%}" type="text/css">
     <link rel="stylesheet" href="{% static 'cx/mode_analysis.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/new_ui/jDialog.css' %}">
     <!-- sys js -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+{#    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js'%}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>#}
+    <script type="text/javascript" src="{% static 'js/new_ui/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new_ui/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.drag.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dialog.js' %}"></script>
 
     <!-- echarts js -->
     <!--
@@ -47,8 +55,9 @@
 
     <!-- 页面主题部分 -->
     <section class="mainbox">
-<div id="map"></div>
 
+        <div id="map"></div>
+        <div class="anchor" ></div>
 
 
             </section>
@@ -56,13 +65,11 @@
    <script>
        //全局变量
        var bregion_model=[
-           {"ID": "wx4g8b2523sf", "poly": [["116.39407262665172", " 39.9874278071865"], [" 116.40645338321958", " 39.98802627416739"],
-               [" 116.41164915247421", " 39.995198241507474"], [" 116.41150752054523", " 39.996946888456264"], [" 116.40640051121127", " 40.00123648206145"],
-               [" 116.38683245080864", " 39.99884399687314"], [" 116.38625335572335", " 39.99787841243853"]], "level": 1},
-           {"ID": "wx4g85jkq7ex", "poly": [["116.38625335572335", " 39.99787841243853"], [" 116.38683245080864", " 39.99884399687314"],
-                   [" 116.38615400363223", " 40.01379777682655"], [" 116.38543250925653", " 40.01575130183423"], [" 116.36631261982923", " 40.02023555377464"],
-                   [" 116.36758678283688", " 39.99493450382268"], [" 116.3682913554025", " 39.994543437165746"], [" 116.3817266587883", " 39.99545639935533"]], "level": 3},
+           {"ID": "road_at", "poly": [["116.360216","40.028842"],["116.386878","39.9744"],["116.413755","39.97534"],["116.415264","40.028731"]], "level": 1},
+           {"ID": "road_st", "poly": [["116.300712","39.964724"],["116.302893","39.928188"],["116.362813","39.92952"],["116.362094","39.946006"],["116.386061","39.955299"],["116.386888","39.974377"]], "level": 3},
+           {"ID": "road_wks", "poly": [["116.222642","39.961186"],["116.217755","39.900104"],["116.316497","39.903315"],["116.316353","39.913277"],["116.363173","39.913159"],["116.361951","39.946357"]], "level": 2},
        ];
+       var area_map = {'国家体育馆':'road_at','首都体育馆':'road_st','五棵松体育馆':'road_wks'};
 
 
        var map;
@@ -84,16 +91,102 @@
 
            loadMap();
 
-           loadPoly();
+           {#loadPoly();#}
 
            addVenue(116.393857,39.994241,116.407223,40.00115,116.399426,40.001122,'国家体育馆');
            addVenue(116.332181,39.944553,116.335541,39.949842,116.331642,39.950907,'首都体育馆');
            addVenue(116.280475,39.913755,116.289709,39.919206,116.285038,39.924048,'五棵松体育馆');
 
+           areaMonitor();
+
            setInterval(changeColor,100);
+           setInterval(areaMonitor,10000);
 
 
        });
+       function areaMonitor(){
+
+           $.ajax({
+               url: '/taskstate/',
+               type: 'get',
+               dataType: 'json',
+               success: function (data) {
+
+                   if(data['status']===1){
+                       var datas = data['data']
+                       for(var i=0;i<bregion_model.length;i++){
+                           for(var j=0;j<datas.length;j++){
+                               if(bregion_model[i]['ID']===datas[j]['name']){
+                                   bregion_model[i]['level'] = datas[j]['level'];
+                               }
+                           }
+                       }
+
+
+                       loadPoly();
+
+                       var dialogs = document.getElementsByClassName("j-dialog");
+                       for(var i=0;i<dialogs.length;i++){
+                           dialogs[i--].remove();
+                       }
+
+                       targets = document.getElementsByClassName(" BMapLabel");
+                       for(var i=0;i<targets.length;i++){
+                           var tar = targets[i];
+                           var pos = "right";
+                           if(tar.innerText==="国家体育馆"){
+                               pos = "top";
+                           }
+                           var area_name = area_map[tar.innerText];
+                           for(var j=0;j<datas.length;j++){
+                               if(area_name===datas[j]['name']){
+                                   info = datas[j];
+                               }
+                           }
+
+                           html = "<div class='sx-item'>" +
+                               "<div class='title' style='line-height: 30px;height: 30px;font-size: 20px;'>" + "区域监控" + "</div>" +
+                               "<div class='text'>" + "<h3 style='display: inline'>任务状态：</h3><h4 style='display: inline'>" + info['state'] + "</h4>" + "</div>" +
+                               "<div class='text'>" + "<h3 style='display: inline'>采集频率：</h3><h4 style='display: inline'>" + info['frequent'] + "分钟</h4>" + "</div>" +
+                               "<div class='text'>" + "<h3 style='display: inline'>边缘数据量：</h3><h4 style='display: inline'>" + info['edge_flow'] + "</h4>" + "</div>" +
+                               "<div class='text'>" + "<h3 style='display: inline'>云端数据量：</h3><h4 style='display: inline'>" + info['cloud_flow'] + "</h4>" + "</div>" +
+                               "</div>";
+                           offset = {
+                               top: 0,
+                               left: -50,
+                               right: 0,
+                               bottom: -20
+                           };
+
+                           dialog = jDialog.tip(html, {
+                               target: tar,
+                               position: pos,
+                               trianglePosFromStart: 0,
+                               padding: '5px 3px',
+                               autoClose: 0,
+                               offset: offset
+                           });
+
+                       }
+
+                   }
+                   else{
+                       var dialogs = document.getElementsByClassName("j-dialog");
+                       for(var i=0;i<dialogs.length;i++){
+                           dialogs[i--].remove();
+                       }
+
+                       for(var i=0;i<polygons.length;i++) {
+                           var polygon = polygons[i]['object'];
+                           map.removeOverlay(polygon);
+                       }
+                       polygons = []
+
+                   }
+               }
+           })
+
+       }
        function loadMap(){
            map = new BMapGL.Map("map");
            map.centerAndZoom(new BMapGL.Point(116.351376,40.002346), 15);
@@ -177,8 +270,12 @@
        }
 
        function loadPoly(){
-           // 根据出入流量显示不同颜色
-//>5000红色；>1000黄色；>500蓝色；>100粉色；其余是绿色
+
+           for(var i=0;i<polygons.length;i++) {
+               var polygon = polygons[i]['object'];
+               map.removeOverlay(polygon);
+           }
+           polygons = []
            var region_o1=[];
            var region_o2=[];
            var region_o3=[];
@@ -233,10 +330,10 @@
                var label = polygons[i]['label'];
                var frequent = polygons[i]['frequent'];
                var add;
-               if(frequent===0){
+               if(frequent===1){
                    add=0.01;
-               }else if(frequent===1){
-                   add=0.025;
+               }else if(frequent===2){
+                   add=0.03;
                }else{
                    add=0.05;
                }

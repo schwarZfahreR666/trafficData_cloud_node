@@ -162,7 +162,7 @@
                     .style("text-anchor", "middle")
                     .attr("startOffset", "50%")
                     .attr("style", "font-size:15px")
-                    .text((d) => (d.target.data.type === "node") ? 0 + "条/分" : undefined)
+                    .text((d) => (d.target.data.type === "node") ? 0 + "条" : undefined)
                     .attr("id", (d) => "link_" + d.target.id)
                     .attr("xlink:href", (d) => "#link_" + d.target.id);
 
@@ -475,7 +475,7 @@
             }
 });
 
-                link_label.text((d) => (d.target.data.type === "node") ? parseInt(update_data[d.index]) + "条/分" : undefined)
+                link_label.text((d) => (d.target.data.type === "node") ? parseInt(update_data[d.index]) + "条" : undefined)
                 && $(".random-int1").html(newdata)
                 && $(".random-int2").html(base_day)
                 && $(".random-int3").html(base_his)
