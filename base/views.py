@@ -23,7 +23,7 @@ import pika
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
-java_node_url = 'http://127.0.0.1:9999/'
+java_node_url = 'http://10.136.213.221:9999/'
 database_host = '47.95.159.86'
 database_name = 'TRAFFIC'
 database_usrname = 'root'
@@ -182,6 +182,9 @@ scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", j
 
 
 def task_job(node_name, task_name):
+    global event_switch
+    if event_switch == 0:
+        return
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
