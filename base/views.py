@@ -24,6 +24,7 @@ import pika
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
 java_node_url = 'http://10.136.213.221:9999/'
+# java_node_url = 'http://127.0.0.1:9999/'
 database_host = '47.95.159.86'
 database_name = 'TRAFFIC'
 database_usrname = 'root'
@@ -285,7 +286,8 @@ def log_out(request):
 
 def home(request):
 
-    return render(request, 'home_.html')
+    # return render(request, 'home_.html')
+    return render(request, 'new_home.html')
 
 
 def home_zjk(request):
@@ -998,3 +1000,5 @@ def getHealth(request):
     ans = {"BUAA 北京航空航天大学": res.text}
     ans = json.dumps(ans)
     return HttpResponse(ans)
+
+

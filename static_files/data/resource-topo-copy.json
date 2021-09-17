@@ -6,6 +6,39 @@
   "info": "机构介绍",
   "children": [
     {
+      "id": 12,
+      "name": "BUAA 北京航空航天大学",
+      "type": "node",
+      "url": "www.buaa.edu.cn",
+      "img": "beihang.jpg",
+      "info": "机构介绍",
+      "children": [
+        {
+          "id": 25,
+          "name": "路况预测",
+          "type": "app"
+        },
+        {
+          "id": 23,
+          "name": "客流集散模式计算",
+          "type": "app"
+        },
+        {
+          "id": 17,
+          "name": "12应用17",
+          "type": "app",
+          "children": [
+            {
+              "type": "data",
+              "name": "北京市路况数据统计",
+              "url": "http://192.168.23.76:9012",
+              "id": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": 13,
       "name": "奥组委边缘节点",
       "type": "node",
@@ -61,39 +94,6 @@
               "name": "比赛信息统计",
               "url": "http://192.168.23.77:9003",
               "id": 14
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 12,
-      "name": "BUAA 北京航空航天大学",
-      "type": "node",
-      "url": "www.buaa.edu.cn",
-      "img": "beihang.jpg",
-      "info": "机构介绍",
-      "children": [
-        {
-          "id": 25,
-          "name": "路况预测",
-          "type": "app"
-        },
-        {
-          "id": 23,
-          "name": "客流集散模式计算",
-          "type": "app"
-        },
-        {
-          "id": 17,
-          "name": "12应用17",
-          "type": "app",
-          "children": [
-            {
-              "type": "data",
-              "name": "北京市路况数据统计",
-              "url": "http://192.168.23.76:9012",
-              "id": 11
             }
           ]
         }
