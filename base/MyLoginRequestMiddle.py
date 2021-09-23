@@ -10,7 +10,7 @@ try:
     from django.utils.deprecation import MiddlewareMixin  # Django 1.10.x
 except ImportError:
     MiddlewareMixin = object
-EXCLUDE_URL = ['/login/']
+EXCLUDE_URL = ['/login/', '/eventNer']
 exclued_path = [re.compile(item) for item in EXCLUDE_URL]
 
 

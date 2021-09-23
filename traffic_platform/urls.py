@@ -74,4 +74,10 @@ urlpatterns = [
     path('new_home_sg/', views.new_home_sg),
     path('new_home_zjk/', views.new_home_zjk),
 
+    path('eventNer', views.event_ner),
+    path('getYingjiju', views.getYingjiju),
+    path('getBendibao', views.getBendibao),
+    path('getJiaoguanju', views.getJiaoguanju),
+    path('getBus', views.getBus),
+
 ]

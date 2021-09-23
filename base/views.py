@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse
 from base.forms import LoginForm
 from django.contrib import auth
 from django.contrib.auth import authenticate
@@ -20,6 +21,9 @@ from kafka import KafkaProducer,KafkaConsumer
 from kafka.errors import KafkaError
 import pika
 
+from base.ner.predict_span import predict,model_init
+from base.spiders.event import get_event_yingjiju, get_event_bendibao, get_event_jiaoguanju, get_event_bus
+
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
@@ -36,8 +40,10 @@ TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
 LEVEL_MAP = {1: 4, 2: 3, 3: 2}
 
 task_state = []
-init = 0
+init_num = 0
 event_switch = 0
+
+tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
 default_executor = ThreadPoolExecutor(10)
@@ -60,7 +66,35 @@ init_scheduler_options = {
 
 scheduler = BackgroundScheduler(**init_scheduler_options)
 scheduler.start()
+ª
+def event_ner(request):
 
+    input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
+    # input_text = "决定2020年8月12日至2020年9月10日期间，半壁街（厂洼中路——西三环北路）禁止社会车辆及行人通行，"
+    res = predict(input_text, tokenizer, label_list, model, device, id2label)
+
+    # res = {"info": "未开启"}
+    return JsonResponse(res, json_dumps_params={'ensure_ascii': False})
+
+def getYingjiju(request):
+    res = get_event_yingjiju()
+
+    return JsonResponse(res, safe=False)
+
+
+def getBendibao(request):
+    res = get_event_bendibao()
+    return JsonResponse(res, safe=False)
+
+
+def getJiaoguanju(request):
+    res = get_event_jiaoguanju()
+    return JsonResponse(res, safe=False)
+
+
+def getBus(request):
+    res = get_event_bus()
+    return JsonResponse(res, safe=False)
 
 def job_execute(event):
     """
@@ -168,11 +202,11 @@ def taskInit():
     global event_switch
     global init
     global task_state
-    if event_switch == 1 and init == 0:
+    if event_switch == 1 and init_num == 0:
         for task in task_state:
             scheduler.add_job(task_job, IntervalTrigger(minutes=LEVEL_MAP[task['level']]), args=["BUAA", task['name']], id=task['name'], jobstore="default", executor="default")
 
-        init = 1
+        init_num = 1
 
 
 buildTask()
