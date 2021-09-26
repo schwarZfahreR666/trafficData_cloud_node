@@ -27,7 +27,7 @@ from base.spiders.event import get_event_yingjiju, get_event_bendibao, get_event
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
-java_node_url = 'http://10.136.213.221:9999/'
+# java_node_url = 'http://10.136.213.221:9999/'
 # java_node_url = 'http://127.0.0.1:9999/'
 database_host = '47.95.159.86'
 database_name = 'TRAFFIC'
@@ -66,7 +66,7 @@ init_scheduler_options = {
 
 scheduler = BackgroundScheduler(**init_scheduler_options)
 scheduler.start()
-ª
+
 def event_ner(request):
 
     input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
@@ -119,8 +119,42 @@ def job_execute(event):
 
 
 def buildTask():
-    tasks = requests.get(java_node_url+'/rest/tasks')
-    tasks = json.loads(tasks.content)
+    # tasks = requests.get(java_node_url+'/rest/tasks')
+    # tasks = json.loads(tasks.content)
+
+
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    dic = {}
+    dic['node_name'] = "BUAA"
+    dic['info_name'] = "tasks"
+
+    # producer.send(topic, json.dumps(dic).encode())
+    msg = json.dumps(dic)
+    channel = connection.channel()
+    try:
+        channel.basic_publish(exchange='cloud-send',
+                              routing_key='',
+                              body=msg)
+
+        flag = 1
+
+        while flag:
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+                                                                 auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['id'] == "tasks":
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
+    tasks = res["content"]
 
     global task_state
     task_state = []
@@ -200,7 +234,7 @@ def taskSchedule():
 
 def taskInit():
     global event_switch
-    global init
+    global init_num
     global task_state
     if event_switch == 1 and init_num == 0:
         for task in task_state:
@@ -935,8 +969,44 @@ tasks_map = {}
 
 
 def getBH(request):
-    tasks = requests.get(java_node_url + '/rest/tasks')
-    tasks = json.loads(tasks.content)
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    dic = {}
+    dic['node_name'] = "BUAA"
+    dic['info_name'] = "tasks"
+
+    # producer.send(topic, json.dumps(dic).encode())
+    msg = json.dumps(dic)
+    channel = connection.channel()
+    try:
+        channel.basic_publish(exchange='cloud-send',
+                          routing_key='',
+                          body=msg)
+
+        flag = 1
+
+        while flag:
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+                                                             auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['id'] == "tasks":
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
+    tasks = res["content"]
+
+    # tasks = requests.get(java_node_url + '/rest/tasks')
+    #
+    # tasks = json.loads(tasks.content)
+
+
     task_name = []
     global tasks_map
     global event_switch
@@ -955,7 +1025,41 @@ def toMap_test(request):
     return render(request, 'monitor_map.html');
 
 def get_javaNode_sysInfo(request):
-    res = requests.get(java_node_url+'/rest/sysInfo')
+    # res = requests.get(java_node_url+'/rest/sysInfo')
+
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    dic = {}
+    dic['node_name'] = "BUAA"
+    dic['info_name'] = "sysInfo"
+
+    # producer.send(topic, json.dumps(dic).encode())
+    msg = json.dumps(dic)
+    channel = connection.channel()
+    try:
+        channel.basic_publish(exchange='cloud-send',
+                              routing_key='',
+                              body=msg)
+
+        flag = 1
+
+        while flag:
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+                                                                 auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['id'] == "sysInfo":
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
+    res = json.dumps(res["content"])
+
     return HttpResponse(res)
 
 def start_task(request):
@@ -1030,9 +1134,48 @@ def start_task(request):
 
 
 def getHealth(request):
-    res = requests.get(java_node_url+'/rest/health')
-    ans = {"BUAA 北京航空航天大学": res.text}
+    # res = requests.get(java_node_url+'/rest/health')
+
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    dic = {}
+    dic['node_name'] = "BUAA"
+    dic['info_name'] = "health"
+
+    # producer.send(topic, json.dumps(dic).encode())
+    msg = json.dumps(dic)
+    channel = connection.channel()
+    try:
+        channel.basic_publish(exchange='cloud-send',
+                              routing_key='',
+                              body=msg)
+
+        flag = 1
+
+        while flag:
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+                                                                 auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['id'] == "health":
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
+
+    ans = {"BUAA 北京航空航天大学": res["content"]}
+    # ans = {"BUAA 北京航空航天大学": res.text}
     ans = json.dumps(ans)
     return HttpResponse(ans)
+
+
+def refchangfeng(request):
+
+    return redirect("http://10.168.0.117:8093/")
 
 

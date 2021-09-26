@@ -80,4 +80,6 @@ urlpatterns = [
     path('getJiaoguanju', views.getJiaoguanju),
     path('getBus', views.getBus),
 
+    path('changfeng', views.refchangfeng),
+
 ]
