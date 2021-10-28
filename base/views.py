@@ -5,7 +5,10 @@ from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 import psutil
-import os, datetime, time
+import re
+import os, time
+import datetime
+import redis
 import json
 import pymysql
 import random
@@ -46,7 +49,7 @@ event_switch = 0
 tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
-default_executor = ThreadPoolExecutor(10)
+default_executor = ThreadPoolExecutor(15)
 
 init_scheduler_options = {
     "jobstores": {
@@ -69,8 +72,9 @@ scheduler.start()
 
 def event_ner(request):
 
-    input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
-    # input_text = "决定2020年8月12日至2020年9月10日期间，半壁街（厂洼中路——西三环北路）禁止社会车辆及行人通行，"
+
+    # input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
+    input_text = "一、丰德中路（永盛北路至永澄北路段）禁止机动车由西向东方向行驶；"
     res = predict(input_text, tokenizer, label_list, model, device, id2label)
 
     # res = {"info": "未开启"}
@@ -206,6 +210,59 @@ def updateTask():
         print("Error: unable to fetch data")
     db.close()
 
+
+
+
+def taskSchedule2():
+    global event_switch
+    global scheduler
+    global task_state
+    if event_switch == 1:
+        # 事件采集
+        ex_task("BUAA", "event")
+
+        #态势研判
+        area_level_analysis()
+
+
+def area_level_analysis():
+    pool = redis.ConnectionPool(host='47.95.159.86', port=6379, password="06240118")  #配置连接池连接信息
+    connect = redis.Redis(connection_pool=pool)
+    for i in range(0, 17):
+        time = []
+        position = []
+        address = []
+        action = []
+        dic = {"time":time, "position":position, "address":address, "action":action}
+        ret = connect.get('event' + str(i))
+        content = ret.decode("utf-8")
+        res = re.split(r';|；|。', content)
+        for text in res:
+            if text != '':
+                res = predict(text, tokenizer, label_list, model, device, id2label)
+                if res != None:
+                    for key in res['label']:
+                        for item in res['label'][key].keys():
+                            dic[key].append(item)
+        for date in dic['time']:
+            if '日' in date and '月' in date:
+                pattern = re.compile(r'([0-9]+)月')
+                month = pattern.search(date).group(1)
+                pattern = re.compile(r'([0-9]+)日')
+                day = pattern.search(date).group(1)
+                time = datetime.datetime.strptime(str(datetime.datetime.now().year)+month+day, "%Y%m%d").date()
+                now = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
+
+
+                print(now,time)
+
+
+
+
+
+
+
+
 def taskSchedule():
     global event_switch
     global scheduler
@@ -248,6 +305,40 @@ scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
 scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
 scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
 scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+# scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=3), id="taskSchedule2", jobstore="default", executor="default")
+
+def ex_task(node_name, task_name):
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    try:
+
+        dic = {"node_name": node_name, "task_name": task_name}
+
+        msg = json.dumps(dic)
+        channel = connection.channel()
+        channel.basic_publish(exchange='auto-cloud-edge',
+                              routing_key='',
+                              body=msg)
+
+
+        flag = 1
+
+        while flag:
+
+            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue',
+                                                                 auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['res'] == task_name:
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+
+    finally:
+        connection.close()
+
 
 
 def task_job(node_name, task_name):
@@ -1075,8 +1166,10 @@ def start_task(request):
 
         topic = 'cloud-edge'
         name = request.POST['name']
-        input = request.POST['input']
-        res = request.POST['res']
+        # input = request.POST['input']
+        input = ''
+        # res = request.POST['res']
+        res = 'no'
 
         try:
 
