@@ -251,78 +251,78 @@
 
             function clicked(d) {
                 switch (d.data.type) {
-                    case "data":
-                        const table_html =
-                            "<div><br>&nbsp;数据节点-边缘节点" +
-                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
-                            "<tbody><tr>" +
-                            "<th>当前传输量</th>" +
-                            "<th class='random-int1'>8136</th>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>当日传输量</td>" +
-                            "<td class='random-int2'>5577637</td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>历史传输量</td>" +
-                            "<td class='random-int3'>5923773</td>" +
-                            "</tr>" +
-                            "</tbody></table>" +
-                            "</div>" +
-                            "<div><br>&nbsp;边缘节点-中心节点" +
-                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
-                            "<tbody><tr>" +
-                            "<th>当前传输量</th>" +
-                            "<th class='random-int4'>4164</th>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>当日传输量</td>" +
-                            "<td class='random-int5'>5662144</td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>历史传输量</td>" +
-                            "<td class='random-int6'>5889784</td>" +
-                            "</tr>" +
-                            "</tbody></table>" +
-                            "</div>" +
-                            "<div><br>&nbsp;中心节点-服务节点" +
-                            "<table border=\"1\" style=\"width: 100%;margin:auto\">" +
-                            "<tbody><tr>" +
-                            "<th>当前传输量</th>" +
-                            "<th class='random-int7'>9293</th>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>当日传输量</td>" +
-                            "<td class='random-int8'>6542556</td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>历史传输量</td>" +
-                            "<td class='random-int9'>6947884</td>" +
-                            "</tr>" +
-                            "</tbody></table>" +
-                            "</div>";
-                        $('.window').remove();
-                        if (shown_data !== d.id) {
-                            shown_data = d.id;
-                            $.messager.show({
-                                title: d.data.name,
-                                // msg: `这里是「${d.data.name}」数据集，您可以访问 ${d.data.url} 查看具体细节。`,
-                                msg: table_html,
-                                showType: 'fade',
-                                timeout: 0,
-                                width: Math.max(200, .2 * width),
-                                height: 360,
-                                style: {
-                                    right: '',
-                                    left: d.x + "px",
-                                    top: d.y + "px",
-                                    bottom: ''
-                                }
-                            });
-                        } else {
-                            shown_data = null;
-                        }
-                        break;
+                    {#case "data":#}
+                    {#    const table_html =#}
+                    {#        "<div><br>&nbsp;数据节点-边缘节点" +#}
+                    {#        "<table border=\"1\" style=\"width: 100%;margin:auto\">" +#}
+                    {#        "<tbody><tr>" +#}
+                    {#        "<th>当前传输量</th>" +#}
+                    {#        "<th class='random-int1'>8136</th>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>当日传输量</td>" +#}
+                    {#        "<td class='random-int2'>5577637</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>历史传输量</td>" +#}
+                    {#        "<td class='random-int3'>5923773</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "</tbody></table>" +#}
+                    {#        "</div>" +#}
+                    {#        "<div><br>&nbsp;边缘节点-中心节点" +#}
+                    {#        "<table border=\"1\" style=\"width: 100%;margin:auto\">" +#}
+                    {#        "<tbody><tr>" +#}
+                    {#        "<th>当前传输量</th>" +#}
+                    {#        "<th class='random-int4'>4164</th>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>当日传输量</td>" +#}
+                    {#        "<td class='random-int5'>5662144</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>历史传输量</td>" +#}
+                    {#        "<td class='random-int6'>5889784</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "</tbody></table>" +#}
+                    {#        "</div>" +#}
+                    {#        "<div><br>&nbsp;中心节点-服务节点" +#}
+                    {#        "<table border=\"1\" style=\"width: 100%;margin:auto\">" +#}
+                    {#        "<tbody><tr>" +#}
+                    {#        "<th>当前传输量</th>" +#}
+                    {#        "<th class='random-int7'>9293</th>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>当日传输量</td>" +#}
+                    {#        "<td class='random-int8'>6542556</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "<tr>" +#}
+                    {#        "<td>历史传输量</td>" +#}
+                    {#        "<td class='random-int9'>6947884</td>" +#}
+                    {#        "</tr>" +#}
+                    {#        "</tbody></table>" +#}
+                    {#        "</div>";#}
+                    {#    $('.window').remove();#}
+                    {#    if (shown_data !== d.id) {#}
+                    {#        shown_data = d.id;#}
+                    {#        $.messager.show({#}
+                    {#            title: d.data.name,#}
+                    {#            // msg: `这里是「${d.data.name}」数据集，您可以访问 ${d.data.url} 查看具体细节。`,#}
+                    {#            msg: table_html,#}
+                    {#            showType: 'fade',#}
+                    {#            timeout: 0,#}
+                    {#            width: Math.max(200, .2 * width),#}
+                    {#            height: 360,#}
+                    {#            style: {#}
+                    {#                right: '',#}
+                    {#                left: d.x + "px",#}
+                    {#                top: d.y + "px",#}
+                    {#                bottom: ''#}
+                    {#            }#}
+                    {#        });#}
+                    {#    } else {#}
+                    {#        shown_data = null;#}
+                    {#    }#}
+                    {#    break;#}
                     case "node":
                         {#console.log(d.data.url);#}
                         {#if (d.data.url && d.data.url !== "") {#}
@@ -450,6 +450,25 @@
                 return nodes
             }
 
+            function health() {
+
+                $.ajax({
+                    url: '/node_health/',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        $.each(data,function (key,value){
+                            if(node_health.hasOwnProperty(key)){
+                                node_health[key] = value;
+                            }
+                        });
+
+                    }
+                });
+
+            }
+
             function zoomed() {
                 view.attr('transform', d3.event.transform);
                 // svg.transition().duration(0).attr('transform', d3.event.transform)
@@ -488,7 +507,7 @@
 
             }, 5000);
 
-            setInterval(function () {
+            function health() {
 
                 $.ajax({
                     url: '/node_health/',
@@ -505,7 +524,10 @@
                     }
                 });
 
-            }, 5000);
+            }
+            health();
+
+            setInterval(health, 30000);
 
             return [svg, zoom];
         }).then(function (re) {

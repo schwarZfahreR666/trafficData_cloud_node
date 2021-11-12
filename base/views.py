@@ -1269,6 +1269,6 @@ def getHealth(request):
 
 def refchangfeng(request):
 
-    return redirect("http://10.168.0.117:8093/")
+    return redirect("http://121.89.204.250:9090/")
 
 
