@@ -34,7 +34,7 @@
     <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
     <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
     <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.105/dist/mapvgl.min.js"></script>
-	 <
+
     
     <!-- custom js -->
     <script type="text/javascript" src="{% static 'cx/small_mode1.js'%}"></script>
@@ -56,72 +56,13 @@
     </style>
 </head>
 <body>
-<!-- 最左侧的盒子 -->
-<div class="leftbox">
-{% include 'sidenav.html' %}
-</div>
-   <div class="container">
-    <!-- 头部的盒子 -->
-    <header>
-        <h1 style="font-size:20px;"></h1>
-    </header>
-
-    <!-- 页面主题部分 -->
-    <section class="mainbox">
-<div id="map" style="left: 70px;bottom:0px;width: 98%;height:90%;"></div>
-<div id="title"><h2 style="color: white;"><b>赛事活动客流集散模式分析-奥林匹克森林公园</b></h2></div>
+<div id="map" style="width: 100%;height: 780px;"></div>
 <div id="timeline" class="set-timeline" style="position: absolute;top:700px;">时间轴</div>
 <div id="picture">
     <h4 style="color:white">道路抽象图</h4>
     <h5 style="color:white">节点表示路链，边表示路链关系</h5>
 </div>
-<!--<a href="/congestion/real_time" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" id="link_btn">模式预测</a>-->
-	<!--
-<div id="descDiv" style="width:370px;background-color:rgba(1,8,7,0.7);height:250px; z-index: 100; top: 15%;">
-    <div id="tabdiv2" style="height:35px;line-height:35px;width:100%; ">
-        <div id="tab1" class="btn-current" style="width:98%; background-color:rgba(112,128,144,0.7)">
-            <span class="lab-cn" style = "cursor: default"><b>典型道路</b></span>
-            <span class="lab-en" style="font-size:12px;">Road regular congestion ranking</span>
-        </div>
-    </div>
-	
-    <div style="scrollbar-highlight-color: #6c6c90;">
-        <table style="width:100%;text-align:center;border-top: 1px solid rgba(255,255,255, 0.2);">
-            <tbody>
-            <tr height="32px;">
-                <td style="width:2%;">
 
-                </td>
-                <td style="width:29%;">
-                    <span class="table_span lab-cn" style="font-size:15px">道路</span>
-                </td>
-                <td style="width:18%;">
-                    <span class="table_span lab-cn" style="font-size:14px">拥堵长度(m)</span>
-                </td>
-                <td style="width:18%;">
-                    <span class="table_span lab-cn" style="font-size:14px">拥堵速度(km/h)</span>
-                </td>
-                <td style="width:18%;">
-                    <span class="table_span lab-cn" style="font-size:14px">拥堵时长</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table id="city_table" style="border-top: 1px solid rgba(255,255,255, 0.2);width:100%;text-align:center;">
-            <tbody id="tab_rank">
-            <tr height="0px;">
-                <td style="width:29%;"></td>
-                <td style="width:18%;"></td>
-                <td style="width:18%;"></td>
-                <td style="width:18%;"></td>
-            </tr>
-            
-            </tbody>
-        </table>
-    </div>
-	
-</div>
--->
 <div class="minemap-toolbar-container" style="width:380px; top: 8%;">
     <div class="road-cond-panel road-cond-panel-active" style="top: 0;">
         <div class="road-cond-box">
@@ -168,8 +109,7 @@
                 </select>
         </div>
     </div>
-            </section>
-    </div>
+
 <script>
     
 

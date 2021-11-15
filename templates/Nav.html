@@ -6,17 +6,29 @@
 
       <!-- logo -->
       <div id="logo" class="sidebar-header">
-        <h1 align="center" style="line-height:70px ; color:white ; font-size:20px">云边协同监控系统</h1>
+        <h1 align="center" style="line-height:60px ; color:white ; font-size:15px">WO数据感知采集与融合处理系统</h1>
       </div>
       <div class="lyear-layout-sidebar-scroll">
 
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
-            <li class="nav-item"> <a href="/cloud" ><i class="mdi mdi-sitemap"></i> 节点监控</a> </li>
-            <li class="nav-item"> <a href="/new_home" ><i class="mdi mdi-format-align-justify"></i> 态势感知</a> </li>
-              <li class="nav-item"> <a href="/mode_analysis" ><i class="mdi mdi-format-align-justify"></i> 集散模式分析</a> </li>
-              <li class="nav-item"> <a href="/mode_predict" ><i class="mdi mdi-format-align-justify"></i> 集散模式预测</a> </li>
+
+
               <li class="nav-item"> <a href="/changfeng" ><i class="mdi mdi-format-align-justify"></i> 数据采集与管理</a> </li>
+              <li class="nav-item nav-item-has-subnav">
+                  <a href="javascript:void(0)"><i class="mdi mdi-cloud-print"></i> 云边监控子系统</a>
+                  <ul class="nav nav-subnav">
+                      <li class="nav-item"> <a href="/cloud" ><i class="mdi mdi-sitemap"></i> 节点监控</a> </li>
+                  </ul>
+              </li>
+              <li class="nav-item nav-item-has-subnav">
+                  <a href="javascript:void(0)"><i class="mdi mdi-ungroup"></i> 数据融合子系统</a>
+                  <ul class="nav nav-subnav">
+                      <li class="nav-item"> <a href="/new_home" ><i class="mdi mdi-format-align-justify"></i> 态势感知</a> </li>
+                      <li class="nav-item"> <a href="/od_mode/mode_analysis" ><i class="mdi mdi-format-align-justify"></i> 集散模式分析</a> </li>
+                      <li class="nav-item"> <a href="/od_predict/mode_predict" ><i class="mdi mdi-format-align-justify"></i> 集散模式预测</a> </li>
+                  </ul>
+              </li>
           </ul>
         </nav>
 

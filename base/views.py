@@ -1024,6 +1024,19 @@ def get_small_mode2_analysis(request):
     return render(request, 'small_mode2_analysis.html')
 
 
+def new_od_mode(request, name):
+
+    name = '/' + name + '/'
+
+    return render(request, 'od_mode.html', {"src": name})
+
+def new_od_predict(request, name):
+
+    name = '/' + name + '/'
+
+    return render(request, 'od_predict.html', {"src": name})
+
+
 def toCloud(request):
     return render(request, 'new_monitor.html');
 

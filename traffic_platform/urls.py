@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from base import views
 
 urlpatterns = [
@@ -55,6 +55,8 @@ urlpatterns = [
     path('mid_mode3_analysis/', views.get_mid_mode3_analysis),
     path('small_mode1_analysis/', views.get_small_mode1_analysis),
     path('small_mode2_analysis/', views.get_small_mode2_analysis),
+    re_path(r'^od_mode/(?P<name>(.*))/$', views.new_od_mode),
+    re_path(r'^od_predict/(?P<name>(.*))/$', views.new_od_predict),
 
     path('cloud/', views.toCloud),
     path('new_resource_topo/', views.get_new_resource_topo),
