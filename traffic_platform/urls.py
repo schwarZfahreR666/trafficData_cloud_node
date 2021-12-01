@@ -83,5 +83,18 @@ urlpatterns = [
     path('getBus', views.getBus),
 
     path('changfeng', views.refchangfeng),
+    path('datashow', views.datashow),
+    path('apidata', views.apidata),
+    path('filedata', views.filedata),
+    path('usermanage', views.usermanage),
+    path('projectmanage', views.projectmanage),
+    path('imagemanage', views.imagemanage),
+    path('dockermanage', views.dockermanage),
+    path('programmamanage', views.programmamanage),
+    path('taskmanage', views.taskmanage),
+    path('nodemanage', views.nodemanage),
+    path('toposhow', views.toposhow),
+    path('timeapi', views.timeapi),
+    path('onceapi', views.onceapi),
 
 ]

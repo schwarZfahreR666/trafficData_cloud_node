@@ -37,6 +37,8 @@ database_name = 'TRAFFIC'
 database_usrname = 'root'
 database_password = '06240118'
 kafka_server = '47.95.159.86:9092'
+rabbitmq_host = '47.95.159.86'
+redis_host = '47.95.159.86'
 
 TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
 
@@ -129,7 +131,7 @@ def buildTask():
 
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
     dic['node_name'] = "BUAA"
     dic['info_name'] = "tasks"
@@ -226,7 +228,7 @@ def taskSchedule2():
 
 
 def area_level_analysis():
-    pool = redis.ConnectionPool(host='47.95.159.86', port=6379, password="06240118")  #配置连接池连接信息
+    pool = redis.ConnectionPool(host=redis_host, port=6379, password="06240118")  #配置连接池连接信息
     connect = redis.Redis(connection_pool=pool)
     for i in range(0, 17):
         time = []
@@ -310,7 +312,7 @@ scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", j
 def ex_task(node_name, task_name):
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     try:
 
         dic = {"node_name": node_name, "task_name": task_name}
@@ -347,7 +349,7 @@ def task_job(node_name, task_name):
         return
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     state = "数据采集"
     global task_state
     for i in range(0,len(task_state)):
@@ -1075,7 +1077,7 @@ tasks_map = {}
 def getBH(request):
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
     dic['node_name'] = "BUAA"
     dic['info_name'] = "tasks"
@@ -1133,7 +1135,7 @@ def get_javaNode_sysInfo(request):
 
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
     dic['node_name'] = "BUAA"
     dic['info_name'] = "sysInfo"
@@ -1173,7 +1175,7 @@ def start_task(request):
     #                      bootstrap_servers=kafka_server)
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
 
     if request.method == 'POST':
 
@@ -1244,7 +1246,7 @@ def getHealth(request):
 
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = '47.95.159.86',port = 5672,virtual_host = '/',credentials = credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
     dic['node_name'] = "BUAA"
     dic['info_name'] = "health"
@@ -1283,5 +1285,71 @@ def getHealth(request):
 def refchangfeng(request):
 
     return redirect("http://121.89.204.250:9090/")
+
+
+def datashow(request):
+
+    return redirect("http://121.89.204.250:9090/#/dashboard")
+
+
+def apidata(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataCollection/timedTask")
+
+
+def filedata(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataCollection/ontTimeTask")
+
+
+def usermanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/authority/userList")
+
+
+def projectmanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/project/list")
+
+
+def imagemanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/mirrorList/list")
+
+
+def dockermanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/container/list")
+
+
+def programmamanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/program/list")
+
+
+def taskmanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataMonitoring/job/timedTask2")
+
+def nodemanage(request):
+
+    return redirect("http://121.89.204.250:9090/#/cloudEdgeCollaboration/list")
+
+def toposhow(request):
+
+    return redirect("http://121.89.204.250:9090/#/cloudEdgeCollaboration/Topology")
+
+def timeapi(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataAccess/timedTask")
+
+def onceapi(request):
+
+    return redirect("http://121.89.204.250:9090/#/dataAccess/outTimeTask")
+
+
+
+
+
 
 
