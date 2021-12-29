@@ -15,6 +15,7 @@ import random
 import numpy as np
 import requests
 import uuid
+from multiprocessing import Pool
 from apscheduler.events import EVENT_JOB_EXECUTED
 from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.jobstores.memory import MemoryJobStore
@@ -23,6 +24,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from kafka import KafkaProducer,KafkaConsumer
 from kafka.errors import KafkaError
 import pika
+from kazoo.client import KazooClient
 
 from base.ner.predict_span import predict,model_init
 from base.spiders.event import get_event_yingjiju, get_event_bendibao, get_event_jiaoguanju, get_event_bus
@@ -39,14 +41,17 @@ database_password = '06240118'
 kafka_server = '47.95.159.86:9092'
 rabbitmq_host = '47.95.159.86'
 redis_host = '47.95.159.86'
+zk_host = '47.95.159.86'
 
 TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
 
 LEVEL_MAP = {1: 4, 2: 3, 3: 2}
-
+node_tasks = {}
 task_state = []
 init_num = 0
 event_switch = 0
+nodeinfo = {}
+registeNodes = []
 
 tokenizer, label_list, model, device, id2label = model_init()
 
@@ -122,6 +127,54 @@ def job_execute(event):
                 task_state[i]['state'] = state
 
 
+def traversebuild(nodeinfo,zk):
+    Path = nodeinfo
+    nodes = zk.get_children(Path)
+    res = {}
+    childList = []
+    for node in nodes:
+        if node == "children":
+            children = zk.get_children(Path + "/" + node)
+
+            for child in children:
+                childList.append(traversebuild(Path + "/" + node + "/" + child,zk))
+        else:
+            value = zk.get(Path + "/"  + node)[0].decode('utf')
+            res[node] = value
+    if len(childList) != 0:
+        res['children'] = childList
+    return res
+
+
+def buildNodeInfo():
+    zk = KazooClient(hosts=zk_host)
+    zk.start()
+    nodes = zk.get_children('/EdgeCloud')
+    children = []
+    global registeNodes
+    global node_tasks
+    for node in nodes:
+        if not zk.exists('/EdgeCloud/' + node + "/" + "nodeinfo"):
+            continue
+        children.append(traversebuild('/EdgeCloud/' + node + "/" + "nodeinfo",zk))
+        registeNodes.append(node)
+        tasks = zk.get_children('/EdgeCloud/' + node + "/" + "images")
+        node_tasks[node] = []
+        for task in tasks:
+            info = {}
+            info['name'] = task
+            info['id'] = zk.get('/EdgeCloud/' + node + "/" + "images" + "/"  + task)[0].decode('utf')
+            node_tasks[node].append(info)
+
+
+
+
+    with open("./static_files/data/resource-topo.json",'r') as load_f:
+        load_dict = json.load(load_f)
+    load_dict['children'] = children
+    global nodeinfo
+    nodeinfo = json.dumps(load_dict)
+    buildTask()
 
 
 def buildTask():
@@ -129,38 +182,39 @@ def buildTask():
     # tasks = json.loads(tasks.content)
 
 
-    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
-    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
-    dic = {}
-    dic['node_name'] = "BUAA"
-    dic['info_name'] = "tasks"
-
-    # producer.send(topic, json.dumps(dic).encode())
-    msg = json.dumps(dic)
-    channel = connection.channel()
-    try:
-        channel.basic_publish(exchange='cloud-send',
-                              routing_key='',
-                              body=msg)
-
-        flag = 1
-
-        while flag:
-            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
-                                                                 auto_ack=False)
-            if method_frame != None:
-                res = json.loads(body)
-                if res['id'] == "tasks":
-                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
-                    flag = 0
-                else:
-                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
-
-    finally:
-        connection.close()
-
-    tasks = res["content"]
+    # credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    # connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
+    # dic = {}
+    # node = "BUAA"
+    # dic['node_name'] = "BUAA"
+    # dic['info_name'] = "tasks"
+    #
+    # # producer.send(topic, json.dumps(dic).encode())
+    # msg = json.dumps(dic)
+    # channel = connection.channel()
+    # try:
+    #     channel.basic_publish(exchange='cloud-send',
+    #                           routing_key=node,
+    #                           body=msg)
+    #
+    #     flag = 1
+    #
+    #     while flag:
+    #         method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + node,
+    #                                                              auto_ack=False)
+    #         if method_frame != None:
+    #             res = json.loads(body)
+    #             if res['id'] == "tasks":
+    #                 channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+    #                 flag = 0
+    #             else:
+    #                 channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+    #
+    # finally:
+    #     connection.close()
+    global node_tasks
+    tasks = node_tasks['BUAA']
 
     global task_state
     task_state = []
@@ -302,9 +356,11 @@ def taskInit():
         init_num = 1
 
 
-buildTask()
+
+buildNodeInfo()
 scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
 scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
+scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
 scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
 scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
 # scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=3), id="taskSchedule2", jobstore="default", executor="default")
@@ -320,7 +376,7 @@ def ex_task(node_name, task_name):
         msg = json.dumps(dic)
         channel = connection.channel()
         channel.basic_publish(exchange='auto-cloud-edge',
-                              routing_key='',
+                              routing_key=node_name,
                               body=msg)
 
 
@@ -328,7 +384,7 @@ def ex_task(node_name, task_name):
 
         while flag:
 
-            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue',
+            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue-' + node_name,
                                                                  auto_ack=False)
             if method_frame != None:
                 res = json.loads(body)
@@ -363,7 +419,7 @@ def task_job(node_name, task_name):
         msg = json.dumps(dic)
         channel = connection.channel()
         channel.basic_publish(exchange='auto-cloud-edge',
-                                  routing_key='',
+                                  routing_key=node_name,
                                   body=msg)
 
 
@@ -371,7 +427,7 @@ def task_job(node_name, task_name):
 
         while flag:
 
-            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue',
+            method_frame, header_frame, body = channel.basic_get(queue='auto-edge-cloud-queue-' + node_name,
                                                              auto_ack=False)
             if method_frame != None:
                 res = json.loads(body)
@@ -490,13 +546,6 @@ def get_resource_monitor(request):
 def get_resource_topo(request):
 
     return render(request, 'resource-topo.html')
-
-
-def get_new_resource_topo(request):
-
-    return render(request, 'new_resource-topo.html')
-
-
 
 
 def compute_device_check(request, rid):
@@ -1040,11 +1089,19 @@ def new_od_predict(request, name):
 
 
 def toCloud(request):
+
     return render(request, 'new_monitor.html');
 
 
+def get_new_resource_topo(request):
+
+    return render(request, 'new_resource-topo.html')
+
+
 def toTopo(request):
-    return render(request, 'new_resource-topo.html');
+    data = nodeinfo
+    # data = json.dumps(data)
+    return render(request, 'new_resource-topo.html', {"data": data})
 
 
 def tonew_home(request):
@@ -1079,7 +1136,9 @@ def getBH(request):
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
-    dic['node_name'] = "BUAA"
+
+    node = request.GET.get("nodename")
+    dic['node_name'] = node
     dic['info_name'] = "tasks"
 
     # producer.send(topic, json.dumps(dic).encode())
@@ -1087,13 +1146,13 @@ def getBH(request):
     channel = connection.channel()
     try:
         channel.basic_publish(exchange='cloud-send',
-                          routing_key='',
+                          routing_key=node,
                           body=msg)
 
         flag = 1
 
         while flag:
-            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + node,
                                                              auto_ack=False)
             if method_frame != None:
                 res = json.loads(body)
@@ -1124,11 +1183,11 @@ def getBH(request):
 
         task_name.append(task['name'])
 
-    return render(request, 'bh_edgenode.html', {'tasks': task_name, 'switch': switch});
+    return render(request, 'bh_edgenode.html', {'tasks': task_name, 'switch': switch, 'nodename': node})
 
 def toMap_test(request):
 
-    return render(request, 'monitor_map.html');
+    return render(request, 'monitor_map.html')
 
 def get_javaNode_sysInfo(request):
     # res = requests.get(java_node_url+'/rest/sysInfo')
@@ -1136,22 +1195,25 @@ def get_javaNode_sysInfo(request):
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
+
     dic = {}
-    dic['node_name'] = "BUAA"
+    node = request.GET.get("nodename")
+    dic['node_name'] = node
     dic['info_name'] = "sysInfo"
 
     # producer.send(topic, json.dumps(dic).encode())
     msg = json.dumps(dic)
     channel = connection.channel()
+    res = {}
     try:
         channel.basic_publish(exchange='cloud-send',
-                              routing_key='',
+                              routing_key=node,
                               body=msg)
 
         flag = 1
-
+        count = 0
         while flag:
-            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + node,
                                                                  auto_ack=False)
             if method_frame != None:
                 res = json.loads(body)
@@ -1160,6 +1222,15 @@ def get_javaNode_sysInfo(request):
                     flag = 0
                 else:
                     channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+                    count += 1
+                    if count >= 500:
+                        res["content"] = ""
+                        return res["content"]
+            else:
+                count += 1
+                if count >= 500:
+                    res["content"] = ""
+                    return res["content"]
 
     finally:
         connection.close()
@@ -1178,7 +1249,8 @@ def start_task(request):
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
 
     if request.method == 'POST':
-
+        nodename = request.POST['nodename']
+        print(nodename)
         topic = 'cloud-edge'
         name = request.POST['name']
         # input = request.POST['input']
@@ -1199,7 +1271,7 @@ def start_task(request):
             msg = json.dumps(dic)
             channel = connection.channel()
             channel.basic_publish(exchange='cloud-edge',
-                                  routing_key='',
+                                  routing_key=nodename,
                                   body=msg)
             print("发送数据：" + str(dic))
             flag = 1
@@ -1218,7 +1290,7 @@ def start_task(request):
                 count = 0
                 while method_frame == None:
                     count += 1
-                    method_frame, header_frame, body = channel.basic_get(queue='edge-cloud-queue',
+                    method_frame, header_frame, body = channel.basic_get(queue='edge-cloud-queue-' + nodename,
                                             auto_ack=True)
                     if count >= 10000:
                         return HttpResponse("请求超时")
@@ -1232,7 +1304,9 @@ def start_task(request):
         except KeyboardInterrupt as e:
             print(e)
         finally:
-            connection.close()
+            pass
+
+    connection.close()
     ans = res['info']
     if res['res'] != "":
         ans = "返回数据："
@@ -1240,15 +1314,12 @@ def start_task(request):
     return HttpResponse(ans)
 
 
-
-def getHealth(request):
-    # res = requests.get(java_node_url+'/rest/health')
-
+def healthWorker(nodename):
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
     # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
     connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     dic = {}
-    dic['node_name'] = "BUAA"
+    dic['node_name'] = nodename
     dic['info_name'] = "health"
 
     # producer.send(topic, json.dumps(dic).encode())
@@ -1256,13 +1327,14 @@ def getHealth(request):
     channel = connection.channel()
     try:
         channel.basic_publish(exchange='cloud-send',
-                              routing_key='',
+                              routing_key=nodename,
                               body=msg)
 
         flag = 1
-
+        count = 0
+        res = {}
         while flag:
-            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue',
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + nodename,
                                                                  auto_ack=False)
             if method_frame != None:
                 res = json.loads(body)
@@ -1271,13 +1343,62 @@ def getHealth(request):
                     flag = 0
                 else:
                     channel.basic_reject(delivery_tag = method_frame.delivery_tag)
-
+                    count += 1
+                    if count >= 500:
+                        res["content"] = "暂无节点健康度"
+                        return res["content"]
+            else:
+                count += 1
+                if count >= 500:
+                    res["content"] = "暂无节点健康度"
+                    return res["content"]
     finally:
         connection.close()
+    return res["content"]
 
 
-    ans = {"BUAA 北京航空航天大学": res["content"]}
-    # ans = {"BUAA 北京航空航天大学": res.text}
+pool = Pool(processes=4)
+
+def getHealth(request):
+    # res = requests.get(java_node_url+'/rest/health')
+
+    # credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    # connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
+    global registeNodes
+    ans = {}
+    for node in registeNodes:
+        # dic = {}
+        # dic['node_name'] = node
+        # dic['info_name'] = "health"
+        #
+        # # producer.send(topic, json.dumps(dic).encode())
+        # msg = json.dumps(dic)
+        # channel = connection.channel()
+        # try:
+        #     channel.basic_publish(exchange='cloud-send',
+        #                       routing_key=node,
+        #                       body=msg)
+        #
+        #     flag = 1
+        #
+        #     while flag:
+        #         method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + node,
+        #                                                          auto_ack=False)
+        #         if method_frame != None:
+        #             res = json.loads(body)
+        #             if res['id'] == "health":
+        #                 channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+        #                 flag = 0
+        #             else:
+        #                 channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+        # finally:
+        #     pass
+        global pool
+
+        ans[node] = pool.apply_async(healthWorker, [node]).get()
+    print(ans)
+    # connection.close()
     ans = json.dumps(ans)
     return HttpResponse(ans)
 

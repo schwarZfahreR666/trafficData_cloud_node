@@ -208,4 +208,7 @@ if __name__ == "__main__":
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     input_text = "决定2020年8月12日至2020年9月10日期间，半壁街（厂洼中路——西三环北路）禁止社会车辆及行人通行，"
     input_text = "宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
-    predict(input_text)
+    input_text = "受交通量大影响交通运行压力集中的京新高速进京方向上地桥至箭亭桥南路段，现交通运行已恢复正常。"
+    tokenizer, label_list, model, device, id2label = model_init()
+    res = predict(input_text, tokenizer, label_list, model, device, id2label)
+    predict(res)

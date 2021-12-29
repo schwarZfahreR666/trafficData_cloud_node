@@ -13,36 +13,14 @@
         <nav class="sidebar-main">
           <ul class="nav nav-drawer">
 
+
+              <li class="nav-item"> <a href="/changfeng" ><i class="mdi mdi-format-align-justify"></i> 数据采集与管理</a> </li>
               <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)"><i class="mdi mdi-database"></i> 数据管理子系统</a>
+                  <a href="javascript:void(0)"><i class="mdi mdi-cloud-print"></i> 云边监控子系统</a>
                   <ul class="nav nav-subnav">
-                      <li class="nav-item"> <a href="/datashow" ><i class="mdi mdi-cube"></i> 数据展示 </a> </li>
+                      <li class="nav-item"> <a href="/cloud" ><i class="mdi mdi-sitemap"></i> 节点监控</a> </li>
                   </ul>
               </li>
-
-              <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)"><i class="mdi mdi-download-network"></i> 数据采集子系统</a>
-                  <ul class="nav nav-subnav">
-                      <li class="nav-item"> <a href="/apidata" ><i class="mdi mdi-earth"></i> API数据采集 </a> </li>
-                      <li class="nav-item"> <a href="/filedata" ><i class="mdi mdi-dip-switch"></i> 文件数据采集 </a> </li>
-                      <li class="nav-item"> <a href="javascript:jump()" ><i class="mdi mdi-database"></i> 数据库数据采集</a> </li>
-                  </ul>
-              </li>
-
-              <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)"><i class="mdi mdi-lan-connect"></i> 采集监控子系统</a>
-                  <ul class="nav nav-subnav">
-                      <li class="nav-item"> <a href="/usermanage" ><i class="midi mdi-account"></i> 用户管理 </a> </li>
-                      <li class="nav-item"> <a href="/projectmanage" ><i class="mdi mdi-briefcase"></i> 采集项目管理 </a> </li>
-                      <li class="nav-item"> <a href="/imagemanage" ><i class="mdi mdi-format-align-justify"></i> 镜像管理 </a> </li>
-                      <li class="nav-item"> <a href="/dockermanage" ><i class="mdi mdi-format-align-justify"></i> 容器管理 </a> </li>
-                      <li class="nav-item"> <a href="/programmamanage" ><i class="mdi mdi-format-align-justify"></i> 程序管理 </a> </li>
-                      <li class="nav-item"> <a href="/taskmanage" ><i class="mdi mdi-format-align-justify"></i> 采集任务管理 </a> </li>
-                  </ul>
-              </li>
-
-
-
               <li class="nav-item nav-item-has-subnav">
                   <a href="javascript:void(0)"><i class="mdi mdi-ungroup"></i> 数据融合子系统</a>
                   <ul class="nav nav-subnav">
@@ -51,26 +29,6 @@
                       <li class="nav-item"> <a href="/od_predict/mode_predict" ><i class="mdi mdi-format-align-justify"></i> 集散模式预测</a> </li>
                   </ul>
               </li>
-
-
-
-              <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)"><i class="mdi mdi-cloud-print"></i> 云边监控子系统</a>
-                  <ul class="nav nav-subnav">
-                      <li class="nav-item"> <a href="/nodemanage" ><i class="mdi mdi-lock-pattern"></i> 站点管理</a> </li>
-                      <li class="nav-item"> <a href="/toposhow" ><i class="mdi mdi-share-variant"></i> 拓扑展示</a> </li>
-                  </ul>
-              </li>
-
-              <li class="nav-item nav-item-has-subnav">
-                  <a href="javascript:void(0)"><i class="mdi mdi-import"></i> 数据访问接口</a>
-                  <ul class="nav nav-subnav">
-                      <li class="nav-item"> <a href="/timeapi" ><i class="mdi mdi-calendar-clock"></i> Restful定时服务接口</a> </li>
-                      <li class="nav-item"> <a href="/onceapi" ><i class="mdi mdi-calendar-blank"></i> Restful一次性服务接口</a> </li>
-                      <li class="nav-item"> <a href="javascript:jump()" ><i class="mdi mdi-database"></i> 数据库推送</a> </li>
-                  </ul>
-              </li>
-
           </ul>
         </nav>
 
@@ -78,40 +36,6 @@
 
     </aside>
     <!--End 左侧导航-->
-
-    <script>
-
-
-        function getDom(tagName,name,value){
-            var selectDom = [];
-            var dom=document.getElementsByTagName(tagName);
-            for (var i=0; i<dom.length; i++) {
-
-                if(value===dom[i].getAttribute(name)){
-                    selectDom.push(dom[i]);
-                }
-            }
-            return selectDom;
-        }
-
-        function jump(){
-            window.open("http://8.142.185.131:8080/spoon/spoon");
-        }
-
-
-            var loc = window.location.pathname;
-            var loc = loc.substring(0,loc.lastIndexOf('/'))
-
-            var a = getDom('a','href',loc);
-            var li = a[0].parentNode;
-
-            var content = li.getAttribute('class');
-            li.setAttribute('class',content + ' active');
-            var list = li.parentNode.parentNode;
-            var text = list.getAttribute('class');
-            list.setAttribute('class',text + ' active open');
-
-    </script>
 
 
 
