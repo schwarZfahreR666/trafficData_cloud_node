@@ -10,7 +10,7 @@ import os, time
 import datetime
 import redis
 import json
-import pymysql
+import pymysql, base64
 import random
 import numpy as np
 import requests
@@ -127,6 +127,20 @@ def job_execute(event):
                 task_state[i]['state'] = state
 
 
+def imgSave(imgName):
+    pool = redis.ConnectionPool(host=redis_host, port=6379, password="06240118")  #配置连接池连接信息
+    connect = redis.Redis(connection_pool=pool)
+
+    ret = connect.get(imgName)
+
+    img_data = base64.b64decode(ret)
+    if os.path.exists("./static_files/img/resource-topo/"+imgName):
+        return
+    # 注意：如果是"data:image/jpg:base64,"，那你保存的就要以png格式，如果是"data:image/png:base64,"那你保存的时候就以jpg格式。
+    with open("./static_files/img/resource-topo/"+imgName, 'wb') as f:
+        f.write(img_data)
+
+
 def traversebuild(nodeinfo,zk):
     Path = nodeinfo
     nodes = zk.get_children(Path)
@@ -138,9 +152,12 @@ def traversebuild(nodeinfo,zk):
 
             for child in children:
                 childList.append(traversebuild(Path + "/" + node + "/" + child,zk))
+
         else:
             value = zk.get(Path + "/"  + node)[0].decode('utf')
             res[node] = value
+            if node == "img":
+                imgSave(value)
     if len(childList) != 0:
         res['children'] = childList
     return res
