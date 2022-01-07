@@ -1,52 +1,54 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>赛事活动客流集散模式分析与预测系统</title>
     <meta charset="UTF-8">
     <!-- bootstrap css
-    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 -->
     <!-- custom css -->
     <link rel="stylesheet" href="{% static '/cx/congestion.css' %}" type="text/css">
 
     <!-- minemap css
-    
-    <link href="{% static 'cx/commons.min.css'%}" rel="stylesheet">-->
-    <link href="{% static 'cx/operate.min.css'%}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'cx/template.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'cx/mode_analysis.css'%}" type="text/css">
+    <link href="{% static 'cx/commons.min.css'%}" rel="stylesheet">-->
+    <link href="{% static 'cx/operate.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'cx/template.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'cx/mode_analysis.css' %}" type="text/css">
     <!-- sys js -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <!-- echarts js -->
     <!--
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
     -->
-    <script type="text/javascript" src="{% static 'js/echarts.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
 
     <!-- bmap js -->
-   <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=ql7oPcWw2XCXfsGvIFRwjf6usRBEutui"></script>
+    <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=ql7oPcWw2XCXfsGvIFRwjf6usRBEutui"></script>
     <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
     <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
     <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.105/dist/mapvgl.min.js"></script>
-    
-    <!-- custom js -->
-    <script type="text/javascript" src="{% static 'cx/big_mode2.js'%}"></script>
-    <script type="text/javascript" src="{% static 'cx/graph.js'%}"></script>
-	<script src="{% static 'cx/regionFlowOfmode.js'%}"></script>
-        <style type="text/css">
 
-		.selector-group {
+
+    <!-- custom js -->
+    <script type="text/javascript" src="{% static 'cx/mid_mode3_wks.js' %}"></script>
+    <!-- <script type="text/javascript" src="cx/graph.js"></script> -->
+    <!-- <script src="cx/regionFlowOfmode.js"></script> -->
+    <style type="text/css">
+        .selector-group {
             position: absolute;
             top: 100px;
             left: 100px;
             z-index: 100;
         }
+
         select {
             width: 80px;
             height: 20px;
@@ -54,13 +56,18 @@
         }
     </style>
 </head>
+
 <body>
+
+
 <div id="map" style="width: 100%;height: 780px;"></div>
+
 <div id="timeline" class="set-timeline" style="position: absolute;top:700px;">时间轴</div>
 <div id="picture">
     <h4 style="color:white">道路抽象图</h4>
     <h5 style="color:white">节点表示路链，边表示路链关系</h5>
 </div>
+
 <div class="minemap-toolbar-container" style="width:380px; top: 8%;">
     <div class="road-cond-panel road-cond-panel-active" style="top: 0;">
         <div class="road-cond-box">
@@ -83,32 +90,37 @@
     </div>
 </div>
 <div class="selector-group">
-        <div class="selector" style="font-size:15px;"><span>场馆：</span>
-            <select id="area" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
-                <option value="/mode_analysis">国家体育馆</option>
-                <option value="/mid_mode1_analysis_wks">五棵松体育馆</option>
-                <option value="/mid_mode1_analysis_st">首都体育馆</option>
-            </select>
-        </div>
-     <!-- 打开新页面window.open(this.options[this.selectedIndex].value) -->
-    <!-- 在当前页面打开document.location.href=this.options[this.selectedIndex].value; -->
-        <div class="selector" style="margin-top: 10px;font-size:15px;"><span>规模：</span>
-                <select id="scale" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
-                    <option value="/mode_analysis">大型</option>
-                    <option value="/mid_mode1_analysis">中型</option>
-                    <option value="/small_mode1_analysis">小型</option>
-                </select>
-        </div>
-		<div class="selector" style="margin-top: 10px;font-size:15px;"><span>模式：</span>
-                <select id="mode" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
-                     <option value="/big_mode2_analysis">模式二</option>
-                     <option value="/mode_analysis">模式一</option>
-                    <option value="/big_mode3_analysis">模式三</option>
-					<option value="/big_mode4_analysis">模式四</option>
-                </select>
-        </div>
+    <div class="selector" style="font-size:15px;"><span>场馆：</span>
+        <select id="area" style="font-size:15px;"
+                onchange="document.location.href=this.options[this.selectedIndex].value;">
+            <option value="/mid_mode1_analysis_wks">五棵松体育馆</option>
+            <option value="/mid_mode1_analysis">国家体育馆</option>
+            <option value="/mid_mode1_analysis_st">首都体育馆</option>
+        </select>
     </div>
+    <!-- 打开新页面window.open(this.options[this.selectedIndex].value) -->
+    <!-- 在当前页面打开document.location.href=this.options[this.selectedIndex].value; -->
+    <div class="selector" style="margin-top: 10px;font-size:15px;"><span>规模：</span>
+        <select id="scale" style="font-size:15px;"
+                onchange="document.location.href=this.options[this.selectedIndex].value;">
+            <option value="/mid_mode1_analysis_wks">中型</option>
+        </select>
+    </div>
+    <div class="selector" style="margin-top: 10px;font-size:15px;"><span>模式：</span>
+        <select id="mode" style="font-size:15px;"
+                onchange="document.location.href=this.options[this.selectedIndex].value;">
+            <option value="/mid_mode3_analysis_wks">模式三</option>
+            <option value="/mid_mode2_analysis_wks">模式二</option>
+            <option value="/mid_mode1_analysis_wks">模式一</option>
+
+        </select>
+    </div>
+</div>
+
 <script>
+
+
 </script>
 </body>
+
 </html>

@@ -86,12 +86,11 @@
 </div>
 <div class="selector-group">
         <div class="selector" style="font-size:15px;"><span>场馆：</span>
-                <select id="area" style="font-size=15px;" onchange="areaChange()">
-                     <option value="5">国家体育场</option>
-                    <option value="6">国家速滑馆</option>
-                    <option value="7">国家游泳中心</option>
-                     <option value="5">国家体育馆</option>
-                </select>
+            <select id="area" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
+                <option value="/mid_mode1_analysis">国家体育馆</option>
+                <option value="/mid_mode1_analysis_wks">五棵松体育馆</option>
+                <option value="/mid_mode1_analysis_st">首都体育馆</option>
+            </select>
         </div>
      <!-- 打开新页面window.open(this.options[this.selectedIndex].value) -->
     <!-- 在当前页面打开document.location.href=this.options[this.selectedIndex].value; -->

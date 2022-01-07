@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛事活动客流集散模式分析与预测系统</title>
+    <meta charset="UTF-8">
+    <!-- bootstrap css
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+-->
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static '/cx/congestion.css' %}" type="text/css">
+
+    <!-- minemap css
+
+    <link href="{% static 'cx/commons.min.css'%}" rel="stylesheet">-->
+    <link href="{% static 'cx/operate.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'cx/template.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'cx/mode_analysis.css' %}" type="text/css">
+    <!-- sys js -->
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- echarts js -->
+    <!--
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    -->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+
+    <!-- bmap js -->
+    <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=ql7oPcWw2XCXfsGvIFRwjf6usRBEutui"></script>
+    <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+    <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.105/dist/mapvgl.min.js"></script>
+    <!-- custom js -->
+    <script type="text/javascript" src="{% static 'cx/mid_mode_predict_wks.js' %}"></script>
+    <!-- <script type="text/javascript" src="cx/graph.js"></script> -->
+    <!-- <script src="cx/regionFlowOfmode.js"></script> -->
+    <style type="text/css">
+        .selector-group {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            z-index: 100;
+        }
+
+        select {
+            width: 80px;
+            height: 20px;
+            text-align-last: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div class="minemap-toolbar-container" style="width:380px; top: 8%;">
+    <div class="road-cond-panel road-cond-panel-active" style="width:100%;top: 0;">
+        <div class="road-cond-box" style="width:100%;">
+            <div class="road-cond-item" style="width:30%;">
+                <div class="road-cond-icon cond-icon-4">拥堵</div>
+            </div>
+            <div class="road-cond-item" style="width:30%;">
+                <div class="road-cond-icon cond-icon-3">缓慢</div>
+            </div>
+            <div class="road-cond-item" style="width:30%;">
+                <div class="road-cond-icon cond-icon-5">一般</div>
+            </div>
+            <div class="road-cond-item" style="width:30%;">
+                <div class="road-cond-icon cond-icon-0">畅通</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="selector-group">
+    <div class="selector" style="font-size:15px;"><span>场馆：</span>
+        <select id="area" style="font-size:15px;"
+                onchange="document.location.href=this.options[this.selectedIndex].value;">
+            <option value="/mid_mode_predict_wks">五棵松体育馆</option>
+            <option value="/mid_mode_predict">国家体育馆</option>
+            <option value="/mid_mode_predict_st">首都体育馆</option>
+        </select>
+    </div>
+    <div class="selector" style="margin-top: 10px;font-size:15px;"><span>时间：</span>
+        <select id="granularity" onchange="dateChange()">
+            <option value="hour">晚间</option>
+        </select>
+    </div>
+    <div class="selector" style="margin-top: 10px;font-size:15px;"><span>规模：</span>
+        <select id="granularity" onchange="document.location.href=this.options[this.selectedIndex].value;">
+            <option value="/mid_mode_predict_st">中型赛事活动</option>
+        </select>
+    </div>
+</div>
+
+
+<div style="position: absolute;left: 100px;top:250px;border-radius: 5px;">
+    <div id="trafficRank" style="height:520px;width:600px;font-size:15px;text-align: center;color:#FFFFFF;">
+        重要站点单位小时客流动态预测
+    </div>
+</div>
+
+
+<script>
+    //动态排序表
+    var chartDom = document.getElementById('trafficRank');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    var ROOT_PATH = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples';
+
+    var updateFrequency = 2000;
+    var dimension = 0;
+
+    // 左侧动画各站点颜色
+    var countryColors = {
+        "R国家图书馆": "#8B2323",
+        "R动物园": "#CD3333",
+        "B白石桥东": "#EE3B3B",
+        "B白石桥西": "#CD661D",
+        "B白石桥北": "#EE7621",
+        "B中央民族大学": "#FF7F24",
+        "B中苑宾馆": "#CD853F",
+        "B大柳树南站": "#EE9A49"
+    };
+
+    $.when(
+        $.getJSON('https://cdn.jsdelivr.net/npm/emoji-flags@1.3.0/data.json'),
+        $.getJSON(ROOT_PATH + '/data/asset/data/life-expectancy-table.json')
+    ).done(function (res0, res1) {
+
+        var data = [[245, 42938, 'B五棵松桥北', 'B五棵松桥北', '15:00'], [250, 42938, 'B五棵松桥北', 'B五棵松桥北', '16:00'], [223, 42938, 'B五棵松桥北', 'B五棵松桥北', '17:00'], [124, 42938, 'B五棵松桥北', 'B五棵松桥北', '18:00'], [127, 42938, 'B五棵松桥北', 'B五棵松桥北', '19:00'], [145, 42938, 'B五棵松桥北', 'B五棵松桥北', '20:00'], [26, 42938, 'B五棵松桥北', 'B五棵松桥北', '21:00'], [2, 42938, 'B五棵松桥北', 'B五棵松桥北', '22:00'], [0, 42938, 'B五棵松桥北', 'B五棵松桥北', '23:00'], [57, 42938, 'B沙沟路口西', 'B沙沟路口西', '15:00'], [86, 42938, 'B沙沟路口西', 'B沙沟路口西', '16:00'], [70, 42938, 'B沙沟路口西', 'B沙沟路口西', '17:00'], [78, 42938, 'B沙沟路口西', 'B沙沟路口西', '18:00'], [52, 42938, 'B沙沟路口西', 'B沙沟路口西', '19:00'], [70, 42938, 'B沙沟路口西', 'B沙沟路口西', '20:00'], [25, 42938, 'B沙沟路口西', 'B沙沟路口西', '21:00'], [12, 42938, 'B沙沟路口西', 'B沙沟路口西', '22:00'], [2, 42938, 'B沙沟路口西', 'B沙沟路口西', '23:00'], [327, 42938, 'B永定路口东', 'B永定路口东', '15:00'], [296, 42938, 'B永定路口东', 'B永定路口东', '16:00'], [253, 42938, 'B永定路口东', 'B永定路口东', '17:00'], [205, 42938, 'B永定路口东', 'B永定路口东', '18:00'], [149, 42938, 'B永定路口东', 'B永定路口东', '19:00'], [205, 42938, 'B永定路口东', 'B永定路口东', '20:00'], [129, 42938, 'B永定路口东', 'B永定路口东', '21:00'], [73, 42938, 'B永定路口东', 'B永定路口东', '22:00'], [19, 42938, 'B永定路口东', 'B永定路口东', '23:00'], [164, 42938, 'B金沟河', 'B金沟河', '15:00'], [190, 42938, 'B金沟河', 'B金沟河', '16:00'], [162, 42938, 'B金沟河', 'B金沟河', '17:00'], [95, 42938, 'B金沟河', 'B金沟河', '18:00'], [69, 42938, 'B金沟河', 'B金沟河', '19:00'], [84, 42938, 'B金沟河', 'B金沟河', '20:00'], [26, 42938, 'B金沟河', 'B金沟河', '21:00'], [4, 42938, 'B金沟河', 'B金沟河', '22:00'], [0, 42938, 'B金沟河', 'B金沟河', '23:00'], [170, 42938, 'B沙窝桥北', 'B沙窝桥北', '15:00'], [185, 42938, 'B沙窝桥北', 'B沙窝桥北', '16:00'], [153, 42938, 'B沙窝桥北', 'B沙窝桥北', '17:00'], [102, 42938, 'B沙窝桥北', 'B沙窝桥北', '18:00'], [97, 42938, 'B沙窝桥北', 'B沙窝桥北', '19:00'], [108, 42938, 'B沙窝桥北', 'B沙窝桥北', '20:00'], [40, 42938, 'B沙窝桥北', 'B沙窝桥北', '21:00'], [17, 42938, 'B沙窝桥北', 'B沙窝桥北', '22:00'], [1, 42938, 'B沙窝桥北', 'B沙窝桥北', '23:00'], [144, 42938, 'B万寿路口西', 'B万寿路口西', '15:00'], [191, 42938, 'B万寿路口西', 'B万寿路口西', '16:00'], [120, 42938, 'B万寿路口西', 'B万寿路口西', '17:00'], [84, 42938, 'B万寿路口西', 'B万寿路口西', '18:00'], [101, 42938, 'B万寿路口西', 'B万寿路口西', '19:00'], [95, 42938, 'B万寿路口西', 'B万寿路口西', '20:00'], [65, 42938, 'B万寿路口西', 'B万寿路口西', '21:00'], [24, 42938, 'B万寿路口西', 'B万寿路口西', '22:00'], [3, 42938, 'B万寿路口西', 'B万寿路口西', '23:00'], [33, 42938, 'B北太平路东口', 'B北太平路东口', '15:00'], [27, 42938, 'B北太平路东口', 'B北太平路东口', '16:00'], [20, 42938, 'B北太平路东口', 'B北太平路东口', '17:00'], [56, 42938, 'B北太平路东口', 'B北太平路东口', '18:00'], [15, 42938, 'B北太平路东口', 'B北太平路东口', '19:00'], [11, 42938, 'B北太平路东口', 'B北太平路东口', '20:00'], [10, 42938, 'B北太平路东口', 'B北太平路东口', '21:00'], [5, 42938, 'B北太平路东口', 'B北太平路东口', '22:00'], [1, 42938, 'B北太平路东口', 'B北太平路东口', '23:00'], [202, 42938, 'R田村', 'R田村', '15:00'], [244, 42938, 'R田村', 'R田村', '16:00'], [247, 42938, 'R田村', 'R田村', '17:00'], [197, 42938, 'R田村', 'R田村', '18:00'], [198, 42938, 'R田村', 'R田村', '19:00'], [157, 42938, 'R田村', 'R田村', '20:00'], [86, 42938, 'R田村', 'R田村', '21:00'], [41, 42938, 'R田村', 'R田村', '22:00'], [3, 42938, 'R田村', 'R田村', '23:00']];
+        var years = [];
+        for (var i = 0; i < data.length; ++i) {
+            if (years.length === 0 || years[years.length - 1] !== data[i][4]) {
+                years.push(data[i][4]);
+            }
+        }
+        console.log(years);
+
+        var startIndex = 0;
+        var startYear = years[startIndex];
+
+        var option = {
+            title: {
+                text: '重要站点单位小时客流动态预测',
+                subtext: '单位：人次/小时',
+                x: 'center',
+                padding: 15,
+                textStyle: { //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+                    fontSize: 15,
+                    fontStyle: 'normal',
+                    fontWeight: 'normal',
+                    color: "white",
+                },
+                subtextStyle: {//副标题文本样式{"color": "#aaa"}
+                    fontSize: 12,
+                    fontStyle: 'normal',
+                    fontWeight: 'normal',
+                    color: "white",
+                    align: "right",
+                },
+            },
+            backgroundColor: 'rgba(128, 128, 128, 0.8)',
+            grid: {
+                top: 60,
+                bottom: 30,
+                left: 110,
+                right: 80
+            },
+            xAxis: {
+                max: 'dataMax',
+                label: {
+                    formatter: function (n) {
+                        return Math.round(n);
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: 'white',
+                        fontSize: 14
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'white',
+                        width: 1,//这里是为了突出显示加上的
+                    }
+                }
+
+            },
+            dataset: {
+                source: data.slice(1).filter(function (d) {
+                    return d[4] === startYear;
+                })
+            },
+            yAxis: {
+                type: 'category',
+                inverse: true,
+                max: 10,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 14
+                    },
+                    formatter: function (value) {
+                        return value;
+                    },
+                    rich: {
+                        flag: {
+                            fontSize: 25,
+                            padding: 5
+                        }
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'white',
+                        width: 1,//这里是为了突出显示加上的
+                    }
+                },
+                animationDuration: 300,
+                animationDurationUpdate: 300
+            },
+            series: [{
+                realtimeSort: true,
+                seriesLayoutBy: 'column',
+                type: 'bar',
+                itemStyle: {
+                    color: function (param) {
+                        return countryColors[param.value[3]] || '#5470c6';
+                    },
+                },
+                encode: {
+                    x: dimension,
+                    y: 3
+                },
+                label: {
+                    show: true,
+                    precision: 1,
+                    position: 'right',
+                    color: 'white',
+                    fontSize: 14,
+                    valueAnimation: true,
+                    fontFamily: 'monospace'
+                }
+            }],
+            // Disable init animation.
+            animationDuration: 0,
+            animationDurationUpdate: updateFrequency,
+            animationEasing: 'linear',
+            animationEasingUpdate: 'linear',
+            graphic: {
+                elements: [{
+                    type: 'text',
+                    right: 30,
+                    bottom: 40,
+                    style: {
+                        text: startYear,
+                        font: 'bolder 60px monospace',
+                        fill: 'rgba(255,255,255, 0.85)'
+                    },
+                    z: 100
+                }]
+            }
+        };
+
+        // console.log(option);
+        myChart.setOption(option);
+
+        for (var i = startIndex; i < years.length - 1; ++i) {
+            (function (i) {
+                setTimeout(function () {
+                    updateYear(years[i + 1]);
+                }, (i - startIndex) * updateFrequency);
+            })(i);
+        }
+
+        function updateYear(year) {
+            var source = data.slice(1).filter(function (d) {
+                return d[4] === year;
+            });
+            option.series[0].data = source;
+            option.graphic.elements[0].style.text = year;
+            myChart.setOption(option);
+        }
+    })
+
+    option && myChart.setOption(option);
+
+
+</script>
+</body>
+
+</html>

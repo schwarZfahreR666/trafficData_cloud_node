@@ -86,24 +86,23 @@
 </div>
 <div class="selector-group">
         <div class="selector" style="font-size:15px;"><span>场馆：</span>
-                <select id="area" style="font-size=15px;" onchange="areaChange()">
-                     <option value="5">国家体育场</option>
-                    <option value="6">国家速滑馆</option>
-                    <option value="7">国家游泳中心</option>
-                     <option value="5">国家体育馆</option>
-                </select>
+            <select id="area" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
+                <option value="/mode_analysis">国家体育馆</option>
+                <option value="/mid_mode1_analysis_wks">五棵松体育馆</option>
+                <option value="/mid_mode1_analysis_st">首都体育馆</option>
+            </select>
         </div>
      <!-- 打开新页面window.open(this.options[this.selectedIndex].value) -->
     <!-- 在当前页面打开document.location.href=this.options[this.selectedIndex].value; -->
         <div class="selector" style="margin-top: 10px;font-size:15px;"><span>规模：</span>
-                <select id="scale" style="font-size=15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
+                <select id="scale" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
                     <option value="/mode_analysis">大型</option>
                     <option value="/mid_mode1_analysis">中型</option>
                     <option value="/small_mode1_analysis">小型</option>
                 </select>
         </div>
 		<div class="selector" style="margin-top: 10px;font-size:15px;"><span>模式：</span>
-                <select id="mode" style="font-size=15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
+                <select id="mode" style="font-size:15px;" onchange="document.location.href=this.options[this.selectedIndex].value;">
                     <option value="/mode_analysis">模式一</option>
                     <option value="/big_mode2_analysis">模式二</option>
                     <option value="/big_mode3_analysis">模式三</option>

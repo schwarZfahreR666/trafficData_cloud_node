@@ -1090,7 +1090,24 @@ def get_small_mode1_analysis(request):
 def get_small_mode2_analysis(request):
 
     return render(request, 'small_mode2_analysis.html')
+def get_mid_mode1_analysis_wks(request):
 
+    return render(request, 'mid_mode1_analysis_wks.html')
+def get_mid_mode1_analysis_st(request):
+
+    return render(request, 'mid_mode1_analysis_st.html')
+def get_mid_mode2_analysis_wks(request):
+
+    return render(request, 'mid_mode2_analysis_wks.html')
+def get_mid_mode3_analysis_wks(request):
+
+    return render(request, 'mid_mode3_analysis_wks.html')
+def get_mid_mode_predict_st(request):
+
+    return render(request, 'mid_mode_predict_st.html')
+def get_mid_mode_predict_wks(request):
+
+    return render(request, 'mid_mode_predict_wks.html')
 
 def new_od_mode(request, name):
 

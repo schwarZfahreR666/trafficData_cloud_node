@@ -55,6 +55,12 @@ urlpatterns = [
     path('mid_mode3_analysis/', views.get_mid_mode3_analysis),
     path('small_mode1_analysis/', views.get_small_mode1_analysis),
     path('small_mode2_analysis/', views.get_small_mode2_analysis),
+    path('mid_mode1_analysis_st/', views.get_mid_mode1_analysis_st),
+    path('mid_mode1_analysis_wks/', views.get_mid_mode1_analysis_wks),
+    path('mid_mode2_analysis_wks/', views.get_mid_mode2_analysis_wks),
+    path('mid_mode3_analysis_wks/', views.get_mid_mode3_analysis_wks),
+    path('mid_mode_predict_st/', views.get_mid_mode_predict_st),
+    path('mid_mode_predict_wks/', views.get_mid_mode_predict_wks),
     re_path(r'^od_mode/(?P<name>(.*))/$', views.new_od_mode),
     re_path(r'^od_predict/(?P<name>(.*))/$', views.new_od_predict),
 
