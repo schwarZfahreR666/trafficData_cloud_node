@@ -547,7 +547,7 @@ def get_cpu_state(request):
 
     data = psutil.virtual_memory()
     total = data.total  # 总内存,单位为byte
-    free = data.available  # 可以内存
+    free = data.available  # 可用内存
     memory = (int(round(data.percent)))
     cpu = psutil.cpu_percent(interval=1)
     ret = [memory, cpu]
@@ -1122,9 +1122,45 @@ def new_od_predict(request, name):
     return render(request, 'od_predict.html', {"src": name})
 
 
-def toCloud(request):
+def get_flow_data():
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
 
-    return render(request, 'new_monitor.html');
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT DATE_FORMAT( `time`, \"%Y-%m-%d\" )  DATE,sum(edge_flow) AS edge,sum(cloud_flow) AS cloud FROM flow_table " \
+          "GROUP BY DATE_FORMAT( time, \"%Y-%m-%d\" ) ORDER BY DATE_FORMAT( time, \"%Y-%m-%d\" ) DESC LIMIT 7;"
+    js = []
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+        res = []
+        for data in results:
+            dic = {}
+            dic['date'] = str(data[0])
+            dic['edge'] = int(data[1])
+            dic['cloud'] = int(data[2])
+            res.append(dic)
+        js = json.dumps(res)
+
+    except:
+        print("Error: unable to fetch data")
+    db.close()
+    return js
+
+
+def toCloud(request):
+    js = get_flow_data()
+    return render(request, 'new_monitor.html', {"flow_data": js})
 
 
 def get_new_resource_topo(request):
@@ -1359,10 +1395,12 @@ def healthWorker(nodename):
     # producer.send(topic, json.dumps(dic).encode())
     msg = json.dumps(dic)
     channel = connection.channel()
+    properties = pika.spec.BasicProperties(expiration="30000")
     try:
         channel.basic_publish(exchange='cloud-send',
                               routing_key=nodename,
-                              body=msg)
+                              body=msg,
+                              properties=properties)
 
         flag = 1
         count = 0
