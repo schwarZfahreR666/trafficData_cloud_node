@@ -378,24 +378,6 @@
                 return nodes
             }
 
-            function health() {
-
-                $.ajax({
-                    url: '/node_health/',
-                    type: 'get',
-                    dataType: 'json',
-                    success: function (data) {
-
-                        $.each(data,function (key,value){
-                            if(node_health.hasOwnProperty(key)){
-                                node_health[key] = value;
-                            }
-                        });
-
-                    }
-                });
-
-            }
 
             function zoomed() {
                 view.attr('transform', d3.event.transform);
@@ -433,7 +415,7 @@
                 && $(".random-int8").html(base_day)
                 && $(".random-int9").html(base_his);
 
-            }, 5000);
+            }, 10000);
 
             function health() {
 
@@ -453,7 +435,6 @@
                 });
 
             }
-            health();
 
             setInterval(health, 30000);
 

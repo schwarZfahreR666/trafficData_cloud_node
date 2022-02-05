@@ -190,6 +190,7 @@
        function loadMap(){
            map = new BMapGL.Map("map");
            map.centerAndZoom(new BMapGL.Point(116.351376,40.002346), 15);
+           {#map.changeMapStyle('dark');#}
 
            //创建地址解析器实例
            var myGeo = new BMapGL.Geocoder();

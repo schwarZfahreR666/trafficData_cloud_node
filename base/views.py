@@ -45,7 +45,7 @@ zk_host = '47.95.159.86'
 
 TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
 
-LEVEL_MAP = {1: 4, 2: 3, 3: 2}
+LEVEL_MAP = {1: 15, 2: 10, 3: 8}
 node_tasks = {}
 task_state = []
 init_num = 0
@@ -1416,12 +1416,12 @@ def healthWorker(nodename):
                 else:
                     channel.basic_reject(delivery_tag = method_frame.delivery_tag)
                     count += 1
-                    if count >= 500:
+                    if count >= 800:
                         res["content"] = "暂无节点健康度"
                         return res["content"]
             else:
                 count += 1
-                if count >= 500:
+                if count >= 800:
                     res["content"] = "暂无节点健康度"
                     return res["content"]
     finally:
@@ -1429,7 +1429,6 @@ def healthWorker(nodename):
     return res["content"]
 
 
-pool = Pool(processes=4)
 
 def getHealth(request):
     # res = requests.get(java_node_url+'/rest/health')
@@ -1438,6 +1437,7 @@ def getHealth(request):
     # # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
     # connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
     global registeNodes
+    pool = Pool(processes=4)
     ans = {}
     for node in registeNodes:
         # dic = {}
@@ -1466,9 +1466,8 @@ def getHealth(request):
         #                 channel.basic_reject(delivery_tag = method_frame.delivery_tag)
         # finally:
         #     pass
-        global pool
-
         ans[node] = pool.apply_async(healthWorker, [node]).get()
+    pool.close()
     print(ans)
     # connection.close()
     ans = json.dumps(ans)
