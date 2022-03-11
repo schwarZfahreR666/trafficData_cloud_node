@@ -10,7 +10,19 @@
     <link href="{% static 'css/new_ui/style.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/new_ui/new_loading.css' %}" rel="stylesheet">
 </head>
+<style>
+    .alert{
+        padding: 0;
+        margin-bottom: 0px;
+    }
+    .alert .table-condensed{
+        margin-bottom: 0;
+    }
+    .alert .table-condensed tbody tr td {
+        width:40px;
+    }
 
+</style>
 <body data-theme="default" data-sidebarbg="color_8" data-headerbg="default" data-logobg="color_8">
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
@@ -59,6 +71,25 @@
 
                     <div class="col-sm-4">
                         <div class="card">
+                            <div class="card-header"><h4>区域态势</h4></div>
+                            <div class="card-body">
+                                <div class="alert" role="alert" id="levelTitle" >
+                                    <table class="table table-condensed" >
+                                        <tbody>
+                                        <tr>
+                                            <td>场馆区域</td>
+                                            <td>当前赛事</td>
+                                            <td>交通态势</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
                             <div class="card-header"><h4>节点资源监控</h4></div>
                             <div class="card-body">
                                 <canvas id="cpu-pie" width="150" height="170" style="display: inline-flex"></canvas>
@@ -83,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-12">
 
                         <div class="card">
 
@@ -420,6 +451,58 @@
         }
     });
 
+    function getLevelHtml(name,game,level){
+        let colorNum = 1;
+        if(level >= 50) colorNum = 2;
+        if(level >= 80) colorNum = 3;
+        let colors = {
+            1:'success',
+            2:'warning',
+            3:'danger'
+        }
+        let res = '<div class="alert alert-' + colors[colorNum] + '" role="alert" >' +
+            '<table class="table table-condensed" >' +
+            '<tbody><tr><td>' + name + '</td>' +
+        '<td>' + game +'</td>' +
+        '<td>' + level + '</td>' +
+    '</tr></tbody></table></div>'
+        return res;
+    }
+
+
+    function insertAfter(newElement, targetElement){
+        var parent = targetElement.parentNode;
+        if(parent.lastChild == targetElement){
+            parent.appendChild(newElement);
+        }else{
+            parent.insertBefore(newElement,targetElement.nextSibling);
+        }
+    }
+    function getLevel(){
+        $.ajax({
+            url: '/BH_trafficlevel/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var title = document.getElementById("levelTitle");
+                $("#levelTitle").nextAll().remove();
+                title.sib
+                for(var i=0;i<data.length;i++){
+                    var html = getLevelHtml(data[i]['name'],data[i]['game'],data[i]['level']);
+                    var newObj = document.createElement("div");
+                    newObj.setAttribute("id","level"+ i);
+                    newObj.innerHTML = html;
+
+                    insertAfter(newObj,title);
+
+                }
+
+
+            }
+        })
+    }
+    getLevel();
+
 
     function getSysInfo() {
         $.ajax({
@@ -475,6 +558,7 @@
     }
 
     setInterval(getSysInfo, 10000);
+    setInterval(getLevel, 10000);
     setInterval(eventDriving, 30000);
 </script>
 </body>

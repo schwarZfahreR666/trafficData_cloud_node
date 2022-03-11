@@ -75,6 +75,7 @@ urlpatterns = [
     path('node_health/', views.getHealth),
     path('eventdriving/', views.eventDriving),
     path('taskstate/', views.taskState),
+    path('BH_trafficlevel/', views.getBH_trafficLevel),
 
     path('new_home_at/', views.new_home_at),
     path('new_home_st/', views.new_home_st),

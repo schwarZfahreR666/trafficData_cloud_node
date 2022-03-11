@@ -1467,10 +1467,34 @@ def getHealth(request):
         # finally:
         #     pass
         ans[node] = pool.apply_async(healthWorker, [node]).get()
+    pool.terminate()
     pool.close()
     print(ans)
     # connection.close()
     ans = json.dumps(ans)
+    return HttpResponse(ans)
+
+
+def getBH_trafficLevel(request):
+    res = []
+    dict = {}
+    dict['name'] = "五棵松体育馆"
+    dict['game'] = "冰球"
+    dict['level'] = random.randint(20,100)
+    res.append(dict)
+    dict = {}
+    dict['name'] = "首都体育馆"
+    dict['game'] = "短道速滑"
+    dict['level'] = random.randint(20,100)
+    res.append(dict)
+    dict = {}
+    dict['name'] = "国家体育馆"
+    dict['game'] = "冰壶"
+    dict['level'] = random.randint(20,100)
+    res.append(dict)
+
+    res = sorted(res, key=lambda k: k['level'])
+    ans = json.dumps(res)
     return HttpResponse(ans)
 
 
