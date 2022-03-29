@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>WO数据感知采集与融合处理系统</title>
+<link href="{% static 'css/new_ui/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/new_ui/materialdesignicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/new_ui/style.min.css' %}" rel="stylesheet">
+</head>
+  
+<body data-theme="default" data-sidebarbg="color_8" data-headerbg="default" data-logobg="color_8">
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    {% comment %}<!--左侧导航-->
+      {% include 'Nav.html' %}
+    <!--End 左侧导航-->{% endcomment %}
+
+    <!--头部信息-->
+    <header class="lyear-layout-header">
+
+      <nav class="navbar navbar-default">
+        <div class="topbar">
+
+          <div class="topbar-left">
+
+            <span class="navbar-page-title"> <a href="javascript:parentJump('/bh_edge/?nodename=BUAA');">详情页面</a> </span>
+          </div>
+
+        </div>
+      </nav>
+
+    </header>
+    <!--End 头部信息-->
+
+    <!--页面主要内容-->
+{#    <main class="lyear-layout-content">#}
+      <main>
+      
+      <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header"><h4>区域态势</h4></div>
+                    <div class="card-body">
+                        <div class="alert" role="alert" id="levelTitle" >
+                            <table class="table table-condensed" >
+                                <tbody>
+                                <tr>
+                                    <td>场馆区域</td>
+                                    <td>当前赛事</td>
+                                    <td>交通态势</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header"><h4>事件信息</h4></div>
+                    <div class="card-body">
+                        <div class="alert" role="alert" id="event" >
+                            <table class="table table-condensed" >
+                                <tbody>
+                                <tr>
+                                    <td>时间</td>
+                                    <td>事件信息</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>云边数据记录</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas class="js-chartjs-lines"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><h4>资源监控</h4></div>
+                    <div class="card-body">
+                        <canvas id="cpu-pie" width="120" height="120" style="display: inline-flex"></canvas>
+                        <canvas id="mem-pie" width="120" height="120" style="display: inline-flex"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/new_ui/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_ui/bootstrap.min.js' %}"></script>
+{#<script type="text/javascript" src="{% static 'js/new_ui/perfect-scrollbar.min.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'js/new_ui/main.min.js' %}"></script>#}
+
+<!--图表插件-->
+<script type="text/javascript" src="{% static 'js/new_ui/Chart.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    const data = JSON.parse('{{ flow_data|safe }}');
+    console.log(data[6]['date']);
+   var $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
+
+    var $dashChartLinesData = {
+		labels: [data[6]['date'], data[5]['date'], data[4]['date'], data[3]['date'], data[2]['date'], data[1]['date'], data[0]['date']],
+		datasets: [
+			{
+				label: '云节点',
+				data: [data[6]['cloud'], data[5]['cloud'], data[4]['cloud'], data[3]['cloud'], data[2]['cloud'], data[1]['cloud'], data[0]['cloud']],
+				borderColor: '#358ed7',
+				backgroundColor: 'rgba(53, 142, 215, 0.175)',
+                borderWidth: 1,
+                fill: false,
+                lineTension: 0.5
+			}
+		,{
+                label: '边缘节点',
+                data: [data[6]['edge'], data[5]['edge'], data[4]['edge'], data[3]['edge'], data[2]['edge'], data[1]['edge'], data[0]['edge']],
+                borderColor: '#de9292',
+                backgroundColor: 'rgba(255,99,132, 0.175)',
+                borderWidth: 1,
+                fill: false,
+                lineTension: 0.5
+            }
+        ]
+	};
+
+    var myLineChart = new Chart($dashChartLinesCnt, {
+        type: 'line',
+        data: $dashChartLinesData,
+    });
+
+
+});
+Chart.pluginService.register({
+    beforeDraw: function (chart) {
+        if (chart.config.options.elements.center) {
+            // Get ctx from string
+            var ctx = chart.chart.ctx;
+
+            // Get options from the center object in options
+            var centerConfig = chart.config.options.elements.center;
+            var fontStyle = centerConfig.fontStyle || 'Arial';
+            var txt = centerConfig.text;
+            var color = centerConfig.color || '#000';
+            var maxFontSize = centerConfig.maxFontSize || 75;
+            var sidePadding = centerConfig.sidePadding || 20;
+            var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+            // Start with a base font of 30px
+            ctx.font = "30px " + fontStyle;
+
+            // Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+            var stringWidth = ctx.measureText(txt).width;
+            var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+            // Find out how much the font can grow in width.
+            var widthRatio = elementWidth / stringWidth;
+            var newFontSize = Math.floor(30 * widthRatio);
+            var elementHeight = (chart.innerRadius * 2);
+
+            // Pick a new font size so it will not be larger than the height of label.
+            var fontSizeToUse = Math.min(newFontSize, elementHeight, maxFontSize);
+            var minFontSize = centerConfig.minFontSize;
+            var lineHeight = centerConfig.lineHeight || 25;
+            var wrapText = false;
+
+            if (minFontSize === undefined) {
+                minFontSize = 20;
+            }
+
+            if (minFontSize && fontSizeToUse < minFontSize) {
+                fontSizeToUse = minFontSize;
+                wrapText = true;
+            }
+
+            // Set font settings to draw it correctly.
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+            var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+            ctx.font = fontSizeToUse + "px " + fontStyle;
+            ctx.fillStyle = color;
+
+            if (!wrapText) {
+                ctx.fillText(txt, centerX, centerY);
+                return;
+            }
+
+            var words = txt.split(' ');
+            var line = '';
+            var lines = [];
+
+            // Break words up into multiple lines if necessary
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = ctx.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > elementWidth && n > 0) {
+                    lines.push(line);
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
+            }
+
+            // Move the center up depending on line height and number of lines
+            centerY -= (lines.length / 2) * lineHeight;
+
+            for (var n = 0; n < lines.length; n++) {
+                ctx.fillText(lines[n], centerX, centerY);
+                centerY += lineHeight;
+            }
+            //Draw text in center
+            ctx.fillText(line, centerX, centerY);
+        }
+    }
+});
+
+
+var $cpu = jQuery('#cpu-pie');
+var $mem = jQuery('#mem-pie');
+
+var $cpuData = {
+    labels: ["使用率", "空闲率"],
+    datasets: [{
+        data: [0, 100],
+        backgroundColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)']
+    }]
+};
+
+var cpuChart = new Chart($cpu, {
+    type: 'doughnut',
+    data: $cpuData,
+    options: {
+        responsive: false,
+        elements: {
+            center: {
+                text: 'CPU监控',
+                color: '#000000', // Default is #000000
+                fontStyle: 'Arial', // Default is Arial
+                sidePadding: 5, // Default is 20 (as a percentage)
+                minFontSize: 6, // Default is 20 (in px), set to false and text will not wrap.
+                lineHeight: 8 // Default is 25 (in px), used for when text wraps
+            }
+        }
+    },
+});
+
+var $memData = {
+    labels: ["使用率", "空闲率"],
+    datasets: [{
+        data: [0, 100],
+        backgroundColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)']
+    }]
+};
+
+var memChart = new Chart($mem, {
+    type: 'doughnut',
+    data: $memData,
+    options: {
+        responsive: false,
+        elements: {
+            center: {
+                text: '内存监控',
+                color: '#000000', // Default is #000000
+                fontStyle: 'Arial', // Default is Arial
+                sidePadding: 5, // Default is 20 (as a percentage)
+                minFontSize: 6, // Default is 20 (in px), set to false and text will not wrap.
+                lineHeight: 8 // Default is 25 (in px), used for when text wraps
+            }
+        }
+    }
+});
+
+function getLevelHtml(name,game,level){
+    let colorNum = 1;
+    if(level >= 50) colorNum = 2;
+    if(level >= 80) colorNum = 3;
+    let colors = {
+        1:'success',
+        2:'warning',
+        3:'danger'
+    }
+    let res = '<div class="alert alert-' + colors[colorNum] + '" role="alert" >' +
+        '<table class="table table-condensed" >' +
+        '<tbody><tr><td>' + name + '</td>' +
+        '<td>' + game +'</td>' +
+        '<td>' + level + '</td>' +
+        '</tr></tbody></table></div>'
+    return res;
+}
+
+
+function insertAfter(newElement, targetElement){
+    var parent = targetElement.parentNode;
+    if(parent.lastChild == targetElement){
+        parent.appendChild(newElement);
+    }else{
+        parent.insertBefore(newElement,targetElement.nextSibling);
+    }
+}
+function getLevel(){
+    $.ajax({
+        url: '/BH_trafficlevel/',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            var title = document.getElementById("levelTitle");
+            $("#levelTitle").nextAll().remove();
+            title.sib
+            for(var i=0;i<data.length;i++){
+                var html = getLevelHtml(data[i]['name'],data[i]['game'],data[i]['level']);
+                var newObj = document.createElement("div");
+                newObj.setAttribute("id","level"+ i);
+                newObj.innerHTML = html;
+
+                insertAfter(newObj,title);
+
+            }
+
+
+        }
+    })
+}
+getLevel();
+
+
+function getSysInfo() {
+    $.ajax({
+        url: '/Cpu_State/',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+
+            cpuChart.data.datasets[0].data = [data[1],100 - data[1]];
+            cpuChart.update();
+            memChart.data.datasets[0].data = [data[0], 100 - data[0]];
+            memChart.update();
+
+
+        }
+    })
+}
+
+setInterval(getSysInfo, 10000);
+setInterval(getLevel, 10000);
+function parentJump(url){
+    parent.parent.location.href = url;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "id": 0,
+  "name": "云节点",
+  "type": "server",
+  "url": "/BHnode_submonitor/",
+  "img": "aliyun.png",
+  "x": -800,
+  "y": 400,
+  "info": "阿里云节点是云边协同系统的主要节点，负责任务的调度和资源的监控。",
+  "children": [
+    {
+      "id": 1,
+      "name": "北京城区节点",
+      "type": "node",
+      "url": "/BHnode_submonitor/",
+      "img": "bjcq.png",
+      "x": 200,
+      "y": 200,
+      "info": "BUAA节点是部署在北航的边缘节点，主要负责数据的采集和融合工作。"
+    },
+    {
+      "id": 2,
+      "name": "延庆赛区节点",
+      "type": "node",
+      "url": "/BHnode_submonitor/",
+      "img": "yq.png",
+      "x": 200,
+      "y": 200,
+      "info": "BUAA节点是部署在北航的边缘节点，主要负责数据的采集和融合工作。"
+    },
+    {
+      "id": 3,
+      "name": "崇礼赛区节点",
+      "type": "node",
+      "url": "/BHnode_submonitor/",
+      "img": "zjk.png",
+      "x": 200,
+      "y": 200,
+      "info": "BUAA节点是部署在北航的边缘节点，主要负责数据的采集和融合工作。"
+    }
+  ]
+}

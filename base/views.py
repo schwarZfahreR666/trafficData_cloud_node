@@ -1163,6 +1163,11 @@ def toCloud(request):
     return render(request, 'new_monitor.html', {"flow_data": js})
 
 
+def toBHnode_monitor(request):
+    js = get_flow_data()
+
+    return render(request, 'BHnode_monitor.html', {"flow_data": js})
+
 def get_new_resource_topo(request):
 
     return render(request, 'new_resource-topo.html')
@@ -1208,6 +1213,7 @@ def getBH(request):
     dic = {}
 
     node = request.GET.get("nodename")
+
     dic['node_name'] = node
     dic['info_name'] = "tasks"
 
@@ -1258,6 +1264,12 @@ def getBH(request):
 def toMap_test(request):
 
     return render(request, 'monitor_map.html')
+
+def area_monitor(request):
+    return render(request, 'area_monitor.html')
+
+def area_topo(request):
+    return render(request, 'area-topo.html')
 
 def get_javaNode_sysInfo(request):
     # res = requests.get(java_node_url+'/rest/sysInfo')

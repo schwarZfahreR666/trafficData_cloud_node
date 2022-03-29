@@ -76,6 +76,9 @@ urlpatterns = [
     path('eventdriving/', views.eventDriving),
     path('taskstate/', views.taskState),
     path('BH_trafficlevel/', views.getBH_trafficLevel),
+    path('area_topo/', views.area_topo),
+    path('area_monitor/', views.area_monitor),
+    path('BHnode_submonitor/', views.toBHnode_monitor),
 
     path('new_home_at/', views.new_home_at),
     path('new_home_st/', views.new_home_st),
