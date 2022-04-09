@@ -1,0 +1,150 @@
+{
+    "bd_road_yq":{
+        "type": "road_info",
+        "data": [
+            {
+                "time":"2022-02-12 08:37:18",
+                "road_name":"京藏高速",
+                "description":"京藏高速：双向畅通；北向南,从科荟桥到北沙滩桥拥堵。",
+                "speed":27.31,
+                "congestion_distance":2250,
+                "congestion_trend":"加重",
+                "section_desc":"北向南,从科荟桥到北沙滩桥",
+                "direction":1,
+                "section_id":11
+            },
+            {
+                "time":"2022-02-12 08:37:18",
+                "road_name":"京承高速",
+                "description":"京承高速：畅通；东向西,从河南寨新桥到宁村南桥行驶缓慢。",
+                "speed":56.48,
+                "congestion_distance":870,
+                "congestion_trend":"加重",
+                "section_desc":"东向西,从河南寨新桥到宁村南桥",
+                "direction":0,
+                "section_id":0
+            }
+        ]
+    },
+    "bd_road_wks":{
+        "type": "road_info",
+        "data": [
+            {
+                "time":"2022-02-12 08:37:18",
+                "road_name":"西二环",
+                "description":"西二环：双向畅通；南向东,西直门桥附近拥堵。",
+                "speed":19.82,
+                "congestion_distance":590,
+                "congestion_trend":"加重",
+                "section_desc":"南向东,西直门桥附近",
+                "direction":0,
+                "section_id":1
+            }
+        ]
+    },
+    "bd_road_at":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_st":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_sg":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_zjk":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "EVENT_at":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_st":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_yq":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_sg":{
+        "type": "game_event",
+        "data": [
+            {
+                "date": "2022-02-12",
+                "source": "",
+                "content": "冬奥会期间（2022年1月21日至2月25日），启用阜石路（定慧桥至广宁路出口段）、复兴路（西四环路至西翠路段）、北辛安路（广宁路至秀池南街）奥林匹克专用车道。"
+            }
+        ]
+    },
+    "EVENT_wks":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_zjk":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_at":{
+        "type": "game_event",
+        "data": [
+            {
+                "date": "2022-02-12",
+                "source": "",
+                "content": "12:10-14:25  冰球女子预赛"
+            }
+        ]
+    },
+    "GAME_st":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_wks":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_zjk":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_yq":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_sg":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    }
+        
+}

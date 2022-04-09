@@ -76,9 +76,14 @@ urlpatterns = [
     path('eventdriving/', views.eventDriving),
     path('taskstate/', views.taskState),
     path('BH_trafficlevel/', views.getBH_trafficLevel),
+    path('YQ_trafficlevel/', views.getYQ_trafficLevel),
+    path('ZJK_trafficlevel/', views.getZJK_trafficLevel),
     path('area_topo/', views.area_topo),
+    path('area_data/', views.get_area_data),
     path('area_monitor/', views.area_monitor),
     path('BHnode_submonitor/', views.toBHnode_monitor),
+    path('YQnode_submonitor/', views.toYQnode_monitor),
+    path('ZJKnode_submonitor/', views.toZJKnode_monitor),
 
     path('new_home_at/', views.new_home_at),
     path('new_home_st/', views.new_home_st),
@@ -106,5 +111,9 @@ urlpatterns = [
     path('toposhow', views.toposhow),
     path('timeapi', views.timeapi),
     path('onceapi', views.onceapi),
+
+
+    path('writeOldData/', views.writeOldData),
+    path('test/', views.test),
 
 ]

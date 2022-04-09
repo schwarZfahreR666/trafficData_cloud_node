@@ -7,10 +7,25 @@
 		<title>自适应导航栏</title>
         <link href="{% static 'css/new_ui/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/new_ui/materialdesignicons.min.css' %}" rel="stylesheet">
+
+        <!--时间选择插件-->
+        <link rel="stylesheet" href="{% static 'js/new_ui/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css' %}">
+        <!--日期选择插件-->
+        <link rel="stylesheet" href="{% static 'js/new_ui/bootstrap-datepicker/bootstrap-datepicker3.min.css' %}">
+
         <link href="{% static 'css/new_ui/style.min.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/home_navbar.css' %}"/>
+
     </head>
     <body>
+    <div class="card" >
+        <div class="card-header"><h4>时间选择</h4></div>
+        <div class="card-body">
+
+            <input class="form-control js-datetimepicker" type="text" id="example-datetimepicker" name="add_time" placeholder="请选择具体时间" default_date="{{ default_date }}" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+
+        </div>
+    </div>
     <div class="home_navbar">
         <header>
             <h1>比赛区域</h1>
@@ -30,6 +45,19 @@
                     style="font-size: 8px;color:DarkSlateGray" href="/new_home_zjk">崇礼</a></button>
         </div>
     </div>
+
+    <script type="text/javascript" src="{% static 'js/new_ui/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new_ui/bootstrap.min.js' %}"></script>
+    <!--时间选择插件-->
+    <script src="{% static 'js/new_ui/bootstrap-datetimepicker/moment.min.js' %}"></script>
+    <script src="{% static 'js/new_ui/bootstrap-datetimepicker/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'js/new_ui/bootstrap-datetimepicker/locale/zh-cn.js' %}"></script>
+
+    <!--日期选择插件-->
+    <script src="{% static 'js/new_ui/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'js/new_ui/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/new_ui/datepicker-main.js' %}"></script>
     </body>
 </html>
 

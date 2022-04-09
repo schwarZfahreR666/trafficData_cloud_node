@@ -1,0 +1,111 @@
+{
+    "bd_road_yq":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_wks":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_at":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_st":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_sg":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "bd_road_zjk":{
+        "type": "road_info",
+        "data": [
+
+        ]
+    },
+    "EVENT_at":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_st":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_yq":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_sg":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_wks":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "EVENT_zjk":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_at":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_st":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_wks":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_zjk":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_yq":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    },
+    "GAME_sg":{
+        "type": "game_event",
+        "data": [
+
+        ]
+    }
+        
+}

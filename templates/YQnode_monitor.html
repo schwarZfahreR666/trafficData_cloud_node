@@ -40,7 +40,6 @@
         <div class="row">
 
             <div class="col-sm-4">
-                <a href="javascript:parentJump('/bh_edge/?nodename=BUAA');">详情页面</a>
                 <div class="card">
                     <div class="card-header"><h4>区域态势</h4></div>
                     <div class="card-body">
@@ -325,7 +324,7 @@ function insertAfter(newElement, targetElement){
 }
 function getLevel(){
     $.ajax({
-        url: '/BH_trafficlevel/',
+        url: '/YQ_trafficlevel/',
         type: 'get',
         dataType: 'json',
         success: function (data) {

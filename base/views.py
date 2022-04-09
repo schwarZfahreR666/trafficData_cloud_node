@@ -53,6 +53,7 @@ event_switch = 0
 nodeinfo = {}
 registeNodes = []
 
+old_data_time = "2022-02-04 08:00"
 tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
@@ -521,7 +522,7 @@ def log_out(request):
 def home(request):
 
     # return render(request, 'home_.html')
-    return render(request, 'new_home.html')
+    return render(request, 'new_home.html', {"default_date": old_data_time})
 
 
 def home_zjk(request):
@@ -1168,6 +1169,16 @@ def toBHnode_monitor(request):
 
     return render(request, 'BHnode_monitor.html', {"flow_data": js})
 
+def toYQnode_monitor(request):
+    js = get_flow_data()
+
+    return render(request, 'YQnode_monitor.html', {"flow_data": js})
+
+def toZJKnode_monitor(request):
+    js = get_flow_data()
+
+    return render(request, 'ZJKnode_monitor.html', {"flow_data": js})
+
 def get_new_resource_topo(request):
 
     return render(request, 'new_resource-topo.html')
@@ -1180,27 +1191,28 @@ def toTopo(request):
 
 
 def tonew_home(request):
-    return render(request, 'new_home.html');
+    global old_data_time
+    return render(request, 'new_home.html', {"default_date": old_data_time})
 
 
 def new_home_at(request):
-    return render(request, 'new_home_at.html');
+    return render(request, 'new_home_at.html', {"default_date": old_data_time})
 
 
 def new_home_st(request):
-    return render(request, 'new_home_st.html');
+    return render(request, 'new_home_st.html', {"default_date": old_data_time})
 
 
 def new_home_wks(request):
-    return render(request, 'new_home_wks.html');
+    return render(request, 'new_home_wks.html', {"default_date": old_data_time})
 
 
 def new_home_sg(request):
-    return render(request, 'new_home_sg.html');
+    return render(request, 'new_home_sg.html', {"default_date": old_data_time})
 
 
 def new_home_zjk(request):
-    return render(request, 'new_home_zjk.html');
+    return render(request, 'new_home_zjk.html', {"default_date": old_data_time})
 
 
 tasks_map = {}
@@ -1492,18 +1504,50 @@ def getBH_trafficLevel(request):
     dict = {}
     dict['name'] = "五棵松体育馆"
     dict['game'] = "冰球"
-    dict['level'] = random.randint(20,100)
+    dict['level'] = random.randint(20, 80)
     res.append(dict)
     dict = {}
     dict['name'] = "首都体育馆"
     dict['game'] = "短道速滑"
-    dict['level'] = random.randint(20,100)
+    dict['level'] = random.randint(20, 100)
     res.append(dict)
     dict = {}
     dict['name'] = "国家体育馆"
     dict['game'] = "冰壶"
-    dict['level'] = random.randint(20,100)
+    dict['level'] = random.randint(20, 70)
     res.append(dict)
+
+    res = sorted(res, key=lambda k: k['level'])
+    ans = json.dumps(res)
+    return HttpResponse(ans)
+
+def getYQ_trafficLevel(request):
+    res = []
+    dict = {}
+    dict['name'] = "国家高山滑雪中心"
+    dict['game'] = "高山滑雪"
+    dict['level'] = random.randint(20,40)
+    res.append(dict)
+    dict = {}
+    dict['name'] = "国家雪车雪橇中心"
+    dict['game'] = "钢架雪车"
+    dict['level'] = random.randint(20,40)
+    res.append(dict)
+
+
+    res = sorted(res, key=lambda k: k['level'])
+    ans = json.dumps(res)
+    return HttpResponse(ans)
+
+
+def getZJK_trafficLevel(request):
+    res = []
+    dict = {}
+    dict['name'] = "崇礼场馆群"
+    dict['game'] = "跳台滑雪"
+    dict['level'] = random.randint(20, 40)
+    res.append(dict)
+
 
     res = sorted(res, key=lambda k: k['level'])
     ans = json.dumps(res)
@@ -1575,9 +1619,158 @@ def onceapi(request):
 
     return redirect("http://121.89.204.250:9090/#/dataAccess/outTimeTask")
 
+def test(request):
+
+    return render(request, 'lyear_js_datepicker.html')
+
+
+def writeWithDate(org_date):
+    global old_data_time
+
+    date = org_date.replace(' ', '_').replace(':', '_').replace('-', '_')
+    file_name = date + '.json'
+    old_dir = "./static_files/old_data"
+    for dirpath, dirnames, filenames in os.walk(old_dir):
+        if file_name in filenames:
+            with open(os.path.join(old_dir,file_name), "r") as f:
+                load_dict = json.load(f)
+                for tb_name in load_dict:
+                    data_type = load_dict[tb_name]['type']
+                    datas = load_dict[tb_name]['data']
+                    if data_type == "road_info":
+                        insertRodaInfo(tb_name, datas)
+                    elif data_type == "game_event":
+                        insertEventGame(tb_name, datas)
+            old_data_time = org_date
+            return True
+
+        else:
+            return False
+
+
+
+def writeOldData(request):
+    org_date = request.GET.get('date')
+    res = writeWithDate(org_date)
+    ans = {"success": res}
+    return HttpResponse(ans)
 
 
 
 
 
+def excSQL(db,sql):
+    cursor = db.cursor()
+    cursor.execute(sql)
+    db.commit()
 
+
+def insertRodaInfo(tb_name, datas):
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+    # 清除原数据
+    sql1 = "truncate table " + tb_name
+    excSQL(db, sql1)
+    # SQL 插入语句
+
+    sql = "INSERT INTO " + tb_name + " (time,road_name,description,speed,congestion_distance,congestion_trend,section_desc,direction,section_id)" \
+          "VALUES (%s, %s,  %s,  %s,  %s,%s,%s,%s,%s)" \
+          "ON DUPLICATE KEY UPDATE time=%s,road_name=%s,description=%s,speed=%s,congestion_distance=%s," \
+          "congestion_trend=%s,section_desc=%s,direction=%s,section_id=%s;"
+
+    for res in datas:
+        try:
+            # 执行sql语句
+            excSQL(db, "set names utf8;")
+            cursor.execute(sql,(res['time'],res['road_name'],res['description'],res['speed'],res['congestion_distance'],res['congestion_trend'],res['section_desc'],res['direction'],res['section_id'],res['time'],res['road_name'],res['description'],res['speed'],res['congestion_distance'],res['congestion_trend'],res['section_desc'],res['direction'],res['section_id']))
+            # 提交到数据库执行
+            db.commit()
+
+
+
+        except pymysql.Error as e:
+            print(res['time'],res['road_name'],res['description'],res['speed'],res['congestion_distance'],res['section_desc'])
+        # 如果发生错误则回滚
+            db.rollback()
+
+    # 关闭数据库连接
+    db.close()
+
+
+
+def insertEventGame(tb_name, datas):
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+    # 清除原数据
+    sql1 = "truncate table " + tb_name
+    excSQL(db, sql1)
+    # SQL 插入语句
+
+    sql = "INSERT INTO " + tb_name + " (date,source,content)" \
+                                     "VALUES (%s, %s,%s)" \
+                                     "ON DUPLICATE KEY UPDATE date=%s,source=%s,content=%s;"
+
+    for res in datas:
+        try:
+            # 执行sql语句
+            excSQL(db, "set names utf8;")
+            cursor.execute(sql,(res['date'], res['source'], res['content'], res['date'], res['source'], res['content']))
+            # 提交到数据库执行
+            db.commit()
+
+
+
+        except pymysql.Error as e:
+            print(res['date'], res['source'], res['content'])
+            # 如果发生错误则回滚
+            db.rollback()
+
+    # 关闭数据库连接
+    db.close()
+
+
+writeWithDate(old_data_time)
+
+level2used = {1: [20, 40], 2: [40, 60], 3: [60, 80]}
+level2health = {1: [70, 100], 2: [60, 90], 3: [60, 80]}
+
+def get_area_data(request):
+    res = {}
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "冰壶比赛"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    res['崇礼赛区节点'] = dict
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "冰壶比赛"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    res['延庆赛区节点'] = dict
+    dict = {}
+    dict['level'] = 2
+    dict['event'] = "冰壶比赛"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    res['北京城区节点'] = dict
+    ans = json.dumps(res)
+    return HttpResponse(ans)
