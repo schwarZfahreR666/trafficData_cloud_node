@@ -43,7 +43,7 @@ rabbitmq_host = '47.95.159.86'
 redis_host = '47.95.159.86'
 zk_host = '47.95.159.86'
 
-TASKS = ["road_wks", "road_st", "road_at", "road_yq", "weather", "jtw_roadinfo"]
+TASKS = ["road_wks", "road_st", "road_at", "road_yq", "road_sg", "road_zjk", "weather", "jtw_roadinfo"]
 
 LEVEL_MAP = {1: 15, 2: 10, 3: 8}
 node_tasks = {}
@@ -1626,6 +1626,9 @@ def test(request):
 
 def writeWithDate(org_date):
     global old_data_time
+    global event_switch
+    if event_switch == 1:
+        return False
 
     date = org_date.replace(' ', '_').replace(':', '_').replace('-', '_')
     file_name = date + '.json'
