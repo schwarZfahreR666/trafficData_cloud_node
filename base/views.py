@@ -1503,18 +1503,18 @@ def getBH_trafficLevel(request):
     res = []
     dict = {}
     dict['name'] = "五棵松体育馆"
-    dict['game'] = "冰球"
-    dict['level'] = random.randint(20, 80)
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
     res.append(dict)
     dict = {}
     dict['name'] = "首都体育馆"
-    dict['game'] = "短道速滑"
-    dict['level'] = random.randint(20, 100)
+    dict['game'] = "无"
+    dict['level'] = random.randint(50, 60)
     res.append(dict)
     dict = {}
     dict['name'] = "国家体育馆"
-    dict['game'] = "冰壶"
-    dict['level'] = random.randint(20, 70)
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
     res.append(dict)
 
     res = sorted(res, key=lambda k: k['level'])
@@ -1759,19 +1759,19 @@ def get_area_data(request):
     res = {}
     dict = {}
     dict['level'] = 1
-    dict['event'] = "冰壶比赛"
+    dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     res['崇礼赛区节点'] = dict
     dict = {}
     dict['level'] = 1
-    dict['event'] = "冰壶比赛"
+    dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     res['延庆赛区节点'] = dict
     dict = {}
     dict['level'] = 2
-    dict['event'] = "冰壶比赛"
+    dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     res['北京城区节点'] = dict
