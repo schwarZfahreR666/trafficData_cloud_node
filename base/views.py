@@ -52,6 +52,8 @@ init_num = 0
 event_switch = 0
 nodeinfo = {}
 registeNodes = []
+traffic_Level = {}
+area_data = {}
 
 old_data_time = "2022-02-04 08:00"
 tokenizer, label_list, model, device, id2label = model_init()
@@ -77,6 +79,131 @@ init_scheduler_options = {
 
 scheduler = BackgroundScheduler(**init_scheduler_options)
 scheduler.start()
+
+level2used = {1: [20, 40], 2: [40, 60], 3: [60, 80]}
+level2health = {1: [70, 100], 2: [60, 90], 3: [60, 80]}
+def initAreaData():
+    global area_data
+
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['崇礼赛区节点'] = dict
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['延庆赛区节点'] = dict
+    dict = {}
+    dict['level'] = 2
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['北京城区节点'] = dict
+
+
+def updateAreaData():
+    global area_data
+
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['崇礼赛区节点'] = dict
+    dict = {}
+    dict['level'] = 1
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['延庆赛区节点'] = dict
+    dict = {}
+    dict['level'] = 2
+    dict['event'] = "无"
+    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
+    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    area_data['北京城区节点'] = dict
+
+
+def initTrafficLevel():
+    global traffic_Level
+    traffic_Level['zjk'] = []
+    dict = {}
+    dict['name'] = "崇礼场馆群"
+    dict['game'] = "跳台滑雪"
+    dict['level'] = random.randint(20, 40)
+    traffic_Level['zjk'].append(dict)
+
+    traffic_Level['yq'] = []
+    dict = {}
+    dict['name'] = "国家高山滑雪中心"
+    dict['game'] = "高山滑雪"
+    dict['level'] = random.randint(20,40)
+    traffic_Level['yq'].append(dict)
+    dict = {}
+    dict['name'] = "国家雪车雪橇中心"
+    dict['game'] = "钢架雪车"
+    dict['level'] = random.randint(20,40)
+    traffic_Level['yq'].append(dict)
+
+    traffic_Level['bh'] = []
+    dict = {}
+    dict['name'] = "五棵松体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
+    traffic_Level['bh'].append(dict)
+    dict = {}
+    dict['name'] = "首都体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(50, 60)
+    traffic_Level['bh'].append(dict)
+    dict = {}
+    dict['name'] = "国家体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
+    traffic_Level['bh'].append(dict)
+
+
+def updateTrafficLevel():
+    global traffic_Level
+    traffic_Level['zjk'] = []
+    dict = {}
+    dict['name'] = "崇礼场馆群"
+    dict['game'] = "跳台滑雪"
+    dict['level'] = random.randint(20, 40)
+    traffic_Level['zjk'].append(dict)
+
+    traffic_Level['yq'] = []
+    dict = {}
+    dict['name'] = "国家高山滑雪中心"
+    dict['game'] = "高山滑雪"
+    dict['level'] = random.randint(20,40)
+    traffic_Level['yq'].append(dict)
+    dict = {}
+    dict['name'] = "国家雪车雪橇中心"
+    dict['game'] = "钢架雪车"
+    dict['level'] = random.randint(20,40)
+    traffic_Level['yq'].append(dict)
+
+    traffic_Level['bh'] = []
+    dict = {}
+    dict['name'] = "五棵松体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
+    traffic_Level['bh'].append(dict)
+    dict = {}
+    dict['name'] = "首都体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(50, 60)
+    traffic_Level['bh'].append(dict)
+    dict = {}
+    dict['name'] = "国家体育馆"
+    dict['game'] = "无"
+    dict['level'] = random.randint(20, 35)
+    traffic_Level['bh'].append(dict)
 
 def event_ner(request):
 
@@ -376,8 +503,12 @@ def taskInit():
 
 
 buildNodeInfo()
+initTrafficLevel()
+initAreaData()
 scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
 scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
+scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
+scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
 scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
 scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
 scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
@@ -1500,39 +1631,16 @@ def getHealth(request):
 
 
 def getBH_trafficLevel(request):
-    res = []
-    dict = {}
-    dict['name'] = "五棵松体育馆"
-    dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
-    res.append(dict)
-    dict = {}
-    dict['name'] = "首都体育馆"
-    dict['game'] = "无"
-    dict['level'] = random.randint(50, 60)
-    res.append(dict)
-    dict = {}
-    dict['name'] = "国家体育馆"
-    dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
-    res.append(dict)
+    global traffic_Level
+    res = traffic_Level["bh"]
 
     res = sorted(res, key=lambda k: k['level'])
     ans = json.dumps(res)
     return HttpResponse(ans)
 
 def getYQ_trafficLevel(request):
-    res = []
-    dict = {}
-    dict['name'] = "国家高山滑雪中心"
-    dict['game'] = "高山滑雪"
-    dict['level'] = random.randint(20,40)
-    res.append(dict)
-    dict = {}
-    dict['name'] = "国家雪车雪橇中心"
-    dict['game'] = "钢架雪车"
-    dict['level'] = random.randint(20,40)
-    res.append(dict)
+    global traffic_Level
+    res = traffic_Level["yq"]
 
 
     res = sorted(res, key=lambda k: k['level'])
@@ -1541,12 +1649,8 @@ def getYQ_trafficLevel(request):
 
 
 def getZJK_trafficLevel(request):
-    res = []
-    dict = {}
-    dict['name'] = "崇礼场馆群"
-    dict['game'] = "跳台滑雪"
-    dict['level'] = random.randint(20, 40)
-    res.append(dict)
+    global traffic_Level
+    res = traffic_Level["zjk"]
 
 
     res = sorted(res, key=lambda k: k['level'])
@@ -1752,28 +1856,10 @@ def insertEventGame(tb_name, datas):
 
 writeWithDate(old_data_time)
 
-level2used = {1: [20, 40], 2: [40, 60], 3: [60, 80]}
-level2health = {1: [70, 100], 2: [60, 90], 3: [60, 80]}
 
 def get_area_data(request):
-    res = {}
-    dict = {}
-    dict['level'] = 1
-    dict['event'] = "无"
-    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
-    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
-    res['崇礼赛区节点'] = dict
-    dict = {}
-    dict['level'] = 1
-    dict['event'] = "无"
-    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
-    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
-    res['延庆赛区节点'] = dict
-    dict = {}
-    dict['level'] = 2
-    dict['event'] = "无"
-    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
-    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
-    res['北京城区节点'] = dict
+    global area_data
+    res = area_data
+
     ans = json.dumps(res)
     return HttpResponse(ans)
