@@ -25,6 +25,7 @@ from kafka import KafkaProducer,KafkaConsumer
 from kafka.errors import KafkaError
 import pika
 from kazoo.client import KazooClient
+import pymongo
 
 from base.ner.predict_span import predict,model_init
 from base.spiders.event import get_event_yingjiju, get_event_bendibao, get_event_jiaoguanju, get_event_bus
@@ -42,6 +43,10 @@ kafka_server = '47.95.159.86:9092'
 rabbitmq_host = '47.95.159.86'
 redis_host = '47.95.159.86'
 zk_host = '47.95.159.86'
+mongo_host = '47.95.159.86'
+mongo_dbname = 'TRAFFIC'
+mongo_user = 'traffic'
+mongo_password = '06240118'
 
 TASKS = ["road_wks", "road_st", "road_at", "road_yq", "road_sg", "road_zjk", "weather", "jtw_roadinfo"]
 
@@ -59,7 +64,7 @@ old_data_time = "2022-02-04 08:00"
 tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
-default_executor = ThreadPoolExecutor(15)
+default_executor = ThreadPoolExecutor(30)
 
 init_scheduler_options = {
     "jobstores": {
@@ -79,6 +84,73 @@ init_scheduler_options = {
 
 scheduler = BackgroundScheduler(**init_scheduler_options)
 scheduler.start()
+
+road_dbs = ["bd_road_at", "bd_road_st", "bd_road_wks", "bd_road_yq", "bd_road_zjk", "bd_road_sg"]
+eventGame_dbs = ["EVENT_at", "EVENT_st", "EVENT_wks", "EVENT_sg", "EVENT_yq", "EVENT_zjk",
+                 "GAME_at", "GAME_st", "GAME_wks", "GAME_sg", "GAME_yq", "GAME_zjk",
+                 ]
+
+def saveData():
+    client = pymongo.MongoClient( host=mongo_host,
+                                  port=27017,
+                                  username=mongo_user,
+                                  password=mongo_password
+                                  )
+    mongo_db = client[mongo_dbname]
+
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    for road_db in road_dbs:
+
+        # SQL 查询语句
+        sql = " SELECT * FROM " + road_db
+        mongo_col = mongo_db[road_db]
+        try:
+            # 执行SQL语句
+            cursor.execute(sql)
+            # 获取所有记录列表
+            results = cursor.fetchall()
+            for data in results:
+                condition = {'date': str(data[1]), 'road_name': data[2]}
+
+                dic = {'date': str(data[1]), 'road_name': data[2], 'description': data[3], 'speed': data[4],
+                       'congestion_distance': data[5], 'congestion_trend': data[6], 'section_desc': data[7]
+                       }
+                if mongo_col.find_one(condition) is None:
+                    mongo_col.insert_one(dic)
+
+        except:
+            print("Error: unable to fetch data")
+
+    for xdb in eventGame_dbs:
+        game_sql = " SELECT * FROM " + xdb
+        mongo_col = mongo_db[xdb]
+        try:
+            # 执行SQL语句
+            cursor.execute(game_sql)
+            # 获取所有记录列表
+            results = cursor.fetchall()
+            for data in results:
+                dic = {'date': str(data[0]), 'content': data[2]}
+                if mongo_col.find_one(dic) is None:
+                    mongo_col.insert_one(dic)
+
+        except:
+            print("Error: unable to fetch data")
+
+    db.close()
+
+
 
 level2used = {1: [20, 40], 2: [40, 60], 3: [60, 80]}
 level2health = {1: [70, 100], 2: [60, 90], 3: [60, 80]}
@@ -508,6 +580,7 @@ initAreaData()
 scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
 scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
 scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
+scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
 scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
 scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
 scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
