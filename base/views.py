@@ -30,6 +30,14 @@ import pymongo
 from base.ner.predict_span import predict,model_init
 from base.spiders.event import get_event_yingjiju, get_event_bendibao, get_event_jiaoguanju, get_event_bus
 
+from py2neo import Graph,Node,NodeMatcher
+from base.GCN.LevelAnalysisModel import ATAnalysisModel
+import base.GCN.XGBoostTree as XGBoostTree
+from base.GCN.XGBoostTree import XGBoostRegressionTree
+from base.GCN.DecisionTree import DecisionTree
+from base.GCN.DecisionNode import DecisionNode
+
+
 # Create your views here.
 # bh_node_url = 'http://47.95.159.86:9999/'
 bh_node_url = 'http://127.0.0.1:9999/'
@@ -47,6 +55,8 @@ mongo_host = '47.95.159.86'
 mongo_dbname = 'TRAFFIC'
 mongo_user = 'traffic'
 mongo_password = '06240118'
+neo4j_url = "http://47.95.159.86/:7474"
+neo4j_graph = Graph(neo4j_url, auth=("neo4j", "06240118"))
 
 TASKS = ["road_wks", "road_st", "road_at", "road_yq", "road_sg", "road_zjk", "weather", "jtw_roadinfo"]
 
@@ -65,6 +75,9 @@ tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
 default_executor = ThreadPoolExecutor(30)
+
+predict_model_at = ATAnalysisModel()
+predict_model_at.buildGraph(neo4j_graph)
 
 init_scheduler_options = {
     "jobstores": {
