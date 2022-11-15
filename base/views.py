@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 import psutil
 import re
-import os, time
+import os, time, math
 import datetime
 import redis
 import json
@@ -69,6 +69,7 @@ nodeinfo = {}
 registeNodes = []
 traffic_Level = {}
 area_data = {}
+traffic_level_predict = {}
 
 old_data_time = "2022-02-04 08:00"
 tokenizer, label_list, model, device, id2label = model_init()
@@ -78,6 +79,7 @@ default_executor = ThreadPoolExecutor(30)
 
 predict_model_at = ATAnalysisModel()
 predict_model_at.buildGraph(neo4j_graph)
+predict_model_at.build_data()
 
 init_scheduler_options = {
     "jobstores": {
@@ -453,6 +455,7 @@ def buildTask():
         if task['name'] in TASKS:
             item['name'] = task['name']
             item['level'] = random.randint(1, 3)
+            traffic_level_predict[task['name']] = item['level']
             item['state'] = "初始化"
             item['frequent'] = LEVEL_MAP[item['level']]
             item['edge_flow'] = 0
@@ -500,20 +503,87 @@ def updateTask():
 
 
 def taskSchedule2():
+
     global event_switch
     global scheduler
     global task_state
+    global traffic_level_predict
     if event_switch == 1:
+        state = "事件采集"
+        i = random.randint(0, 2)
+        task_state[i]['state'] = state
         # 事件采集
         ex_task("BUAA", "event")
 
+
+        state = "态势研判"
+        task_state[i]['state'] = state
         #态势研判
         area_level_analysis()
 
+        level = traffic_level_predict[task_state[i]['name']]
+        if level != task_state[i]['level']:
+            task_state[i]['level'] = level
+            task_state[i]['frequent'] = LEVEL_MAP[level]
+            if scheduler.get_job(task_state[i]['name'], "default"):
+                # 存在的话，先删除
+                scheduler.get_job(task_state[i]['name'], "default").pause()
+                scheduler.remove_job(task_state[i]['name'], "default")
+
+            scheduler.add_job(task_job, IntervalTrigger(minutes=LEVEL_MAP[level]), args=["BUAA", task_state[i]['name']], id=task_state[i]['name'], jobstore="default", executor="default")
+
+
+def get_traffic_data_at():
+    # 打开数据库连接
+    db = pymysql.connect(host=database_host,
+                         database=database_name,
+                         port=3306,
+                         user=database_usrname,
+                         password=database_password,
+                         charset="utf8",
+                         use_unicode=True)
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = " SELECT * FROM bd_road_at;"
+    res = {}
+    try:
+        # 执行SQL语句
+        cursor.execute(sql)
+        # 获取所有记录列表
+        results = cursor.fetchall()
+
+        for data in results:
+            # print(data)
+            dic = {'date': str(data[1]), 'road_name': data[2], 'text': data[2] + ':' + data[7], 'speed': data[4],
+                   'section_id': data[9], 'direction': data[8]}
+            res[data[2]] = data[4]
+    except:
+        print("Error: unable to fetch data")
+
+    # 关闭数据库连接
+    db.close()
+
+    return res
 
 def area_level_analysis():
+    #交通态势
+    global predict_model_at
+    at_road_data = get_traffic_data_at()
+    predict_model_at.update_data(at_road_data)
+
+    at_road_level = predict_model_at.predict(predict_model_at.input_data[0])
+    # print(at_road_level)
+
+
+    at_game_level = 1
+
+    #事件提取
     pool = redis.ConnectionPool(host=redis_host, port=6379, password="06240118")  #配置连接池连接信息
     connect = redis.Redis(connection_pool=pool)
+    at_event_level = 1
     for i in range(0, 17):
         time = []
         position = []
@@ -521,6 +591,8 @@ def area_level_analysis():
         action = []
         dic = {"time":time, "position":position, "address":address, "action":action}
         ret = connect.get('event' + str(i))
+        if ret == None:
+            continue
         content = ret.decode("utf-8")
         res = re.split(r';|；|。', content)
         for text in res:
@@ -540,8 +612,11 @@ def area_level_analysis():
                 now = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
 
 
-                print(now,time)
+                # print(now,time)
 
+
+    at_traffic_level = math.ceil(at_road_level * 0.5 + at_event_level * 0.3 + at_game_level * 0.2)
+    traffic_level_predict['国家体育馆'] = at_traffic_level
 
 
 
@@ -563,7 +638,10 @@ def taskSchedule():
         state = "态势研判"
         task_state[i]['state'] = state
         time.sleep(10)
-        level = random.randint(1, 3)
+        traffic_level_predict[task_state[i]['name']] = random.randint(1, 3)
+
+
+        level = traffic_level_predict[task_state[i]['name']]
         if level != task_state[i]['level']:
             task_state[i]['level'] = level
             task_state[i]['frequent'] = LEVEL_MAP[level]
@@ -586,18 +664,20 @@ def taskInit():
         init_num = 1
 
 
+area_level_analysis()
 
-buildNodeInfo()
-initTrafficLevel()
-initAreaData()
-scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
-scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
-scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
-scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
-scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
-scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
-scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
-scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+# buildNodeInfo()
+# initTrafficLevel()
+# initAreaData()
+# scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
+# scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
+# scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
+# scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
+# scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
+# scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
+# scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
+# scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+
 # scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=3), id="taskSchedule2", jobstore="default", executor="default")
 
 def ex_task(node_name, task_name):

@@ -19,6 +19,7 @@ class AnalysisModel():
     def __init__(self):
         self.GraphSAGE = Model(GCN(),Classifier())
         self.GraphSAGE.load_state_dict(torch.load(MODEL_PATH + "/GraphSAGE_pram.pkl"))
+        self.gcn = self.GraphSAGE.gcn
         self.xg_model = XGBoost()
         self.xg_model.trees = read_shelve()
 
@@ -89,7 +90,7 @@ class ATAnalysisModel(AnalysisModel):
 
     def build_data(self):
         # 数据组成
-        data_file = "./at_default_data.json"
+        data_file = MODEL_PATH + "/at_default_data.json"
         data = []
         with open(data_file,'r') as fd:
                 content = json.load(fd)
@@ -124,7 +125,7 @@ class ATAnalysisModel(AnalysisModel):
         self.input_data = torch.FloatTensor(x_data)
 
 
-    def update_data(self,data_dic):
+    def update_data(self, data_dic):
         np_array = self.input_data.numpy()
         old = np_array[:,:,1:np_array.shape[2]]
         data = []
