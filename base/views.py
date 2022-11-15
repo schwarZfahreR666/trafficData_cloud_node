@@ -449,6 +449,7 @@ def buildTask():
     tasks = node_tasks['BUAA']
 
     global task_state
+    global traffic_level_predict
     task_state = []
     for task in tasks:
         item = {}
