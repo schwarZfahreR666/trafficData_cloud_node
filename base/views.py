@@ -295,8 +295,18 @@ def updateTrafficLevel():
 def event_ner(request):
 
 
-    # input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
-    input_text = "一、丰德中路（永盛北路至永澄北路段）禁止机动车由西向东方向行驶；"
+    input_text = "决定2020年8月12日至2020年9月10日期间，宫门口西岔(安平巷—阜成门内大街)采取禁止机动车由南向北方向行驶交通管理措施。"
+    # inputs = ["冬奥会期间（2022年1月21日至2月25日），启用德胜门外大街（德胜门桥至马甸桥段）",
+    #           "西北四环路（五棵松桥至四元桥段）",
+    #           "德胜门外大街（德胜门桥至马甸桥段）",
+    #           "京藏高速（马甸桥至健翔桥段）",
+    #           "西直门外大街（西直门桥至中关村南大街段）",
+    #           "紫竹院路（中关村南大街至车道沟桥段）",
+    #           "科荟路（北辰东路至安立路段）",
+    #           "北辰西路（北土城西路至科荟路段）",
+    #           "中关村南大街（大慧寺路口至西直门外大街段）"]
+    # for input_text in inputs:
+
     res = predict(input_text, tokenizer, label_list, model, device, id2label)
 
     # res = {"info": "未开启"}
@@ -665,19 +675,18 @@ def taskInit():
         init_num = 1
 
 
-area_level_analysis()
 
-# buildNodeInfo()
-# initTrafficLevel()
-# initAreaData()
-# scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
-# scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
-# scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
-# scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
-# scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
-# scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
-# scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
-# scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+buildNodeInfo()
+initTrafficLevel()
+initAreaData()
+scheduler.add_listener(job_execute, EVENT_JOB_EXECUTED)
+scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobstore="default", executor="default")
+scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
+scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
+scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
+scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
+scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
+scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
 
 # scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=3), id="taskSchedule2", jobstore="default", executor="default")
 

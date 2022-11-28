@@ -1,0 +1,50 @@
+@startuml
+skinparam rectangle<<behavior>> {
+	roundCorner 25
+}
+left to right direction
+class DecisionNode{}
+class DecisionTree{
+    - loss
+    - root
+    + fit()
+    + predict()
+}
+class XGBoostRegressionTree{
+    + _split()
+    + _gain()
+}
+class XGBoost{
+    - trees
+    + fit()
+    + predict()
+}
+class GCN{
+    + forward()
+}
+class Classifier{
+    + forward()
+}
+class GraphSAGE{
+    - gcn
+    - classifier
+    + forward()
+}
+
+class LevelAnalysisModel{
+    - gcn
+    - xg_model
+    + build_graph()
+    + build_data()
+    + update_data()
+    + predict()
+}
+
+DecisionTree *-- DecisionNode
+XGBoostRegressionTree <|-- DecisionTree
+XGBoost *-- XGBoostRegressionTree
+GraphSAGE *-- GCN
+GraphSAGE *-- Classifier
+LevelAnalysisModel *-- XGBoost
+LevelAnalysisModel *-- GraphSAGE
+@enduml
