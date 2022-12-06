@@ -267,6 +267,7 @@
                                 pos = "top";
                             }
                             var data = res[nodename];
+                            if(data['isopened'] === false) continue;
                             var html = "<div class='sx-item'>" +
                                 "<div class='title' style='line-height: 30px;height: 30px;font-size: 20px;'>" + nodename + "</div>" +
                                 "<div class='text'>" + "<h3 style='display: inline'>交通态势：</h3><h4 style='display: inline'>" + data['level'] + "</h4>" + "</div>" +

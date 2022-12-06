@@ -298,8 +298,8 @@ var memChart = new Chart($mem, {
 
 function getLevelHtml(name,game,level){
     let colorNum = 1;
-    if(level >= 50) colorNum = 2;
-    if(level >= 80) colorNum = 3;
+    if(level === 2) colorNum = 2;
+    if(level === 3) colorNum = 3;
     let colors = {
         1:'success',
         2:'warning',

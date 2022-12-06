@@ -17,7 +17,7 @@ import requests
 import uuid
 from multiprocessing import Pool
 from apscheduler.events import EVENT_JOB_EXECUTED
-from apscheduler.executors.pool import ThreadPoolExecutor
+from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -58,9 +58,9 @@ mongo_password = '06240118'
 neo4j_url = "http://47.95.159.86/:7474"
 neo4j_graph = Graph(neo4j_url, auth=("neo4j", "06240118"))
 
-TASKS = ["road_wks", "road_st", "road_at", "road_yq", "road_sg", "road_zjk", "weather", "jtw_roadinfo"]
+TASKS = ["road_wks", "road_st", "road_at", "road_yq", "road_sg", "road_zjk", "weather"]
 
-LEVEL_MAP = {1: 15, 2: 10, 3: 8}
+LEVEL_MAP = {1: 3, 2: 2, 3: 1}
 node_tasks = {}
 task_state = []
 init_num = 0
@@ -75,7 +75,7 @@ old_data_time = "2022-02-04 08:00"
 tokenizer, label_list, model, device, id2label = model_init()
 
 default_jobstore = MemoryJobStore()
-default_executor = ThreadPoolExecutor(30)
+default_executor = ThreadPoolExecutor(20)
 
 predict_model_at = ATAnalysisModel()
 predict_model_at.buildGraph(neo4j_graph)
@@ -88,7 +88,8 @@ init_scheduler_options = {
     },
     "executors": {
         # first 为 executor 的名字，在创建Job时直接直接此名字，执行时则会使用此executor执行
-        "default": default_executor
+        "default": default_executor,
+        'processpool': ProcessPoolExecutor(30)
     },
     # 创建job时的默认参数
     "job_defaults": {
@@ -165,30 +166,83 @@ def saveData():
 
     db.close()
 
+def health(nodename):
+    credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
+    # 虚拟队列需要指定参数 virtual_host，如果是默认的可以不填。
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host = rabbitmq_host,port = 5672,virtual_host = '/',credentials = credentials))
+    dic = {}
+    dic['node_name'] = nodename
+    dic['info_name'] = "health"
 
+    # producer.send(topic, json.dumps(dic).encode())
+    msg = json.dumps(dic)
+    channel = connection.channel()
+    properties = pika.spec.BasicProperties(expiration="30000")
+    try:
+        channel.basic_publish(exchange='cloud-send',
+                              routing_key=nodename,
+                              body=msg,
+                              properties=properties)
+
+        flag = 1
+        count = 0
+        res = {}
+        while flag:
+            method_frame, header_frame, body = channel.basic_get(queue='edge-send-queue-' + nodename,
+                                                                 auto_ack=False)
+            if method_frame != None:
+                res = json.loads(body)
+                if res['id'] == "health":
+                    channel.basic_ack(delivery_tag = method_frame.delivery_tag)
+                    flag = 0
+                else:
+                    channel.basic_reject(delivery_tag = method_frame.delivery_tag)
+                    count += 1
+                    if count >= 800:
+                        res["content"] = "暂无节点健康度"
+                        return res["content"]
+            else:
+                count += 1
+                if count >= 800:
+                    res["content"] = "暂无节点健康度"
+                    return res["content"]
+    finally:
+        connection.close()
+    return res["content"]
 
 level2used = {1: [20, 40], 2: [40, 60], 3: [60, 80]}
 level2health = {1: [70, 100], 2: [60, 90], 3: [60, 80]}
+is_opened = {"崇礼赛区节点": False, "延庆赛区节点": False, "北京城区节点": True}
 def initAreaData():
     global area_data
 
     dict = {}
-    dict['level'] = 1
+    dict['level'] = traffic_level_predict["road_zjk"]
+    dict['isopened'] = is_opened['崇礼赛区节点']
     dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     area_data['崇礼赛区节点'] = dict
     dict = {}
-    dict['level'] = 1
+    dict['level'] = traffic_level_predict["road_yq"]
+    dict['isopened'] = is_opened['延庆赛区节点']
     dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     area_data['延庆赛区节点'] = dict
     dict = {}
-    dict['level'] = 2
+    dict['level'] = max(traffic_level_predict["road_at"], traffic_level_predict["road_st"], traffic_level_predict["road_wks"])
+    dict['isopened'] = is_opened['北京城区节点']
     dict['event'] = "无"
-    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
-    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    dict['used'] = psutil.cpu_percent(interval=1)
+    health_content = health("BUAA")
+    if "节点健康评分为：" in health_content:
+        pattern = re.compile(r'节点健康评分为：([0-9]+)')
+        health_score = pattern.match(health_content).group(1)
+    else:
+        health_score = 0
+
+    dict['health'] = health_score
     area_data['北京城区节点'] = dict
 
 
@@ -196,22 +250,32 @@ def updateAreaData():
     global area_data
 
     dict = {}
-    dict['level'] = 1
+    dict['level'] = traffic_level_predict["road_zjk"]
+    dict['isopened'] = is_opened['崇礼赛区节点']
     dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     area_data['崇礼赛区节点'] = dict
     dict = {}
-    dict['level'] = 1
+    dict['level'] = traffic_level_predict["road_yq"]
+    dict['isopened'] = is_opened['延庆赛区节点']
     dict['event'] = "无"
     dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
     dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
     area_data['延庆赛区节点'] = dict
     dict = {}
-    dict['level'] = 2
+    dict['level'] = max(traffic_level_predict["road_at"], traffic_level_predict["road_st"], traffic_level_predict["road_wks"])
+    dict['isopened'] = is_opened['北京城区节点']
     dict['event'] = "无"
-    dict['used'] = random.randint(level2used[dict['level']][0], level2used[dict['level']][1])
-    dict['health'] = random.randint(level2health[dict['level']][0], level2health[dict['level']][1])
+    dict['used'] = psutil.cpu_percent(interval=1)
+    health_content = health("BUAA")
+    if "节点健康评分为：" in health_content:
+        pattern = re.compile(r'节点健康评分为：([0-9]+)')
+        health_score = pattern.match(health_content).group(1)
+    else:
+        health_score = 0
+
+    dict['health'] = health_score
     area_data['北京城区节点'] = dict
 
 
@@ -221,36 +285,36 @@ def initTrafficLevel():
     dict = {}
     dict['name'] = "崇礼场馆群"
     dict['game'] = "跳台滑雪"
-    dict['level'] = random.randint(20, 40)
+    dict['level'] = traffic_level_predict["road_zjk"]
     traffic_Level['zjk'].append(dict)
 
     traffic_Level['yq'] = []
     dict = {}
     dict['name'] = "国家高山滑雪中心"
     dict['game'] = "高山滑雪"
-    dict['level'] = random.randint(20,40)
+    dict['level'] = traffic_level_predict["road_yq"]
     traffic_Level['yq'].append(dict)
     dict = {}
     dict['name'] = "国家雪车雪橇中心"
     dict['game'] = "钢架雪车"
-    dict['level'] = random.randint(20,40)
+    dict['level'] = traffic_level_predict["road_yq"]
     traffic_Level['yq'].append(dict)
 
     traffic_Level['bh'] = []
     dict = {}
     dict['name'] = "五棵松体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
+    dict['level'] = traffic_level_predict["road_wks"]
     traffic_Level['bh'].append(dict)
     dict = {}
     dict['name'] = "首都体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(50, 60)
+    dict['level'] = traffic_level_predict["road_st"]
     traffic_Level['bh'].append(dict)
     dict = {}
     dict['name'] = "国家体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
+    dict['level'] = traffic_level_predict["road_at"]
     traffic_Level['bh'].append(dict)
 
 
@@ -260,36 +324,36 @@ def updateTrafficLevel():
     dict = {}
     dict['name'] = "崇礼场馆群"
     dict['game'] = "跳台滑雪"
-    dict['level'] = random.randint(20, 40)
+    dict['level'] = traffic_level_predict["road_zjk"]
     traffic_Level['zjk'].append(dict)
 
     traffic_Level['yq'] = []
     dict = {}
     dict['name'] = "国家高山滑雪中心"
     dict['game'] = "高山滑雪"
-    dict['level'] = random.randint(20,40)
+    dict['level'] = traffic_level_predict["road_yq"]
     traffic_Level['yq'].append(dict)
     dict = {}
     dict['name'] = "国家雪车雪橇中心"
     dict['game'] = "钢架雪车"
-    dict['level'] = random.randint(20,40)
+    dict['level'] = traffic_level_predict["road_yq"]
     traffic_Level['yq'].append(dict)
 
     traffic_Level['bh'] = []
     dict = {}
     dict['name'] = "五棵松体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
+    dict['level'] = traffic_level_predict["road_wks"]
     traffic_Level['bh'].append(dict)
     dict = {}
     dict['name'] = "首都体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(50, 60)
+    dict['level'] = traffic_level_predict["road_st"]
     traffic_Level['bh'].append(dict)
     dict = {}
     dict['name'] = "国家体育馆"
     dict['game'] = "无"
-    dict['level'] = random.randint(20, 35)
+    dict['level'] = traffic_level_predict["road_at"]
     traffic_Level['bh'].append(dict)
 
 def event_ner(request):
@@ -392,6 +456,7 @@ def buildNodeInfo():
     zk = KazooClient(hosts=zk_host)
     zk.start()
     nodes = zk.get_children('/EdgeCloud')
+
     children = []
     global registeNodes
     global node_tasks
@@ -407,6 +472,7 @@ def buildNodeInfo():
             info['name'] = task
             info['id'] = zk.get('/EdgeCloud/' + node + "/" + "images" + "/"  + task)[0].decode('utf')
             node_tasks[node].append(info)
+
 
 
 
@@ -456,22 +522,24 @@ def buildTask():
     # finally:
     #     connection.close()
     global node_tasks
-    tasks = node_tasks['BUAA']
-
     global task_state
     global traffic_level_predict
-    task_state = []
-    for task in tasks:
-        item = {}
-        if task['name'] in TASKS:
-            item['name'] = task['name']
-            item['level'] = random.randint(1, 3)
-            traffic_level_predict[task['name']] = item['level']
-            item['state'] = "初始化"
-            item['frequent'] = LEVEL_MAP[item['level']]
-            item['edge_flow'] = 0
-            item['cloud_flow'] = 0
-            task_state.append(item)
+    for node_name in node_tasks:
+        tasks = node_tasks[node_name]
+        task_state = []
+        for task in tasks:
+            item = {}
+            if task['name'] in TASKS:
+                item['name'] = task['name']
+                item['level'] = 1 #random.randint(1, 3)
+                traffic_level_predict[task['name']] = item['level']
+                item['state'] = "初始化"
+                item['frequent'] = LEVEL_MAP[item['level']]
+                item['edge_flow'] = 0
+                item['cloud_flow'] = 0
+                task_state.append(item)
+
+        print(task_state)
 
 
 def updateTask():
@@ -521,7 +589,14 @@ def taskSchedule2():
     global traffic_level_predict
     if event_switch == 1:
         state = "事件采集"
-        i = random.randint(0, 2)
+
+        i = 0
+
+        for x in range(0, len(task_state)):
+            if task_state[x]['name'] == "road_at":
+                i = x
+                break
+
         task_state[i]['state'] = state
         # 事件采集
         ex_task("BUAA", "event")
@@ -582,11 +657,13 @@ def get_traffic_data_at():
 def area_level_analysis():
     #交通态势
     global predict_model_at
-    at_road_data = get_traffic_data_at()
+    # at_road_data = get_traffic_data_at()
+    at_road_data = {"京藏高速": random.randint(5, 40)}
+
     predict_model_at.update_data(at_road_data)
 
     at_road_level = predict_model_at.predict(predict_model_at.input_data[0])
-    # print(at_road_level)
+    print("奥体周边路况数据:{}，交通态势:{}级".format(at_road_data, at_road_level))
 
 
     at_game_level = 1
@@ -620,14 +697,31 @@ def area_level_analysis():
                 pattern = re.compile(r'([0-9]+)日')
                 day = pattern.search(date).group(1)
                 time = datetime.datetime.strptime(str(datetime.datetime.now().year)+month+day, "%Y%m%d").date()
-                now = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
+                now = datetime.datetime.now().date()
+
+                time_dif = (now-time).days
+
+                if time_dif < 0 or time_dif > 3:
+                    continue
+
+                if len(dic['address']) != 0:
+                    query = "match p=((m:gym)-[*1..2]-(n:road)) where m.name='国家体育馆' and n.name='" + dic['address'][0] + "' return n,length(p);"
+                    ans = neo4j_graph.run(query).data()
+                    if len(ans) > 0:
+                        skip = ans[0]["length(p)"]
+                        road_level = ans[0]['n']['road_level']
+                        current_event_level = 1
+                        if skip <= 1 and road_level <= 3:
+                            current_event_level = 3
+                        else:
+                            current_event_level = 2
+                        at_event_level = max(at_event_level, current_event_level)
 
 
-                # print(now,time)
 
-
-    at_traffic_level = math.ceil(at_road_level * 0.5 + at_event_level * 0.3 + at_game_level * 0.2)
-    traffic_level_predict['国家体育馆'] = at_traffic_level
+    at_traffic_level = round(at_road_level * 0.5 + at_event_level * 0.2 + at_game_level * 0.3)
+    print("奥体周边路况拥堵等级：{}级，管制事件等级：{}级，场馆活动等级：{}级，总体交通态势：{}级".format(at_road_level, at_event_level, at_game_level, at_traffic_level))
+    traffic_level_predict['road_at'] = at_traffic_level
 
 
 
@@ -684,11 +778,11 @@ scheduler.add_job(updateTask, IntervalTrigger(seconds=30), id="updateTask", jobs
 scheduler.add_job(updateTrafficLevel, IntervalTrigger(seconds=30), id="updateTrafficLevel", jobstore="default", executor="default")
 scheduler.add_job(saveData, IntervalTrigger(minutes=5), id="saveData", jobstore="default", executor="default")
 scheduler.add_job(updateAreaData, IntervalTrigger(seconds=30), id="updateAreaData", jobstore="default", executor="default")
-scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=150), id="buildNodeInfo", jobstore="default", executor="default")
+scheduler.add_job(buildNodeInfo, IntervalTrigger(seconds=300), id="buildNodeInfo", jobstore="default", executor="default")
 scheduler.add_job(taskInit, IntervalTrigger(seconds=30), id="taskInit", jobstore="default", executor="default")
-scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
+# scheduler.add_job(taskSchedule, IntervalTrigger(minutes=3), id="taskSchedule", jobstore="default", executor="default")
 
-# scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=3), id="taskSchedule2", jobstore="default", executor="default")
+scheduler.add_job(taskSchedule2, IntervalTrigger(minutes=1), id="taskSchedule2", jobstore="default", executor="default")
 
 def ex_task(node_name, task_name):
     credentials = pika.PlainCredentials('root', '06240118')  # mq用户名和密码
